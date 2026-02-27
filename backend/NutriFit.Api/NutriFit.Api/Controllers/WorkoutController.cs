@@ -122,7 +122,7 @@ public class WorkoutController : ControllerBase
         {
             UserId = userId,
             WorkoutId = d.WorkoutId,
-            DayName = d.DayName,
+            DayName = d.DayName ?? string.Empty,
             DurationMinutes = d.DurationMinutes
         }).ToList(); // Assuming UserWorkout entity exists and matches db
 
