@@ -4,6 +4,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
 using System.Text.Json.Serialization;
+using Microsoft.AspNetCore.DataProtection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +16,12 @@ builder.Services.AddControllers()
     {
         options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
     });
+
+// ======================
+// ? DATA PROTECTION (Fix Render Warnings)
+// ======================
+builder.Services.AddDataProtection()
+    .UseEphemeralDataProtectionProvider();
 
 // ======================
 // ? DATABASE CONTEXT (SQL SERVER)
