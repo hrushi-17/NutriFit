@@ -34,9 +34,15 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>
     {
-        policy.AllowAnyOrigin()
+        policy.WithOrigins(
+                "https://nutrifit-app.azurewebsites.net",
+                "https://nutrifit-topaz.vercel.app",
+                "https://nutrifit-bklgk8ci6-hrushikeshs-projects-7e5112e4.vercel.app",
+                "http://localhost:3000"
+              )
               .AllowAnyHeader()
-              .AllowAnyMethod();
+              .AllowAnyMethod()
+              .AllowCredentials(); // Necessary for some auth flows
     });
 });
 
