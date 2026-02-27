@@ -39,7 +39,8 @@ builder.Services.AddCors(options =>
                 "https://red-bush-08fff4b1e.6.azurestaticapps.net",
                 "https://calm-wave-08c440700-preview.eastasia.6.azurestaticapps.net",
                 "http://localhost:3000",
-                "https://nutrifit-app.azurewebsites.net" // Added production URL
+                "https://nutrifit-app.azurewebsites.net", // Added production URL
+                "https://nutrifit-topaz.vercel.app" // Vercel deployment
             )
             .AllowAnyHeader()
             .AllowAnyMethod()
