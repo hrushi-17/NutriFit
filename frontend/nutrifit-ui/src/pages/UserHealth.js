@@ -22,140 +22,113 @@ export default function UserHealth() {
   };
 
   return (
-    <div className="container py-3">
+    <div className="container py-3 animate-fade-up">
       <div className="row justify-content-center">
-        <div className="col-lg-7 col-md-9">
+        <div className="col-lg-8 col-md-10">
 
-          <div className="card health-main-card">
-
-            <div className="health-header">
-              ❤️ Select Your Health Conditions
+          <div className="premium-card">
+            <div className="card-header border-0 pb-0" style={{ background: "transparent" }}>
+              <h4 className="fw-bold text-center mb-0 text-white">
+                ❤️ Select Your Health Conditions
+              </h4>
             </div>
 
             <div className="card-body">
-
-              <p className="text-muted text-center mb-3">
-                Choose conditions so we can generate safe workout & diet plans.
+              <p className="text-muted text-center mb-4 fs-5">
+                Choose conditions so we can generate safe, personalized plans for you.
               </p>
 
               {/* HEALTH GRID */}
-              <div className="row g-2 mb-3">
-
-                {list.map(h => {
+              <div className="row g-3 mb-4">
+                {list.map((h, index) => {
                   const isActive = selected.includes(h.healthConditionId);
+                  // Calculate stagger delay based on index (up to 5 for CSS classes)
+                  const delayClass = `delay-${Math.min((index % 5) + 1, 5)}`;
+
                   return (
-                    <div key={h.healthConditionId} className="col-md-4 col-6">
+                    <div key={h.healthConditionId} className={`col-md-4 col-6 animate-fade-up ${delayClass}`}>
                       <div
-                        className={`health-tile ${isActive ? "active" : ""}`}
                         onClick={() => toggle(h.healthConditionId)}
+                        style={{
+                          background: isActive ? "rgba(229, 9, 20, 0.15)" : "rgba(255,255,255,0.03)",
+                          border: isActive ? "2px solid var(--accent-red)" : "2px solid var(--border-light)",
+                          borderRadius: "14px",
+                          padding: "16px 12px",
+                          textAlign: "center",
+                          cursor: "pointer",
+                          transition: "all 0.3s ease",
+                          height: "100%",
+                          boxShadow: isActive ? "0 0 20px rgba(229, 9, 20, 0.2)" : "none",
+                          transform: isActive ? "translateY(-3px)" : "none"
+                        }}
+                        onMouseEnter={(e) => {
+                          if (!isActive) {
+                            e.currentTarget.style.transform = "translateY(-3px)";
+                            e.currentTarget.style.borderColor = "rgba(255,255,255,0.2)";
+                          }
+                        }}
+                        onMouseLeave={(e) => {
+                          if (!isActive) {
+                            e.currentTarget.style.transform = "none";
+                            e.currentTarget.style.borderColor = "var(--border-light)";
+                          }
+                        }}
                       >
-                        <div className="health-icon">
-                          {isActive ? "✅" : "🩺"}
+                        <div style={{ fontSize: "32px", marginBottom: "8px" }}>
+                          {isActive ? "❤️" : "🩺"}
                         </div>
-                        <div className="health-name">{h.name}</div>
-                        <div className="health-check">
-                          <input
-                            type="checkbox"
-                            checked={isActive}
-                            readOnly
-                          />
+                        <div className="fw-bold text-white mb-2" style={{ letterSpacing: "0.5px" }}>{h.name}</div>
+
+                        {/* Custom Animated Checkbox */}
+                        <div
+                          style={{
+                            width: "24px",
+                            height: "24px",
+                            borderRadius: "50%",
+                            border: isActive ? "none" : "2px solid var(--text-muted)",
+                            background: isActive ? "var(--accent-red)" : "transparent",
+                            margin: "0 auto",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            transition: "all 0.2s"
+                          }}
+                        >
+                          {isActive && <i className="fa-solid fa-check text-white" style={{ fontSize: "14px" }}></i>}
                         </div>
+
                       </div>
                     </div>
                   );
                 })}
-
               </div>
 
               {/* NO DISEASE UI */}
               {selected.length === 0 && (
-                <div className="healthy-box-user mb-3">
-                  💚 You have not selected any health condition
+                <div className="animate-fade-up delay-5 mb-4" style={{
+                  background: "rgba(16, 185, 129, 0.1)",
+                  border: "1px solid var(--accent-green)",
+                  borderRadius: "12px",
+                  padding: "16px",
+                  textAlign: "center",
+                  color: "var(--accent-green)",
+                  fontWeight: "600"
+                }}>
+                  <i className="fa-solid fa-leaf me-2"></i> You have not selected any health conditions. We'll generate a standard plan.
                 </div>
               )}
 
-              <button className="btn btn-success w-100 fw-semibold" onClick={save}>
-                💾 Save Health Conditions
+              <button
+                className="btn-netflix w-100 py-3 fs-5 animate-fade-up delay-5"
+                onClick={save}
+              >
+                💾 Save Health Profile
               </button>
 
             </div>
           </div>
         </div>
       </div>
-
-      {/* ===================== */}
-      {/* 🎨 CORPORATE HEALTH UI */}
-      {/* ===================== */}
-      <style>{`
-        .health-main-card {
-          border:0;
-          border-radius:18px;
-          box-shadow:0 6px 20px rgba(0,0,0,.08);
-          overflow:hidden;
-        }
-
-        .health-header {
-          background:linear-gradient(45deg,#dc2626,#ef4444);
-          color:white;
-          font-weight:700;
-          text-align:center;
-          padding:12px;
-          letter-spacing:.5px;
-        }
-
-        .health-tile {
-          background:white;
-          border-radius:14px;
-          padding:14px 10px;
-          text-align:center;
-          cursor:pointer;
-          border:2px solid #e5e7eb;
-          transition:.2s;
-          height:100%;
-          position:relative;
-        }
-
-        .health-tile:hover {
-          transform:translateY(-2px);
-          box-shadow:0 4px 12px rgba(0,0,0,.1);
-        }
-
-        .health-tile.active {
-          border-color:#dc2626;
-          background:#fee2e2;
-        }
-
-        .health-icon {
-          font-size:28px;
-          margin-bottom:6px;
-        }
-
-        .health-name {
-          font-weight:700;
-          color:#111827;
-          font-size:14px;
-        }
-
-        .health-check {
-          position:absolute;
-          top:8px;
-          right:10px;
-        }
-
-        .health-check input {
-          accent-color:#dc2626;
-          transform:scale(1.1);
-        }
-
-        .healthy-box-user {
-          background:#ecfdf5;
-          border-radius:12px;
-          padding:10px;
-          text-align:center;
-          font-weight:600;
-          color:#065f46;
-        }
-      `}</style>
     </div>
   );
 }

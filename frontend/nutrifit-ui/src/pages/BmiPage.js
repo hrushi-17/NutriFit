@@ -1,209 +1,187 @@
 import api from "../api/axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export default function BmiPage() {
-  const [p, setP] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [animatedBmi, setAnimatedBmi] = useState(0);
+  const [height, setHeight] = useState("");
+  const [weight, setWeight] = useState("");
+  const [bmi, setBmi] = useState(0);
+  const [status, setStatus] = useState("");
+  const [error, setError] = useState("");
+  const [displayBmi, setDisplayBmi] = useState(0);
 
-  useEffect(() => {
-    api.get("/profile")
-      .then(res => {
-        setP(res.data);
-        setLoading(false);
-      })
-      .catch(() => setLoading(false));
-  }, []);
+  const calculateBmi = () => {
+    if (!height || !weight || height <= 0 || weight <= 0) {
+      setError("Please enter valid height and weight.");
+      return;
+    }
+    setError("");
+    const hInMeters = height / 100;
+    const finalBmi = weight / (hInMeters * hInMeters);
+    const roundedBmi = parseFloat(finalBmi.toFixed(2));
+    setBmi(roundedBmi);
 
-  // 🎯 BMI COUNT-UP ANIMATION (jQuery-style)
-  useEffect(() => {
-    if (!p?.bmi) return;
+    if (roundedBmi < 18.5) setStatus("Underweight");
+    else if (roundedBmi < 24.9) setStatus("Normal");
+    else if (roundedBmi < 29.9) setStatus("Overweight");
+    else setStatus("Obese");
 
+    // Count up animation
     let start = 0;
-    const end = parseFloat(p.bmi.toFixed(2));
     const duration = 900;
     const stepTime = 15;
-    const increment = end / (duration / stepTime);
+    const increment = roundedBmi / (duration / stepTime);
 
     const timer = setInterval(() => {
       start += increment;
-      if (start >= end) {
-        setAnimatedBmi(end);
+      if (start >= roundedBmi) {
+        setDisplayBmi(roundedBmi);
         clearInterval(timer);
       } else {
-        setAnimatedBmi(start);
+        setDisplayBmi(parseFloat(start.toFixed(2)));
       }
     }, stepTime);
+  };
 
-    return () => clearInterval(timer);
-  }, [p]);
+  const getColor = (s) => {
+    if (s === "Underweight") return "#f59e0b";
+    if (s === "Normal") return "#10b981"; // neon green
+    if (s === "Overweight") return "#f97316";
+    if (s === "Obese") return "#e50914"; // netflix red
+    return "#3b82f6";
+  };
 
-  if (loading)
-    return <div className="text-center fw-semibold mt-5">Loading BMI Report...</div>;
+  const getMessage = (s) => {
+    if (s === "Underweight") return "You are underweight. Consider increasing your caloric intake safely.";
+    if (s === "Normal") return "Great job! You are in a healthy weight range.";
+    if (s === "Overweight") return "You are overweight. A balanced diet and regular exercise can help.";
+    if (s === "Obese") return "You are in the obese range. Please consult a healthcare professional.";
+    return "";
+  };
 
-  if (!p) {
-    return (
-      <div className="alert alert-warning text-center mt-5">
-        Profile not found. Please complete your profile first.
-      </div>
-    );
-  }
-
-  const bmiColor =
-    p.weightCategory?.toLowerCase() === "low" ? "bmi-low"
-      : p.weightCategory?.toLowerCase() === "normal" ? "bmi-normal"
-        : "bmi-high";
-
-  const getBadgeLabel = (cat) => {
-    if (cat?.toLowerCase() === "low") return "UNDERWEIGHT";
-    if (cat?.toLowerCase() === "normal") return "NORMAL";
-    return "OVERWEIGHT / HIGH";
+  const saveBmi = () => {
+    alert("BMI saved to progress! (API integration pending)");
   };
 
   return (
-    <div className="container py-2">
+    <div className="row justify-content-center mt-3 animate-fade-up">
+      <div className="col-lg-8">
 
-      <div className="row justify-content-center">
-        <div className="col-lg-5 col-md-7">
+        {/* --- MAIN CALCULATOR CARD --- */}
+        <div className="premium-card mb-4">
+          <div className="card-header border-0 pb-0" style={{ background: "transparent" }}>
+            <h4 className="fw-bold text-center mb-0 text-white">
+              📊 Calculate Your BMI
+            </h4>
+          </div>
 
-          <div className="card bmi-card-sm">
+          <div className="card-body">
+            {error && (
+              <div className="alert animate-fade-up mb-4" style={{ background: "rgba(229, 9, 20, 0.1)", color: "var(--accent-red)", border: "1px solid var(--accent-red)" }}>
+                ⚠️ {error}
+              </div>
+            )}
 
-            {/* HEADER */}
-            <div className="bmi-header-sm">
-              📊 BMI REPORT
-            </div>
-
-            <div className="card-body py-3">
-
-              {/* BMI CIRCLE */}
-              <div className="text-center mb-2">
-                <div className={`bmi-circle-sm ${bmiColor}`}>
-                  <div>
-                    <div className="bmi-value-sm">{animatedBmi.toFixed(2)}</div>
-                    <div className="bmi-label-sm">BMI</div>
-                  </div>
+            <div className="row g-3">
+              <div className="col-md-6 animate-fade-up delay-1">
+                <label className="fw-semibold text-muted mb-1">Height (cm)</label>
+                <div className="input-group">
+                  <span className="input-group-text bg-dark border-secondary text-muted">📏</span>
+                  <input
+                    type="number"
+                    className="form-control"
+                    placeholder="e.g. 175"
+                    value={height}
+                    onChange={(e) => setHeight(e.target.value)}
+                  />
                 </div>
-
-                <span className={`badge mt-2 px-2 py-1 ${p.weightCategory?.toLowerCase() === "low"
-                    ? "bg-warning"
-                    : p.weightCategory?.toLowerCase() === "normal"
-                      ? "bg-success"
-                      : "bg-danger"
-                  }`}>
-                  {getBadgeLabel(p.weightCategory)}
-                </span>
               </div>
 
-              {/* STAT GRID */}
-              <div className="row g-2">
-
-                <div className="col-6 col-md-4">
-                  <div className="bmi-stat-sm"><span>Age</span><b>{p.age}</b></div>
+              <div className="col-md-6 animate-fade-up delay-1">
+                <label className="fw-semibold text-muted mb-1">Weight (kg)</label>
+                <div className="input-group">
+                  <span className="input-group-text bg-dark border-secondary text-muted">⚖️</span>
+                  <input
+                    type="number"
+                    className="form-control"
+                    placeholder="e.g. 70"
+                    value={weight}
+                    onChange={(e) => setWeight(e.target.value)}
+                  />
                 </div>
-
-                <div className="col-6 col-md-4">
-                  <div className="bmi-stat-sm"><span>Gender</span><b>{p.gender}</b></div>
-                </div>
-
-                <div className="col-6 col-md-4">
-                  <div className="bmi-stat-sm"><span>Height</span><b>{p.height} cm</b></div>
-                </div>
-
-                <div className="col-6 col-md-4">
-                  <div className="bmi-stat-sm"><span>Weight</span><b>{p.weight} kg</b></div>
-                </div>
-
-                <div className="col-6 col-md-4">
-                  <div className="bmi-stat-sm"><span>Activity</span><b>{p.activityLevel}</b></div>
-                </div>
-
-                <div className="col-6 col-md-4">
-                  <div className="bmi-stat-sm"><span>Goal</span><b>{p.goal}</b></div>
-                </div>
-
-                <div className="col-12">
-                  <div className="bmi-stat-sm"><span>Food Preference</span><b>{p.foodPreference}</b></div>
-                </div>
-
               </div>
             </div>
+
+            <button
+              className="btn-health w-100 mt-4 py-3 fs-5 animate-fade-up delay-2"
+              onClick={calculateBmi}
+              style={{ fontWeight: 700 }}
+            >
+              🚀 Calculate Now
+            </button>
           </div>
         </div>
+
+        {/* --- RESULT CARD --- */}
+        {bmi > 0 && (
+          <div className="premium-card text-center overflow-hidden animate-fade-up delay-3" style={{ borderTop: `4px solid ${getColor(status)}` }}>
+            <div className="card-body py-5 position-relative">
+
+              {/* Decorative Background Glow Blob */}
+              <div style={{
+                position: 'absolute',
+                top: '-50%',
+                left: '50%',
+                transform: 'translateX(-50%)',
+                width: '300px',
+                height: '300px',
+                background: `radial-gradient(circle, ${getColor(status)}22 0%, transparent 70%)`,
+                zIndex: 0,
+                pointerEvents: 'none'
+              }}></div>
+
+              <div style={{ position: 'relative', zIndex: 1 }}>
+                <h5 className="text-muted fw-bold mb-4 text-uppercase" style={{ letterSpacing: '2px' }}>Your Result</h5>
+
+                <div
+                  className="mx-auto d-flex flex-column justify-content-center align-items-center"
+                  style={{
+                    width: "180px",
+                    height: "180px",
+                    borderRadius: "50%",
+                    border: `6px solid ${getColor(status)}`,
+                    boxShadow: `0 0 30px ${getColor(status)}40`,
+                    background: "var(--bg-card-hover)",
+                    animation: "pulse-glow 2s infinite"
+                  }}
+                >
+                  <span className="display-3 fw-bolder mb-0 text-white">
+                    {displayBmi}
+                  </span>
+                  <span className="small text-muted fw-semibold text-uppercase mt-1" style={{ letterSpacing: '2px' }}>BMI</span>
+                </div>
+
+                <div className="mt-5">
+                  <h2 className="fw-bolder mb-2" style={{ color: getColor(status), letterSpacing: '1px' }}>
+                    {status.toUpperCase()}
+                  </h2>
+                  <p className="text-muted px-4 fs-5">
+                    {getMessage(status)}
+                  </p>
+                </div>
+
+                <button
+                  className="btn btn-outline-glass mt-4 px-5 py-2 rounded-pill fw-bold text-uppercase"
+                  onClick={saveBmi}
+                >
+                  💾 Save to Progress
+                </button>
+              </div>
+
+            </div>
+          </div>
+        )}
+
       </div>
-
-      {/* ===================== */}
-      {/* 🎨 SMALL + ANIMATED BMI UI */}
-      {/* ===================== */}
-      <style>{`
-        .bmi-card-sm {
-          border:0;
-          border-radius:14px;
-          box-shadow:0 4px 14px rgba(0,0,0,.08);
-          overflow:hidden;
-        }
-
-        .bmi-header-sm {
-          background:linear-gradient(45deg,#2563eb,#3b82f6);
-          color:white;
-          font-weight:700;
-          text-align:center;
-          padding:8px;
-          letter-spacing:1px;
-          font-size:14px;
-        }
-
-        .bmi-circle-sm {
-          width:95px;
-          height:95px;
-          border-radius:50%;
-          display:flex;
-          align-items:center;
-          justify-content:center;
-          margin:auto;
-          animation:pulse 2s infinite;
-          transition: all 0.3s ease;
-        }
-
-        @keyframes pulse {
-          0% { box-shadow:0 0 0 0 rgba(0,0,0,.15); }
-          70% { box-shadow:0 0 0 10px rgba(0,0,0,0); }
-          100% { box-shadow:0 0 0 0 rgba(0,0,0,0); }
-        }
-
-        .bmi-low { background:#fbbf24; color:#78350f; border: 3px solid #f59e0b; }
-        .bmi-normal { background:#22c55e; color:#ffffff; border: 3px solid #16a34a; }
-        .bmi-high { background:#ef4444; color:#ffffff; border: 3px solid #dc2626; }
-
-        .bmi-value-sm {
-          font-size:24px;
-          font-weight:800;
-          line-height:1;
-        }
-
-        .bmi-label-sm {
-          font-size:10px;
-          letter-spacing:2px;
-        }
-
-        .bmi-stat-sm {
-          background:#f1f5f9;
-          border-radius:10px;
-          padding:8px;
-          text-align:center;
-          height:100%;
-        }
-
-        .bmi-stat-sm span {
-          display:block;
-          font-size:10px;
-          color:#6b7280;
-        }
-
-        .bmi-stat-sm b {
-          font-size:13px;
-          color:#111827;
-        }
-      `}</style>
     </div>
   );
 }

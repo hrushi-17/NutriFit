@@ -5,54 +5,49 @@ export default function Register() {
 
   return (
     <div
-      className="d-flex justify-content-center align-items-center vh-100"
-      style={{ background: "linear-gradient(135deg, #f0f4f8, #d9e2ec)" }}
+      className="d-flex justify-content-center align-items-center vh-100 animate-fade-up"
+      style={{ background: "var(--bg-dark)" }}
     >
-      <div className="card shadow-lg p-4 p-md-5 rounded-4" style={{ minWidth: "350px", maxWidth: "400px" }}>
-        <h3 className="text-center mb-4" style={{ fontWeight: "600", color: "#333" }}>
-          Register As
-        </h3>
+      <div
+        className="premium-card p-4 p-md-5 w-100 mx-3 text-center"
+        style={{
+          maxWidth: "450px",
+          background: "var(--glass-bg)",
+          border: "1px solid var(--glass-border)",
+          boxShadow: "0 20px 50px rgba(0,0,0,0.5)"
+        }}
+      >
+        <div className="mb-4">
+          <h2 className="fw-bolder text-white" style={{ letterSpacing: "1px" }}>
+            <span style={{ color: "var(--accent-red)" }}>JOIN</span> US
+          </h2>
+          <p className="text-muted fw-semibold">Choose your account type</p>
+        </div>
 
         <button
-          className="btn btn-success w-100 mb-3"
-          style={{
-            padding: "12px",
-            fontWeight: "500",
-            fontSize: "1rem",
-            borderRadius: "8px",
-            transition: "0.3s",
-            background: "linear-gradient(to right, #28a745, #218838)"
-          }}
-          onMouseEnter={e => (e.target.style.background = "linear-gradient(to right, #218838, #28a745)")}
-          onMouseLeave={e => (e.target.style.background = "linear-gradient(to right, #28a745, #218838)")}
+          className="btn-health w-100 mb-3 py-3 fs-5 animate-fade-up delay-1 d-flex justify-content-center align-items-center"
           onClick={() => navigate("/register-user")}
         >
-          👤 User Registration
+          <i className="fa-solid fa-user me-2"></i> User Registration
         </button>
 
         <button
-          className="btn btn-dark w-100"
-          style={{
-            padding: "12px",
-            fontWeight: "500",
-            fontSize: "1rem",
-            borderRadius: "8px",
-            transition: "0.3s",
-            background: "linear-gradient(to right, #343a40, #23272b)"
-          }}
-          onMouseEnter={e => (e.target.style.background = "linear-gradient(to right, #23272b, #343a40)")}
-          onMouseLeave={e => (e.target.style.background = "linear-gradient(to right, #343a40, #23272b)")}
+          className="btn-outline-glass w-100 py-3 fs-5 animate-fade-up delay-2 d-flex justify-content-center align-items-center"
           onClick={() => navigate("/register-admin")}
         >
-          🛡 Admin Registration
+          <i className="fa-solid fa-shield-halved me-2 text-warning"></i> Admin Registration
         </button>
 
-        <p className="text-center mt-4" style={{ fontSize: "0.9rem", color: "#555" }}>
-          Already have an account? <span
-            style={{ color: "#007bff", cursor: "pointer" }}
+        <p className="text-center mt-5 mb-0 animate-fade-up delay-3" style={{ fontSize: "0.95rem", color: "var(--text-muted)" }}>
+          Already have an account?{" "}
+          <span
+            className="fw-bold"
+            style={{ color: "white", cursor: "pointer", transition: "0.2s" }}
+            onMouseEnter={e => e.currentTarget.style.color = "var(--accent-red)"}
+            onMouseLeave={e => e.currentTarget.style.color = "white"}
             onClick={() => navigate("/login")}
           >
-            Login
+            Sign in here.
           </span>
         </p>
       </div>

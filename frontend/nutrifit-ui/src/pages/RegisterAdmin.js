@@ -37,110 +37,162 @@ export default function RegisterAdmin() {
 
   return (
     <div
-      className="d-flex justify-content-center align-items-center vh-100"
-      style={{ background: "linear-gradient(135deg, #f0f4f8, #d9e2ec)" }}
+      className="d-flex justify-content-center align-items-center vh-100 animate-fade-up"
+      style={{ background: "var(--bg-dark)" }}
     >
-      <div className="card shadow-lg p-4 p-md-5 rounded-4" style={{ minWidth: "350px", maxWidth: "450px" }}>
-        <h3 className="text-center mb-4" style={{ fontWeight: "600", color: "#333" }}>
-          Admin Registration
-        </h3>
-
-        {/* Name Field */}
-        <label className="form-label" style={{ fontWeight: "500" }}>Full Name</label>
-        <input
-          className="form-control mb-3"
-          placeholder="Enter your full name"
-          onChange={e => setData({ ...data, name: e.target.value })}
-        />
-
-        {/* Email Field */}
-        <label className="form-label" style={{ fontWeight: "500" }}>Email</label>
-        <input
-          className="form-control mb-3"
-          placeholder="Enter your email"
-          type="email"
-          onChange={e => setData({ ...data, email: e.target.value })}
-        />
-
-        {/* Password Field */}
-        <label className="form-label" style={{ fontWeight: "500" }}>Password</label>
-        <div className="mb-2 position-relative">
-          <input
-            type={showPassword ? "text" : "password"}
-            className="form-control"
-            placeholder="Enter password"
-            onChange={e => setData({ ...data, password: e.target.value })}
-          />
-          <span
-            style={{
-              position: "absolute",
-              right: "10px",
-              top: "50%",
-              transform: "translateY(-50%)",
-              cursor: "pointer"
-            }}
-            onClick={() => setShowPassword(!showPassword)}
-          >
-            <i className={showPassword ? "fa fa-eye" : "fa fa-eye-slash"}></i>
-          </span>
+      <div
+        className="premium-card p-4 p-md-5 w-100 mx-3"
+        style={{
+          maxWidth: "500px",
+          background: "var(--glass-bg)",
+          border: "1px solid var(--glass-border)",
+          boxShadow: "0 20px 50px rgba(0,0,0,0.5)",
+          maxHeight: "90vh",
+          overflowY: "auto"
+        }}
+      >
+        <div className="text-center mb-4">
+          <h2 className="fw-bolder text-white" style={{ letterSpacing: "1px" }}>
+            <span style={{ color: "var(--accent-warning)" }}>ADMIN</span> SIGNUP
+          </h2>
+          <p className="text-muted fw-semibold">Create a privileged account</p>
         </div>
 
+        {/* Name Field */}
+        <div className="mb-3 animate-fade-up delay-1">
+          <label className="form-label text-muted fw-semibold small text-uppercase tracking-wider mb-2">Full Name</label>
+          <div className="input-group">
+            <span className="input-group-text bg-transparent border-end-0" style={{ borderColor: "var(--border-light)", color: "var(--text-muted)" }}>
+              <i className="fa-regular fa-user"></i>
+            </span>
+            <input
+              className="form-control border-start-0"
+              placeholder="Enter your full name"
+              onChange={e => setData({ ...data, name: e.target.value })}
+              style={{ background: "transparent", borderColor: "var(--border-light)", color: "white" }}
+            />
+          </div>
+        </div>
 
+        {/* Email Field */}
+        <div className="mb-3 animate-fade-up delay-1">
+          <label className="form-label text-muted fw-semibold small text-uppercase tracking-wider mb-2">Email Address</label>
+          <div className="input-group">
+            <span className="input-group-text bg-transparent border-end-0" style={{ borderColor: "var(--border-light)", color: "var(--text-muted)" }}>
+              <i className="fa-regular fa-envelope"></i>
+            </span>
+            <input
+              className="form-control border-start-0"
+              placeholder="Enter your email"
+              type="email"
+              onChange={e => setData({ ...data, email: e.target.value })}
+              style={{ background: "transparent", borderColor: "var(--border-light)", color: "white" }}
+            />
+          </div>
+        </div>
+
+        {/* Password Field */}
+        <div className="mb-3 animate-fade-up delay-2">
+          <label className="form-label text-muted fw-semibold small text-uppercase tracking-wider mb-2">Password</label>
+          <div className="input-group position-relative">
+            <span className="input-group-text bg-transparent border-end-0" style={{ borderColor: "var(--border-light)", color: "var(--text-muted)" }}>
+              <i className="fa-solid fa-lock"></i>
+            </span>
+            <input
+              type={showPassword ? "text" : "password"}
+              className="form-control"
+              placeholder="Enter password"
+              onChange={e => setData({ ...data, password: e.target.value })}
+              style={{ background: "transparent", borderColor: "var(--border-light)", color: "white", paddingRight: "40px" }}
+            />
+            <span
+              style={{
+                position: "absolute",
+                right: "15px",
+                top: "50%",
+                transform: "translateY(-50%)",
+                cursor: "pointer",
+                color: "var(--text-muted)",
+                zIndex: 10
+              }}
+              onClick={() => setShowPassword(!showPassword)}
+            >
+              <i className={showPassword ? "fa fa-eye text-white" : "fa fa-eye-slash"}></i>
+            </span>
+          </div>
+          <small className="text-muted" style={{ fontSize: "0.75rem", display: "block", marginTop: "4px" }}>
+            Min 8 chars, 1 uppercase, 1 lowercase, 1 number, 1 special char.
+          </small>
+        </div>
 
         {/* Confirm Password Field */}
-        <label className="form-label" style={{ fontWeight: "500" }}>Confirm Password</label>
-        <div className="mb-3 position-relative">
-          <input
-            type={showConfirm ? "text" : "password"}
-            className="form-control"
-            placeholder="Confirm password"
-            onChange={e => setData({ ...data, confirmPassword: e.target.value })}
-          />
-          <span
-            style={{
-              position: "absolute",
-              right: "10px",
-              top: "50%",
-              transform: "translateY(-50%)",
-              cursor: "pointer"
-            }}
-            onClick={() => setShowConfirm(!showConfirm)}
-          >
-            <i className={showConfirm ? "fa fa-eye" : "fa fa-eye-slash"}></i>
-          </span>
+        <div className="mb-3 animate-fade-up delay-2">
+          <label className="form-label text-muted fw-semibold small text-uppercase tracking-wider mb-2">Confirm Password</label>
+          <div className="input-group position-relative">
+            <span className="input-group-text bg-transparent border-end-0" style={{ borderColor: "var(--border-light)", color: "var(--text-muted)" }}>
+              <i className="fa-solid fa-lock"></i>
+            </span>
+            <input
+              type={showConfirm ? "text" : "password"}
+              className="form-control"
+              placeholder="Confirm password"
+              onChange={e => setData({ ...data, confirmPassword: e.target.value })}
+              style={{ background: "transparent", borderColor: "var(--border-light)", color: "white", paddingRight: "40px" }}
+            />
+            <span
+              style={{
+                position: "absolute",
+                right: "15px",
+                top: "50%",
+                transform: "translateY(-50%)",
+                cursor: "pointer",
+                color: "var(--text-muted)",
+                zIndex: 10
+              }}
+              onClick={() => setShowConfirm(!showConfirm)}
+            >
+              <i className={showConfirm ? "fa fa-eye text-white" : "fa fa-eye-slash"}></i>
+            </span>
+          </div>
         </div>
 
         {/* Secret Key Field */}
-        <label className="form-label" style={{ fontWeight: "500" }}>Admin Secret Key</label>
-        <input
-          className="form-control mb-4"
-          placeholder="Enter admin secret key"
-          onChange={e => setData({ ...data, secretKey: e.target.value })}
-        />
+        <div className="mb-4 animate-fade-up delay-3">
+          <label className="form-label text-muted fw-semibold small text-uppercase tracking-wider mb-2">Admin Secret Key</label>
+          <div className="input-group">
+            <span className="input-group-text bg-transparent border-end-0" style={{ borderColor: "var(--border-light)", color: "var(--text-muted)" }}>
+              <i className="fa-solid fa-key text-warning"></i>
+            </span>
+            <input
+              className="form-control border-start-0"
+              placeholder="Enter admin secret key"
+              type="password"
+              onChange={e => setData({ ...data, secretKey: e.target.value })}
+              style={{ background: "transparent", borderColor: "var(--border-light)", color: "white" }}
+            />
+          </div>
+        </div>
 
         <button
-          className="btn btn-dark w-100"
-          style={{
-            padding: "12px",
-            fontWeight: "500",
-            fontSize: "1rem",
-            borderRadius: "8px",
-            transition: "0.3s",
-            background: "linear-gradient(to right, #343a40, #23272b)"
-          }}
-          onMouseEnter={e => (e.target.style.background = "linear-gradient(to right, #23272b, #343a40)")}
-          onMouseLeave={e => (e.target.style.background = "linear-gradient(to right, #343a40, #23272b)")}
+          className="btn-outline-glass w-100 py-3 fs-5 mt-2 animate-fade-up delay-4"
+          style={{ borderColor: "var(--accent-warning)", color: "var(--accent-warning)" }}
+          onMouseEnter={(e) => { e.currentTarget.style.background = "var(--accent-warning)"; e.currentTarget.style.color = "#000"; }}
+          onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = "var(--accent-warning)"; }}
           onClick={register}
         >
-          Register Admin
+          Create Admin Account
         </button>
 
-        <p className="text-center mt-3" style={{ fontSize: "0.9rem", color: "#555" }}>
-          Already have an account? <span
-            style={{ color: "#007bff", cursor: "pointer" }}
+        <p className="text-center mt-4 mb-0 animate-fade-up delay-4" style={{ fontSize: "0.95rem", color: "var(--text-muted)" }}>
+          Already have an account?{" "}
+          <span
+            className="fw-bold"
+            style={{ color: "white", cursor: "pointer", transition: "0.2s" }}
+            onMouseEnter={e => e.currentTarget.style.color = "var(--accent-warning)"}
+            onMouseLeave={e => e.currentTarget.style.color = "white"}
             onClick={() => navigate("/login")}
           >
-            Login
+            Sign in here.
           </span>
         </p>
       </div>
