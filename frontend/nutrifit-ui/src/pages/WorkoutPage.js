@@ -14,12 +14,7 @@ export default function WorkoutPage() {
       .catch(() => setLoading(false));
   }, []);
 
-  const getBadge = (intensity) => {
-    const i = intensity.toLowerCase();
-    if (i === "low") return "bg-success";
-    if (i === "moderate") return "bg-warning text-dark";
-    return "bg-danger";
-  };
+
 
   if (loading)
     return (
