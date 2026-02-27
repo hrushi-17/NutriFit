@@ -1,0 +1,99 @@
+/* Navbar.css - Netflix Corporate Header */
+
+.netflix-navbar {
+    background: rgba(20, 20, 20, 0.95);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 1rem 2rem;
+    transition: background 0.3s ease;
+    z-index: 1050;
+}
+
+.netflix-brand {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 900;
+    font-size: 1.8rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    transition: transform 0.2s ease;
+}
+
+.netflix-brand:hover {
+    transform: scale(1.02);
+}
+
+.netflix-brand .brand-red {
+    color: #e50914;
+    /* Pure Netflix Red */
+}
+
+.netflix-brand .brand-white {
+    color: #ffffff;
+}
+
+.netflix-nav-link {
+    color: #e5e5e5;
+    font-weight: 500;
+    font-size: 1rem;
+    text-decoration: none;
+    transition: color 0.2s ease;
+    margin-right: 1.5rem;
+}
+
+.netflix-nav-link:hover {
+    color: #b3b3b3;
+}
+
+/* Specific buttons inside Navbar */
+.nav-btn-signin {
+    color: #ffffff;
+    font-weight: 600;
+    text-decoration: none;
+    margin-right: 1.5rem;
+    transition: color 0.2s;
+}
+
+.nav-btn-signin:hover {
+    color: #e50914;
+}
+
+.nav-outline-btn {
+    background: transparent;
+    color: #ffffff;
+    border: 1px solid #ffffff;
+    padding: 8px 20px;
+    font-weight: 600;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.nav-outline-btn:hover {
+    background: #ffffff;
+    color: #141414;
+}
+
+.nav-outline-red {
+    border-color: #e50914;
+    color: #e50914;
+}
+
+.nav-outline-red:hover {
+    background: #e50914;
+    color: #ffffff;
+}
+
+/* Mobile Toggler */
+.netflix-toggler {
+    border: none;
+    background: transparent;
+    color: white;
+    font-size: 1.5rem;
+}
+
+.netflix-toggler:focus {
+    outline: none;
+    box-shadow: none;
+}

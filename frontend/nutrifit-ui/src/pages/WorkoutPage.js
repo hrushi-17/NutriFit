@@ -18,8 +18,8 @@ export default function WorkoutPage() {
 
   if (loading)
     return (
-      <div className="text-center fw-bold mt-4">
-        ⏳ Loading your workout plan...
+      <div className="text-center fw-bold mt-4 text-muted text-uppercase" style={{ letterSpacing: "1px" }}>
+        Loading Workout Protocol...
       </div>
     );
 
@@ -27,27 +27,27 @@ export default function WorkoutPage() {
     <div className="row justify-content-center animate-fade-up">
       <div className="col-md-10">
 
-        <div className="premium-card mb-4" style={{ background: "var(--bg-card)" }}>
-          <div className="card-header border-0 pb-0" style={{ background: "transparent" }}>
-            <h4 className="fw-bold text-center mb-0 text-white" style={{ letterSpacing: "1px" }}>
-              💪 Your Weekly Workout Plan
+        <div className="netflix-card p-4 mb-4">
+          <div className="text-center mb-4">
+            <h4 className="fw-bolder mb-1 text-white text-uppercase" style={{ letterSpacing: "2px" }}>
+              WEEKLY WORKOUT DIRECTIVE
             </h4>
-            <p className="text-muted text-center mt-2 mb-2">Mon – Sat</p>
+            <p className="text-muted small text-uppercase" style={{ letterSpacing: "1px" }}>Mon – Sat Schedule</p>
           </div>
 
-          <div className="card-body">
+          <div className="card-body p-0">
 
             {list.length === 0 && (
               <div className="animate-fade-up delay-1 mb-4" style={{
                 background: "rgba(59, 130, 246, 0.1)",
                 border: "1px solid var(--accent-blue)",
-                borderRadius: "12px",
+                borderRadius: "8px",
                 padding: "16px",
                 textAlign: "center",
                 color: "var(--accent-blue)",
                 fontWeight: "600"
               }}>
-                <i className="fa-solid fa-circle-info me-2"></i> No workout plan matched your profile yet. Please update your profile and health conditions.
+                No workout plan matched your profile yet. Please update your profile and health conditions.
               </div>
             )}
 
@@ -55,58 +55,60 @@ export default function WorkoutPage() {
               {list.map((w, i) => {
                 const delayClass = `delay-${Math.min((i % 5) + 1, 5)}`;
 
+                const isLow = w.intensity.toLowerCase() === 'low';
+                const isMod = w.intensity.toLowerCase() === 'moderate';
+                const accentColor = isLow ? 'var(--accent-green)' : (isMod ? 'var(--accent-warning)' : 'var(--accent-red)');
+
                 return (
                   <div key={i} className={`col-md-6 animate-fade-up ${delayClass}`}>
                     <div
-                      className="p-3"
+                      className="p-4"
                       style={{
-                        background: "rgba(255,255,255,0.03)",
+                        background: "var(--bg-card-hover)",
                         border: "1px solid var(--border-light)",
-                        borderLeft: `4px solid ${w.intensity.toLowerCase() === 'low' ? 'var(--accent-green)' : w.intensity.toLowerCase() === 'moderate' ? 'var(--accent-warning)' : 'var(--accent-red)'}`,
-                        borderRadius: "12px",
-                        transition: "transform 0.2s, background 0.2s",
+                        borderLeft: `4px solid ${accentColor}`,
+                        borderRadius: "8px",
+                        transition: "all 0.2s ease",
                         cursor: "default"
                       }}
                       onMouseEnter={(e) => {
                         e.currentTarget.style.transform = "translateY(-3px)";
-                        e.currentTarget.style.background = "rgba(255,255,255,0.06)";
+                        e.currentTarget.style.background = "rgba(255,255,255,0.08)";
                       }}
                       onMouseLeave={(e) => {
                         e.currentTarget.style.transform = "none";
-                        e.currentTarget.style.background = "rgba(255,255,255,0.03)";
+                        e.currentTarget.style.background = "var(--bg-card-hover)";
                       }}
                     >
-                      <div className="d-flex justify-content-between align-items-center mb-3">
-                        <h5 className="fw-bold mb-0 text-white" style={{ letterSpacing: '0.5px' }}>
-                          <span className="text-muted me-2 border border-secondary rounded px-2 py-1 fs-6">{w.dayName.substring(0, 3)}</span>
+                      <div className="d-flex justify-content-between align-items-center mb-3 border-bottom border-secondary pb-2">
+                        <h5 className="fw-bolder mb-0 text-white text-uppercase" style={{ letterSpacing: '1px' }}>
+                          <span className="text-muted me-2" style={{ fontWeight: 400 }}>{w.dayName.substring(0, 3)}</span>
                           {w.dayName}
                         </h5>
-                        <span
-                          className="badge rounded-pill"
-                          style={{
-                            background: w.intensity.toLowerCase() === 'low' ? 'rgba(16, 185, 129, 0.15)' : w.intensity.toLowerCase() === 'moderate' ? 'rgba(245, 158, 11, 0.15)' : 'rgba(229, 9, 20, 0.15)',
-                            color: w.intensity.toLowerCase() === 'low' ? 'var(--accent-green)' : w.intensity.toLowerCase() === 'moderate' ? 'var(--accent-warning)' : 'var(--accent-red)',
-                            border: `1px solid ${w.intensity.toLowerCase() === 'low' ? 'var(--accent-green)' : w.intensity.toLowerCase() === 'moderate' ? 'var(--accent-warning)' : 'var(--accent-red)'}`,
-                            fontWeight: '600',
-                            letterSpacing: '1px'
-                          }}
+                        <div
+                          className="fw-bold"
+                          style={{ color: accentColor, letterSpacing: '1px', fontSize: '0.85rem' }}
                         >
-                          {w.intensity.toUpperCase()}
-                        </span>
+                          {w.intensity.toUpperCase()} INTENSITY
+                        </div>
                       </div>
 
-                      <h5 className="fw-bold mb-3" style={{ color: "var(--accent-blue)" }}>{w.workoutName}</h5>
+                      <h5 className="fw-bold mb-3 text-white">{w.workoutName}</h5>
 
-                      <div className="row mt-2 text-muted fw-semibold small g-2">
-                        <div className="col-5"><i className="fa-solid fa-person-running me-2"></i>{w.workoutType}</div>
-                        <div className="col-7"><i className="fa-regular fa-clock me-2"></i>{w.durationMinutes} min / day</div>
+                      <div className="row mt-2 text-muted fw-semibold small g-2 bg-dark border border-secondary p-2 rounded">
+                        <div className="col-5">
+                          <span className="text-uppercase" style={{ fontSize: "0.7rem", color: "var(--accent-blue)", display: "block", letterSpacing: "1px", marginBottom: "2px" }}>Type</span>
+                          <span className="text-white">{w.workoutType}</span>
+                        </div>
+                        <div className="col-7">
+                          <span className="text-uppercase" style={{ fontSize: "0.7rem", color: "var(--text-muted)", display: "block", letterSpacing: "1px", marginBottom: "2px" }}>Duration</span>
+                          <span className="text-white">{w.durationMinutes} MINUTES</span>
+                        </div>
                       </div>
 
-                      <hr className="my-3 opacity-25" />
-
-                      <div className="small text-muted fw-semibold" style={{ display: 'flex', gap: '8px' }}>
-                        <i className="fa-solid fa-shield-heart" style={{ marginTop: '3px', color: "var(--accent-green)" }}></i>
-                        <span>{w.healthSafe}</span>
+                      <div className="mt-4 small d-flex justify-content-between align-items-center">
+                        <span className="text-muted text-uppercase fw-bold" style={{ fontSize: "0.7rem", letterSpacing: "1px" }}>Health Safe</span>
+                        <span className="fw-bold" style={{ color: "var(--accent-green)" }}>{w.healthSafe}</span>
                       </div>
 
                     </div>
