@@ -50,6 +50,8 @@ Generated\ Files/
 *.nuget.targets
 
 appsettings.Development.json
+render.env
+vercel.env
 
 *.zip
 *.log

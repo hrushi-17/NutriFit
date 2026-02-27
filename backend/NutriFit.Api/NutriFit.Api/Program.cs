@@ -31,7 +31,11 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
                       ?? throw new Exception("Database connection string missing in BOTH 'ConnectionStrings:DefaultConnection' AND 'DefaultConnection'");
 
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlServer(connectionString)
+    options.UseMySql(
+        connectionString, 
+        ServerVersion.Parse("8.0.0-mysql"),
+        mySqlOptions => mySqlOptions.EnableRetryOnFailure()
+    )
 );
 
 // ======================
