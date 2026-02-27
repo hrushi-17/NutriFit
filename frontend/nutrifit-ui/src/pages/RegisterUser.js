@@ -11,15 +11,6 @@ export default function RegisterUser() {
   // Password validation regex: min 8 chars, 1 uppercase, 1 lowercase, 1 number, 1 special char
   const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
-  // Check individual password requirements
-  const passwordRequirements = {
-    minLength: data.password.length >= 8,
-    hasUppercase: /[A-Z]/.test(data.password),
-    hasLowercase: /[a-z]/.test(data.password),
-    hasNumber: /\d/.test(data.password),
-    hasSpecial: /[@$!%*?&]/.test(data.password)
-  };
-
   const register = async () => {
     // ✅ Email validation regex
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;

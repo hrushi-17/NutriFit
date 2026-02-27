@@ -15,15 +15,6 @@ export default function ResetPassword() {
   // Password validation regex: min 8 chars, 1 uppercase, 1 lowercase, 1 number, 1 special char
   const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
-  // Check individual password requirements
-  const passwordRequirements = {
-    minLength: data.newPassword.length >= 8,
-    hasUppercase: /[A-Z]/.test(data.newPassword),
-    hasLowercase: /[a-z]/.test(data.newPassword),
-    hasNumber: /\d/.test(data.newPassword),
-    hasSpecial: /[@$!%*?&]/.test(data.newPassword)
-  };
-
   const handleSubmit = async () => {
     // ✅ Password strength validation
     if (!passwordRegex.test(data.newPassword)) {
