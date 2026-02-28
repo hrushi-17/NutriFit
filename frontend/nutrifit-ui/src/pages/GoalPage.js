@@ -63,18 +63,21 @@ export default function GoalPage() {
 
         {/* SET GOAL */}
         <div className="col-xl-4">
-          <div className="glass-panel h-100 p-0 overflow-hidden d-flex flex-column">
-            <div className="fw-bold text-center text-white p-3 mb-2 border-bottom" style={{ background: "rgba(0,0,0,0.5)", borderColor: "rgba(229,9,20,0.3)" }}>Set Your Goal</div>
+          <div className="glass-panel h-100 p-0 overflow-hidden d-flex flex-column" style={{ background: "linear-gradient(135deg, rgba(20,20,20,0.9), rgba(10,10,10,0.95))", border: "1px solid rgba(229,9,20,0.3)", boxShadow: "0 8px 32px rgba(0,0,0,0.6), inset 0 0 20px rgba(0,0,0,0.4)" }}>
+            <div className="fw-bold px-4 py-3 text-white border-bottom" style={{ background: "rgba(229,9,20,0.15)", borderColor: "rgba(229,9,20,0.4)", letterSpacing: "2px", fontSize: "0.9rem", textTransform: "uppercase", display: "flex", alignItems: "center", gap: "10px" }}>
+              <i className="fa-solid fa-bullseye text-danger"></i> Set Your Goal
+            </div>
 
-            <div className="card-body p-3 d-flex flex-column justify-content-between h-100">
+            <div className="card-body p-4 d-flex flex-column justify-content-between h-100">
 
               <div>
-                <div className="mb-3">
-                  <label className="form-label fw-semibold small text-light">Goal Type</label>
+                <div className="mb-4">
+                  <label className="form-label fw-bold mb-2" style={{ color: "#a3a3a3", fontSize: "0.75rem", letterSpacing: "1px", textTransform: "uppercase" }}>Goal Type</label>
                   <select
-                    className="form-select netflix-input form-select-sm"
+                    className="form-select netflix-input"
                     value={goalType}
                     onChange={e => setGoalType(e.target.value)}
+                    style={{ background: "rgba(0,0,0,0.4)", border: "1px solid rgba(255,255,255,0.1)", color: "#fff", transition: "all 0.3s" }}
                   >
                     <option value="weight_loss">Weight Loss</option>
                     <option value="muscle_gain">Muscle Gain</option>
@@ -82,31 +85,34 @@ export default function GoalPage() {
                   </select>
                 </div>
 
-                <div className="mb-3">
-                  <label className="form-label fw-semibold small text-light">Target Weight</label>
+                <div className="mb-4">
+                  <label className="form-label fw-bold mb-2" style={{ color: "#a3a3a3", fontSize: "0.75rem", letterSpacing: "1px", textTransform: "uppercase" }}>Target Weight</label>
                   <input
                     type="number"
-                    className="form-control netflix-input form-control-sm"
-                    placeholder="Enter target weight"
+                    className="form-control netflix-input"
+                    placeholder="Enter target weight (kg)"
                     value={targetValue}
                     onChange={e => setTargetValue(e.target.value)}
+                    style={{ background: "rgba(0,0,0,0.4)", border: "1px solid rgba(255,255,255,0.1)", color: "#fff", transition: "all 0.3s" }}
                   />
                 </div>
 
-                <div className="mb-4">
-                  <label className="form-label fw-semibold small text-light">Target Date</label>
+                <div className="mb-5">
+                  <label className="form-label fw-bold mb-2" style={{ color: "#a3a3a3", fontSize: "0.75rem", letterSpacing: "1px", textTransform: "uppercase" }}>Target Date</label>
                   <input
                     type="date"
-                    className="form-control netflix-input form-control-sm"
+                    className="form-control netflix-input"
                     value={endDate}
                     onChange={e => setEndDate(e.target.value)}
                     min={todayDate} // Prevent past date selection
+                    style={{ background: "rgba(0,0,0,0.4)", border: "1px solid rgba(255,255,255,0.1)", color: "#fff", transition: "all 0.3s" }}
                   />
                 </div>
               </div>
 
               <button
-                className="btn btn-netflix fw-bold w-100 mt-auto shadow-lg"
+                className="btn btn-netflix fw-bold w-100 mt-auto py-3"
+                style={{ fontSize: "1rem", letterSpacing: "1.5px", textTransform: "uppercase", boxShadow: "0 4px 15px rgba(229, 9, 20, 0.4)" }}
                 onClick={setGoalHandler}
               >
                 Set / Update Goal
@@ -120,34 +126,39 @@ export default function GoalPage() {
 
           {/* CURRENT GOAL */}
           {goal && (
-            <div className="glass-panel mb-3 overflow-hidden p-0">
-              <div className="fw-bold px-3 py-2 text-white border-bottom" style={{ background: "rgba(0,0,0,0.5)", borderColor: "rgba(229,9,20,0.3)", letterSpacing: "1px", fontSize: "0.85rem", textTransform: "uppercase" }}>Current Goal</div>
+            <div className="glass-panel mb-4 overflow-hidden p-0" style={{ background: "linear-gradient(135deg, rgba(20,20,20,0.9), rgba(10,10,10,0.95))", border: "1px solid rgba(229,9,20,0.3)", boxShadow: "0 8px 32px rgba(0,0,0,0.6)" }}>
+              <div className="fw-bold px-4 py-3 text-white border-bottom" style={{ background: "rgba(229,9,20,0.15)", borderColor: "rgba(229,9,20,0.4)", letterSpacing: "2px", fontSize: "0.85rem", textTransform: "uppercase", display: "flex", alignItems: "center", gap: "10px" }}>
+                <i className="fa-solid fa-flag-checkered text-danger"></i> Current Goal
+              </div>
 
-              <div className="card-body p-3">
+              <div className="card-body p-4">
                 <div className="row g-3 align-items-stretch">
 
                   <div className="col-md-4">
-                    <div className="bg-dark p-3 rounded h-100 border border-secondary text-center d-flex flex-column justify-content-center">
-                      <span className="text-muted small text-uppercase mb-1">Goal Type</span>
-                      <h5 className="text-white mb-0">{goal.goalType}</h5>
+                    <div className="p-3 rounded h-100 text-center d-flex flex-column justify-content-center" style={{ background: "rgba(0,0,0,0.5)", border: "1px solid rgba(255,255,255,0.08)", boxShadow: "inset 0 0 15px rgba(0,0,0,0.8)" }}>
+                      <span style={{ color: "#a3a3a3", fontSize: "0.7rem", fontWeight: "700", letterSpacing: "2px", textTransform: "uppercase", marginBottom: "8px" }}>Goal Type</span>
+                      <h5 style={{ color: "#fff", fontWeight: "800", margin: 0, textTransform: "capitalize" }}>{goal.goalType.replace("_", " ")}</h5>
                     </div>
                   </div>
 
                   <div className="col-md-4">
-                    <div className="bg-dark p-3 rounded h-100 border border-secondary text-center d-flex flex-column justify-content-center">
-                      <span className="text-muted small text-uppercase mb-1">Target Weight</span>
-                      <h4 className="text-white mb-0">{goal.targetValue} kg</h4>
+                    <div className="p-3 rounded h-100 text-center d-flex flex-column justify-content-center" style={{ background: "rgba(0,0,0,0.5)", border: "1px solid rgba(255,255,255,0.08)", boxShadow: "inset 0 0 15px rgba(0,0,0,0.8)" }}>
+                      <span style={{ color: "#a3a3a3", fontSize: "0.7rem", fontWeight: "700", letterSpacing: "2px", textTransform: "uppercase", marginBottom: "8px" }}>Target Weight</span>
+                      <h4 style={{ color: "#e50914", fontWeight: "900", margin: 0 }}>{goal.targetValue} <span style={{ fontSize: "0.8rem", color: "#888" }}>kg</span></h4>
                     </div>
                   </div>
 
                   <div className="col-md-4">
-                    <div className="bg-dark p-3 rounded h-100 border border-secondary text-center d-flex flex-column justify-content-center">
-                      <span className="text-muted small text-uppercase mb-2">Status</span>
+                    <div className="p-3 rounded h-100 text-center d-flex flex-column justify-content-center" style={{ background: "rgba(0,0,0,0.5)", border: "1px solid rgba(255,255,255,0.08)", boxShadow: "inset 0 0 15px rgba(0,0,0,0.8)" }}>
+                      <span style={{ color: "#a3a3a3", fontSize: "0.7rem", fontWeight: "700", letterSpacing: "2px", textTransform: "uppercase", marginBottom: "12px" }}>Status</span>
                       <h5 className="mb-0">
-                        <span className={`badge px-3 py-2 ${goal.status === "completed"
-                          ? "bg-success"
-                          : "bg-warning text-dark"
-                          }`}>
+                        <span style={{
+                          background: goal.status === "completed" ? "rgba(34,197,94,0.15)" : "linear-gradient(145deg, rgba(229, 9, 20, 0.3), rgba(130, 0, 0, 0.15))",
+                          color: goal.status === "completed" ? "#22c55e" : "#fff",
+                          border: `1px solid ${goal.status === "completed" ? "rgba(34,197,94,0.3)" : "rgba(229,9,20,0.5)"}`,
+                          letterSpacing: "1.5px", textTransform: "uppercase", fontSize: "0.75rem", fontWeight: "700", padding: "6px 16px", borderRadius: "6px",
+                          boxShadow: goal.status !== "completed" ? "0 4px 10px rgba(229, 9, 20, 0.2)" : "none"
+                        }}>
                           {goal.status}
                         </span>
                       </h5>
@@ -161,37 +172,39 @@ export default function GoalPage() {
 
           {/* BODY STATUS */}
           {latest && (
-            <div className="glass-panel overflow-hidden p-0">
-              <div className="fw-bold px-3 py-2 text-white border-bottom" style={{ background: "rgba(0,0,0,0.5)", borderColor: "rgba(229,9,20,0.3)", letterSpacing: "1px", fontSize: "0.85rem", textTransform: "uppercase" }}>Current Body Status</div>
+            <div className="glass-panel overflow-hidden p-0" style={{ background: "linear-gradient(135deg, rgba(20,20,20,0.9), rgba(10,10,10,0.95))", border: "1px solid rgba(229,9,20,0.3)", boxShadow: "0 8px 32px rgba(0,0,0,0.6)" }}>
+              <div className="fw-bold px-4 py-3 text-white border-bottom" style={{ background: "rgba(229,9,20,0.15)", borderColor: "rgba(229,9,20,0.4)", letterSpacing: "2px", fontSize: "0.85rem", textTransform: "uppercase", display: "flex", alignItems: "center", gap: "10px" }}>
+                <i className="fa-solid fa-child-reaching text-danger"></i> Current Body Status
+              </div>
 
-              <div className="card-body p-3">
+              <div className="card-body p-4">
                 <div className="row g-3 align-items-stretch">
 
                   <div className="col-md-3 col-6">
-                    <div className="bg-dark p-3 rounded h-100 border border-secondary text-center d-flex flex-column justify-content-center">
-                      <span className="text-muted small text-uppercase mb-1">Weight</span>
-                      <h5 className="text-white mb-0">{latest.weight} kg</h5>
+                    <div className="p-3 rounded h-100 text-center d-flex flex-column justify-content-center" style={{ background: "rgba(0,0,0,0.5)", border: "1px solid rgba(255,255,255,0.08)", boxShadow: "inset 0 0 15px rgba(0,0,0,0.8)" }}>
+                      <span style={{ color: "#a3a3a3", fontSize: "0.65rem", fontWeight: "700", letterSpacing: "2px", textTransform: "uppercase", marginBottom: "8px" }}>Weight</span>
+                      <h5 style={{ color: "#fff", fontWeight: "800", margin: 0 }}>{latest.weight} <span style={{ fontSize: "0.7rem", color: "#888" }}>kg</span></h5>
                     </div>
                   </div>
 
                   <div className="col-md-3 col-6">
-                    <div className="bg-dark p-3 rounded h-100 border border-secondary text-center d-flex flex-column justify-content-center">
-                      <span className="text-muted small text-uppercase mb-1">BMI</span>
-                      <h5 className="text-white mb-0">{latest.bmi}</h5>
+                    <div className="p-3 rounded h-100 text-center d-flex flex-column justify-content-center" style={{ background: "rgba(0,0,0,0.5)", border: "1px solid rgba(255,255,255,0.08)", boxShadow: "inset 0 0 15px rgba(0,0,0,0.8)" }}>
+                      <span style={{ color: "#a3a3a3", fontSize: "0.65rem", fontWeight: "700", letterSpacing: "2px", textTransform: "uppercase", marginBottom: "8px" }}>BMI</span>
+                      <h5 style={{ color: "#e50914", fontWeight: "900", margin: 0 }}>{latest.bmi}</h5>
                     </div>
                   </div>
 
                   <div className="col-md-3 col-6">
-                    <div className="bg-dark p-3 rounded h-100 border border-secondary text-center d-flex flex-column justify-content-center">
-                      <span className="text-muted small text-uppercase mb-1">Category</span>
-                      <h6 className="text-white mb-0">{latest.weightCategory}</h6>
+                    <div className="p-3 rounded h-100 text-center d-flex flex-column justify-content-center" style={{ background: "rgba(0,0,0,0.5)", border: "1px solid rgba(255,255,255,0.08)", boxShadow: "inset 0 0 15px rgba(0,0,0,0.8)" }}>
+                      <span style={{ color: "#a3a3a3", fontSize: "0.65rem", fontWeight: "700", letterSpacing: "2px", textTransform: "uppercase", marginBottom: "8px" }}>Category</span>
+                      <h6 style={{ color: "#fff", fontWeight: "800", margin: 0 }}>{latest.weightCategory}</h6>
                     </div>
                   </div>
 
                   <div className="col-md-3 col-6">
-                    <div className="bg-dark p-3 rounded h-100 border border-secondary text-center d-flex flex-column justify-content-center">
-                      <span className="text-muted small text-uppercase mb-1">Last Update</span>
-                      <h6 className="text-white mb-0">{latest.date.split("T")[0]}</h6>
+                    <div className="p-3 rounded h-100 text-center d-flex flex-column justify-content-center" style={{ background: "rgba(0,0,0,0.5)", border: "1px solid rgba(255,255,255,0.08)", boxShadow: "inset 0 0 15px rgba(0,0,0,0.8)" }}>
+                      <span style={{ color: "#a3a3a3", fontSize: "0.65rem", fontWeight: "700", letterSpacing: "2px", textTransform: "uppercase", marginBottom: "8px" }}>Last Update</span>
+                      <h6 style={{ color: "#fff", fontWeight: "800", margin: 0 }}>{latest.date.split("T")[0]}</h6>
                     </div>
                   </div>
 
@@ -205,19 +218,22 @@ export default function GoalPage() {
 
       {/* RESET ZONE */}
       <div className="mt-4 animate-fade-up delay-2">
-        <div className="glass-panel d-flex justify-content-between align-items-center p-4" style={{ borderLeft: "4px solid rgba(229,9,20,0.6)" }}>
+        <div className="glass-panel d-flex justify-content-between align-items-center p-4" style={{ background: "rgba(15,15,15,0.9)", border: "1px solid rgba(229,9,20,0.2)", borderLeft: "4px solid #e50914", boxShadow: "0 8px 32px rgba(0,0,0,0.4)" }}>
           <div>
-            <h6 className="fw-bold text-white mb-1" style={{ letterSpacing: "1px", textTransform: "uppercase", fontSize: "0.85rem" }}>Danger Zone</h6>
-            <div className="text-light small mt-2">
+            <h6 className="fw-bold text-white mb-1" style={{ letterSpacing: "1.5px", textTransform: "uppercase", fontSize: "0.85rem", display: "flex", alignItems: "center", gap: "8px" }}>
+              <i className="fa-solid fa-triangle-exclamation text-danger"></i> Danger Zone
+            </h6>
+            <div style={{ color: "#a3a3a3", fontSize: "0.75rem", letterSpacing: "0.5px" }}>
               Resetting will permanently remove all your goal and progress history.
             </div>
           </div>
 
           <button
-            className="btn btn-outline-danger shadow-lg fw-bold px-4"
+            className="btn btn-netflix fw-bold px-4 py-2"
+            style={{ fontSize: "0.8rem", letterSpacing: "1px", textTransform: "uppercase", boxShadow: "0 4px 15px rgba(229, 9, 20, 0.4)", display: "flex", alignItems: "center", gap: "8px" }}
             onClick={resetAllHandler}
           >
-            ❌ Reset All Data
+            <i className="fa-solid fa-trash-can"></i> Reset All Data
           </button>
         </div>
       </div>
