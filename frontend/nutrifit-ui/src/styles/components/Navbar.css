@@ -99,3 +99,13 @@
     outline: none;
     box-shadow: none;
 }
+
+/* On desktop, offcanvas renders inline inside navbar — must be transparent */
+@media (min-width: 992px) {
+    #netflixOffcanvas {
+        background: transparent !important;
+        border-right: none !important;
+        box-shadow: none !important;
+        height: auto !important;
+    }
+}
