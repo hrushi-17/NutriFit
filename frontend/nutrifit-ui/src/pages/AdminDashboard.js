@@ -270,22 +270,35 @@ export default function AdminDashboard() {
                     </div>
                     <div className="small flex-grow-1 d-flex flex-column justify-content-between">
 
-                      <div className="mb-3 p-2 rounded" style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)" }}>
-                        <div className="text-uppercase fw-bold mb-2 pb-1" style={{ color: "#a3a3a3", fontSize: "0.65rem", letterSpacing: "1px", borderBottom: "1px solid rgba(255,255,255,0.05)" }}>Current Goal</div>
+                      <div className="mb-3 p-3 rounded" style={{ background: "rgba(0,0,0,0.4)", border: "1px solid rgba(255,255,255,0.05)", position: "relative", overflow: "hidden" }}>
+                        {/* subtle decorative background glow */}
+                        <div style={{ position: "absolute", top: 0, right: 0, width: "100%", height: "100%", background: data.activeGoal ? (data.activeGoal.status === "completed" ? "radial-gradient(circle at top right, rgba(34,197,94,0.15), transparent 60%)" : "radial-gradient(circle at top right, rgba(229,9,20,0.15), transparent 60%)") : "none", pointerEvents: "none" }}></div>
+
+                        <div className="d-flex justify-content-between align-items-center mb-3 pb-2" style={{ borderBottom: "1px solid rgba(255,255,255,0.05)" }}>
+                          <span className="text-uppercase fw-bold" style={{ color: "#a3a3a3", fontSize: "0.65rem", letterSpacing: "2px" }}>Active Target</span>
+                          {data.activeGoal && (
+                            <span className="badge" style={{ background: data.activeGoal.status === "completed" ? "rgba(34,197,94,0.15)" : "rgba(229,9,20,0.15)", color: data.activeGoal.status === "completed" ? "#22c55e" : "#e50914", border: `1px solid ${data.activeGoal.status === "completed" ? "rgba(34,197,94,0.3)" : "rgba(229,9,20,0.3)"}`, letterSpacing: "1px", textTransform: "uppercase", fontSize: "0.6rem" }}>
+                              {data.activeGoal.status}
+                            </span>
+                          )}
+                        </div>
 
                         {data.activeGoal ? (
-                          <div className="d-grid gap-2" style={{ gridTemplateColumns: "1fr 1fr" }}>
-                            <div><span className="d-block fw-bold" style={{ color: "#888", fontSize: "0.65rem" }}>TYPE</span><b className="text-white fs-6">{data.activeGoal.goalType}</b></div>
-                            <div><span className="d-block fw-bold" style={{ color: "#888", fontSize: "0.65rem" }}>TARGET</span><b className="text-white fs-6">{data.activeGoal.targetValue}</b></div>
-
-                            <div className="col-span-2 mt-2 pt-2 text-center" style={{ borderTop: "1px solid rgba(255,255,255,0.05)" }}>
-                              <span style={{ color: "#a3a3a3", marginRight: "6px", fontSize: "0.8rem" }}>Status:</span>
-                              <b className="text-uppercase" style={{ color: data.activeGoal.status === "completed" ? "#22c55e" : "#f59e0b", fontSize: "0.85rem" }}>
-                                {data.activeGoal.status}
-                              </b>
+                          <div className="d-flex align-items-center gap-3">
+                            <div style={{ width: "48px", height: "48px", borderRadius: "8px", background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1.2rem", color: "#fff" }}>
+                              {data.activeGoal.goalType.toLowerCase().includes('weight') ? <i className="fa-solid fa-weight-scale"></i> : <i className="fa-solid fa-person-running"></i>}
+                            </div>
+                            <div>
+                              <div className="text-white fw-bold fs-5 lh-1 mb-1" style={{ textTransform: "capitalize" }}>{data.activeGoal.goalType}</div>
+                              <div style={{ color: "#a3a3a3", fontSize: "0.75rem", fontWeight: "600" }}>TARGET: <span className="text-white">{data.activeGoal.targetValue}</span></div>
                             </div>
                           </div>
-                        ) : <span className="text-white d-block text-center py-2" style={{ fontSize: "0.85rem" }}>No active goal</span>}
+                        ) : (
+                          <div className="text-center py-3">
+                            <i className="fa-solid fa-circle-exclamation mb-2" style={{ fontSize: "1.5rem", color: "rgba(255,255,255,0.2)" }}></i>
+                            <span className="text-white d-block" style={{ fontSize: "0.8rem", color: "#888" }}>No active goal set</span>
+                          </div>
+                        )}
                       </div>
 
                       <div className="p-2 rounded" style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)" }}>

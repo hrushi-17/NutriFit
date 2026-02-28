@@ -40,15 +40,15 @@ export default function Navbar() {
         </button>
 
         {/* Offcanvas Mobile Menu */}
-        <div className="offcanvas offcanvas-start text-bg-dark" tabIndex="-1" id="netflixOffcanvas" aria-labelledby="netflixOffcanvasLabel" style={{ width: "100%", maxWidth: "300px", background: "#141414", borderRight: "1px solid rgba(255, 255, 255, 0.1)", height: "100vh" }}>
+        <div className="offcanvas offcanvas-start text-bg-dark" tabIndex="-1" id="netflixOffcanvas" aria-labelledby="netflixOffcanvasLabel" style={{ maxWidth: "300px", background: "#141414", borderRight: "1px solid rgba(255, 255, 255, 0.1)" }}>
           <div className="offcanvas-header border-bottom border-dark d-lg-none">
-            <h5 className="offcanvas-title fw-bold" id="netflixOffcanvasLabel" style={{ letterSpacing: "1px", fontFamily: "'Bebas Neue', 'Roboto', sans-serif", fontSize: "1.8rem" }}>
+            <h5 className="offcanvas-title fw-bold" id="netflixOffcanvasLabel" style={{ letterSpacing: "1px", fontFamily: "'Bebas Neue', 'Roboto', sans-serif", fontSize: "1.8rem", margin: 0 }}>
               <span style={{ color: "var(--accent-red)" }}>NUTRI</span>FIT
             </h5>
             <button type="button" className="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
           </div>
 
-          <div className="offcanvas-body d-flex flex-column flex-lg-row align-items-lg-center w-100" style={{ overflowY: "auto", height: "100%" }}>
+          <div className="offcanvas-body d-flex flex-column flex-lg-row align-items-lg-center">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               {/* Optional Links can go here */}
             </ul>
