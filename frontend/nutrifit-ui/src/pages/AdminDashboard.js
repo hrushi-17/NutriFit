@@ -215,21 +215,21 @@ export default function AdminDashboard() {
                     </div>
 
                     <div className="d-grid gap-2" style={{ gridTemplateColumns: "1fr 1fr" }}>
-                      <div className="p-2 rounded text-center" style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)" }}>
-                        <span className="d-block small text-uppercase fw-bold" style={{ color: "#a3a3a3", fontSize: "0.65rem", letterSpacing: "1px", marginBottom: "2px" }}>Age</span>
-                        <b className="text-white fs-6">{data.profile?.age}</b>
+                      <div className="admin-info-item">
+                        <span className="admin-info-label">Age</span>
+                        <b className="admin-info-value">{data.profile?.age}</b>
                       </div>
-                      <div className="p-2 rounded text-center" style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)" }}>
-                        <span className="d-block small text-uppercase fw-bold" style={{ color: "#a3a3a3", fontSize: "0.65rem", letterSpacing: "1px", marginBottom: "2px" }}>Height</span>
-                        <b className="text-white fs-6">{data.profile?.height} cm</b>
+                      <div className="admin-info-item">
+                        <span className="admin-info-label">Height</span>
+                        <b className="admin-info-value">{data.profile?.height} cm</b>
                       </div>
-                      <div className="p-2 rounded text-center" style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)" }}>
-                        <span className="d-block small text-uppercase fw-bold" style={{ color: "#a3a3a3", fontSize: "0.65rem", letterSpacing: "1px", marginBottom: "2px" }}>Weight</span>
-                        <b className="text-white fs-6">{data.profile?.weight} kg</b>
+                      <div className="admin-info-item">
+                        <span className="admin-info-label">Weight</span>
+                        <b className="admin-info-value">{data.profile?.weight} kg</b>
                       </div>
-                      <div className="p-2 rounded text-center" style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)" }}>
-                        <span className="d-block small text-uppercase fw-bold" style={{ color: "#a3a3a3", fontSize: "0.65rem", letterSpacing: "1px", marginBottom: "2px" }}>BMI</span>
-                        <b className="text-white fs-6">{data.profile?.bmi}</b>
+                      <div className="admin-info-item">
+                        <span className="admin-info-label">BMI</span>
+                        <b className="admin-info-value">{data.profile?.bmi}</b>
                       </div>
                     </div>
                   </div>
@@ -244,9 +244,9 @@ export default function AdminDashboard() {
                     <div className="flex-grow-1 d-flex justify-content-center align-items-center flex-column text-center">
 
                       {noDisease ? (
-                        <div className="p-3 w-100 rounded" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)" }}>
-                          <div className="fw-bold fs-5 text-white">Healthy</div>
-                          <small className="text-muted">No conditions recorded</small>
+                        <div className="admin-netflix-card text-center d-flex flex-column justify-content-center h-100 mb-0">
+                          <div className="fw-bold fs-5 text-white mb-1"><i className="fa-solid fa-heart-circle-check text-success me-2"></i> Healthy</div>
+                          <small style={{ color: "#a3a3a3" }}>No conditions recorded</small>
                         </div>
                       ) : (
                         <div className="d-flex flex-wrap justify-content-center gap-2">
@@ -266,16 +266,15 @@ export default function AdminDashboard() {
                 <div className="col-md-3 d-flex">
                   <div className="glass-panel w-100 p-3 h-100 d-flex flex-column">
                     <div className="fw-bold text-uppercase mb-3 pb-2 border-bottom text-white" style={{ fontSize: "0.75rem", letterSpacing: "1.5px", borderColor: "rgba(255,255,255,0.1)" }}>
-                      🎯 Goal & Status
+                      Goal & Status
                     </div>
                     <div className="small flex-grow-1 d-flex flex-column justify-content-between">
 
-                      <div className="mb-3 p-3 rounded" style={{ background: "rgba(0,0,0,0.4)", border: "1px solid rgba(255,255,255,0.05)", position: "relative", overflow: "hidden" }}>
-                        {/* subtle decorative background glow */}
-                        <div style={{ position: "absolute", top: 0, right: 0, width: "100%", height: "100%", background: data.activeGoal ? (data.activeGoal.status === "completed" ? "radial-gradient(circle at top right, rgba(34,197,94,0.15), transparent 60%)" : "radial-gradient(circle at top right, rgba(229,9,20,0.15), transparent 60%)") : "none", pointerEvents: "none" }}></div>
+                      <div className="admin-netflix-card">
+                        <div className={`admin-netflix-card-glow ${data.activeGoal?.status === "completed" ? "success" : ""}`}></div>
 
-                        <div className="d-flex justify-content-between align-items-center mb-3 pb-2" style={{ borderBottom: "1px solid rgba(255,255,255,0.05)" }}>
-                          <span className="text-uppercase fw-bold" style={{ color: "#a3a3a3", fontSize: "0.65rem", letterSpacing: "2px" }}>Active Target</span>
+                        <div className="d-flex justify-content-between align-items-center admin-netflix-card-header">
+                          <span>Active Target</span>
                           {data.activeGoal && (
                             <span className="badge" style={{ background: data.activeGoal.status === "completed" ? "rgba(34,197,94,0.15)" : "rgba(229,9,20,0.15)", color: data.activeGoal.status === "completed" ? "#22c55e" : "#e50914", border: `1px solid ${data.activeGoal.status === "completed" ? "rgba(34,197,94,0.3)" : "rgba(229,9,20,0.3)"}`, letterSpacing: "1px", textTransform: "uppercase", fontSize: "0.6rem" }}>
                               {data.activeGoal.status}
@@ -301,14 +300,14 @@ export default function AdminDashboard() {
                         )}
                       </div>
 
-                      <div className="p-2 rounded" style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)" }}>
-                        <div className="text-uppercase fw-bold mb-2 pb-1" style={{ color: "#a3a3a3", fontSize: "0.65rem", letterSpacing: "1px", borderBottom: "1px solid rgba(255,255,255,0.05)" }}>Body Status</div>
+                      <div className="admin-netflix-card mb-0">
+                        <div className="admin-netflix-card-header">Body Status</div>
                         {latest && (
-                          <div className="d-grid gap-2" style={{ gridTemplateColumns: "1fr 1fr" }}>
-                            <div><span className="d-block fw-bold" style={{ color: "#888", fontSize: "0.65rem" }}>WEIGHT</span><b className="text-white">{latest.weight} kg</b></div>
-                            <div><span className="d-block fw-bold" style={{ color: "#888", fontSize: "0.65rem" }}>BMI</span><b className="text-white">{latest.bmi}</b></div>
-                            <div><span className="d-block fw-bold" style={{ color: "#888", fontSize: "0.65rem" }}>CATEGORY</span><b className="text-white">{latest.weightCategory}</b></div>
-                            <div><span className="d-block fw-bold" style={{ color: "#888", fontSize: "0.65rem" }}>DATE</span><b className="text-white">{latest.date.split("T")[0]}</b></div>
+                          <div className="admin-info-grid">
+                            <div className="admin-info-item"><span className="admin-info-label">WEIGHT</span><b className="admin-info-value">{latest.weight} kg</b></div>
+                            <div className="admin-info-item"><span className="admin-info-label">BMI</span><b className="admin-info-value">{latest.bmi}</b></div>
+                            <div className="admin-info-item"><span className="admin-info-label">CATEGORY</span><b className="admin-info-value">{latest.weightCategory}</b></div>
+                            <div className="admin-info-item"><span className="admin-info-label">DATE</span><b className="admin-info-value">{latest.date.split("T")[0]}</b></div>
                           </div>
                         )}
                       </div>
@@ -332,7 +331,7 @@ export default function AdminDashboard() {
 
               {/* WORKOUT */}
               <div className="glass-panel w-100 mb-3 overflow-hidden">
-                <div className="fw-bold text-uppercase p-3 border-bottom" style={{ background: "rgba(0,0,0,0.5)", letterSpacing: "1px" }}>🏋️ Workout Plan</div>
+                <div className="fw-bold text-uppercase p-3 border-bottom" style={{ background: "rgba(0,0,0,0.5)", letterSpacing: "1px" }}>Workout Plan</div>
                 <div className="table-responsive">
                   <table className="table table-dark table-hover table-sm m-0 border-0" style={{ background: "transparent" }}>
                     <thead>
