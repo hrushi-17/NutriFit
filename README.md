@@ -2,6 +2,9 @@
 
 <img src="https://capsule-render.vercel.app/api?type=waving&color=e50914&height=200&section=header&text=NutriFit&fontSize=80&fontColor=ffffff&fontAlignY=38&desc=Premium%20Full-Stack%20Fitness%20%26%20Nutrition%20Tracker&descAlignY=60&descColor=ffffff&animation=fadeIn" width="100%"/>
 
+# 🔥 NutriFit
+### *A Premium Full-Stack Fitness & Nutrition Tracker*
+
 <br/>
 
 [![React](https://img.shields.io/badge/React-18-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev/)
