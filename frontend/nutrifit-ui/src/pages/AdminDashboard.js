@@ -312,14 +312,22 @@ export default function AdminDashboard() {
                             <div style={{ width: "36px", height: "36px", borderRadius: "8px", background: "linear-gradient(145deg, rgba(229, 9, 20, 0.25), rgba(150, 0, 0, 0.1))", border: "1px solid rgba(229, 9, 20, 0.5)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1rem", color: "#e50914", boxShadow: "0 2px 8px rgba(229, 9, 20, 0.2)" }}>
                               <i className="fa-solid fa-child-reaching"></i>
                             </div>
-                            <div className="d-flex flex-column justify-content-center w-100">
-                              <div className="d-flex justify-content-between align-items-center w-100 mb-1">
-                                <span style={{ color: "#a3a3a3", fontSize: "0.6rem", fontWeight: "600", letterSpacing: "0.5px" }}>WEIGHT</span>
-                                <span style={{ color: "#fff", fontWeight: "800", fontSize: "0.75rem" }}>{latest.weight} <span style={{ fontSize: "0.55rem", color: "#888" }}>kg</span></span>
+                            <div className="d-flex flex-wrap flex-grow-1" style={{ gap: "4px" }}>
+                              <div className="d-flex justify-content-between align-items-center" style={{ width: "48%" }}>
+                                <span style={{ color: "#a3a3a3", fontSize: "0.55rem", fontWeight: "600", letterSpacing: "0.5px" }}>WEIGHT</span>
+                                <span style={{ color: "#fff", fontWeight: "800", fontSize: "0.7rem", whiteSpace: "nowrap" }}>{latest.weight} <span style={{ fontSize: "0.5rem", color: "#888" }}>kg</span></span>
                               </div>
-                              <div className="d-flex justify-content-between align-items-center w-100">
-                                <span style={{ color: "#a3a3a3", fontSize: "0.6rem", fontWeight: "600", letterSpacing: "0.5px" }}>BMI</span>
-                                <span style={{ color: "#e50914", fontWeight: "800", fontSize: "0.75rem" }}>{latest.bmi}</span>
+                              <div className="d-flex justify-content-between align-items-center" style={{ width: "48%" }}>
+                                <span style={{ color: "#a3a3a3", fontSize: "0.55rem", fontWeight: "600", letterSpacing: "0.5px" }}>BMI</span>
+                                <span style={{ color: "#e50914", fontWeight: "800", fontSize: "0.7rem" }}>{latest.bmi}</span>
+                              </div>
+                              <div className="d-flex justify-content-between align-items-center" style={{ width: "48%" }}>
+                                <span style={{ color: "#a3a3a3", fontSize: "0.55rem", fontWeight: "600", letterSpacing: "0.5px" }}>TYPE</span>
+                                <span style={{ color: "#fff", fontWeight: "800", fontSize: "0.6rem", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", maxWidth: "45px" }} title={latest.weightCategory}>{latest.weightCategory}</span>
+                              </div>
+                              <div className="d-flex justify-content-between align-items-center" style={{ width: "48%" }}>
+                                <span style={{ color: "#a3a3a3", fontSize: "0.55rem", fontWeight: "600", letterSpacing: "0.5px" }}>DATE</span>
+                                <span style={{ color: "#fff", fontWeight: "800", fontSize: "0.6rem" }}>{latest.date.split("T")[0]}</span>
                               </div>
                             </div>
                           </div>
