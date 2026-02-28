@@ -8,11 +8,11 @@ export default function DietPage() {
   const mealOrder = { breakfast: 1, snack: 2, lunch: 3, snack2: 4, dinner: 5 };
 
   const mealMeta = {
-    breakfast: { icon: "fa-sun", color: "#f59e0b", label: "Breakfast" },
-    snack: { icon: "fa-apple-whole", color: "#22c55e", label: "Snack" },
+    breakfast: { icon: "fa-sun", color: "#e50914", label: "Breakfast" },
+    snack: { icon: "fa-apple-whole", color: "#e50914", label: "Snack" },
     lunch: { icon: "fa-utensils", color: "#e50914", label: "Lunch" },
-    snack2: { icon: "fa-cookie", color: "#a78bfa", label: "Snack 2" },
-    dinner: { icon: "fa-moon", color: "#60a5fa", label: "Dinner" },
+    snack2: { icon: "fa-cookie", color: "#e50914", label: "Snack 2" },
+    dinner: { icon: "fa-moon", color: "#e50914", label: "Dinner" },
   };
 
   useEffect(() => {
