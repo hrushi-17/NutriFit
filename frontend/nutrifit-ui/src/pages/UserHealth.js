@@ -26,10 +26,10 @@ export default function UserHealth() {
       <div className="row justify-content-center">
         <div className="col-lg-7 col-md-9">
 
-          <div className="glass-panel mb-2 overflow-hidden neon-red w-100 p-2">
+          <div className="glass-panel mb-2 overflow-hidden w-100 p-2">
 
-            <div className="fw-bold text-uppercase p-2 text-center text-danger border-bottom border-danger mb-3 mx-2" style={{ letterSpacing: "1px" }}>
-              ❤️ Select Your Health Conditions
+            <div className="fw-bold text-uppercase p-2 text-center text-white border-bottom mb-3 mx-2" style={{ letterSpacing: "2px", borderColor: "rgba(229,9,20,0.3)" }}>
+              Select Your Health Conditions
             </div>
 
             <div className="card-body">

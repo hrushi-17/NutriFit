@@ -135,7 +135,7 @@ export default function AdminDashboard() {
             <div className="fw-bold text-uppercase text-light mb-3 ms-2 pb-2 border-bottom" style={{ letterSpacing: "1px" }}>👥 Users</div>
             <div className="user-scroll h-100" style={{ overflowY: "auto", overflowX: "hidden" }}>
               {users.map(u => (
-                <div key={u.userId} className="user-tile" onClick={() => loadDetails(u.userId)}>
+                <div key={u.userId} className="user-tile" onClick={() => loadDetails(u.userId)} style={{ cursor: "pointer" }}>
                   <div className="fw-semibold">{u.name}</div>
                   <small className="text-light">{u.email}</small>
                 </div>

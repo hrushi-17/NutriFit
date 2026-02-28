@@ -1,11 +1,13 @@
 /* Navbar.css - Netflix Corporate Header */
 
 .netflix-navbar {
-    background: rgba(20, 20, 20, 0.95);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    padding: 1rem 2rem;
+    background: rgba(10, 10, 10, 0.96);
+    border-bottom: 1px solid rgba(229, 9, 20, 0.2);
+    padding: 0.75rem 2rem;
     transition: background 0.3s ease;
     z-index: 1050;
+    /* Fixed height to prevent glitch */
+    min-height: 60px;
 }
 
 .netflix-brand {
@@ -17,16 +19,10 @@
     text-decoration: none;
     display: flex;
     align-items: center;
-    transition: transform 0.2s ease;
-}
-
-.netflix-brand:hover {
-    transform: scale(1.02);
 }
 
 .netflix-brand .brand-red {
     color: #e50914;
-    /* Pure Netflix Red */
 }
 
 .netflix-brand .brand-white {
@@ -40,6 +36,7 @@
     text-decoration: none;
     transition: color 0.2s ease;
     margin-right: 1.5rem;
+    line-height: 1.5;
 }
 
 .netflix-nav-link:hover {
@@ -53,6 +50,7 @@
     text-decoration: none;
     margin-right: 1.5rem;
     transition: color 0.2s;
+    line-height: 1.5;
 }
 
 .nav-btn-signin:hover {
@@ -62,27 +60,31 @@
 .nav-outline-btn {
     background: transparent;
     color: #ffffff;
-    border: 1px solid #ffffff;
-    padding: 8px 20px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    padding: 6px 18px;
     font-weight: 600;
     border-radius: 4px;
     text-decoration: none;
-    transition: all 0.2s ease;
+    transition: background 0.2s ease, color 0.2s ease;
+    line-height: 1.5;
+    display: inline-flex;
+    align-items: center;
 }
 
 .nav-outline-btn:hover {
-    background: #ffffff;
-    color: #141414;
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    /* No border-change or padding-change to avoid height glitch */
 }
 
 .nav-outline-red {
-    border-color: #e50914;
-    color: #e50914;
+    border-color: rgba(229, 9, 20, 0.7);
+    color: #ff4444;
 }
 
 .nav-outline-red:hover {
-    background: #e50914;
-    color: #ffffff;
+    background: rgba(229, 9, 20, 0.15);
+    color: #ff4444;
 }
 
 /* Mobile Toggler */

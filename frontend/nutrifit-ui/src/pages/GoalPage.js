@@ -57,14 +57,14 @@ export default function GoalPage() {
   return (
     <div className="container py-3">
 
-      <h4 className="fw-bold mb-4 text-primary" style={{ textShadow: "0 2px 10px rgba(0,136,255,0.4)" }}>🎯 My Goal</h4>
+      <h4 className="fw-bold mb-4 text-white" style={{ letterSpacing: "1px" }}>My Goals</h4>
 
       <div className="row g-3 align-items-stretch">
 
         {/* SET GOAL */}
         <div className="col-xl-4">
-          <div className="glass-panel neon-blue h-100 p-0 overflow-hidden d-flex flex-column" style={{ borderTop: "3px solid #3b82f6" }}>
-            <div className="fw-bold text-center text-primary p-3 mb-2 border-bottom border-primary" style={{ background: "rgba(0,0,0,0.5)" }}>🎯 Set Your Goal</div>
+          <div className="glass-panel h-100 p-0 overflow-hidden d-flex flex-column">
+            <div className="fw-bold text-center text-white p-3 mb-2 border-bottom" style={{ background: "rgba(0,0,0,0.5)", borderColor: "rgba(229,9,20,0.3)" }}>Set Your Goal</div>
 
             <div className="card-body p-3 d-flex flex-column justify-content-between h-100">
 
@@ -145,8 +145,8 @@ export default function GoalPage() {
                       <span className="text-muted small text-uppercase mb-2">Status</span>
                       <h5 className="mb-0">
                         <span className={`badge px-3 py-2 ${goal.status === "completed"
-                            ? "bg-success"
-                            : "bg-warning text-dark"
+                          ? "bg-success"
+                          : "bg-warning text-dark"
                           }`}>
                           {goal.status}
                         </span>

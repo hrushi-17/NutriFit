@@ -34,15 +34,15 @@ export default function DietPage() {
     <div className="row justify-content-center mt-3 animate-fade-down">
       <div className="col-md-10">
 
-        <div className="glass-panel neon-green border-0 p-3">
-          <div className="fw-bold text-center fs-5 text-uppercase border-bottom border-success pb-3 mb-3 text-success" style={{ letterSpacing: "1px" }}>
-            🥗 Your Daily Diet Plan
+        <div className="glass-panel border-0 p-3">
+          <div className="fw-bold text-center fs-5 text-uppercase border-bottom pb-3 mb-3 text-white" style={{ letterSpacing: "2px", borderColor: "rgba(229,9,20,0.3)" }}>
+            Your Daily Diet Plan
           </div>
 
           <div className="card-body px-0">
 
             {list.length === 0 && (
-              <div className="p-3 w-100 rounded text-center fw-semibold mb-3" style={{ background: "rgba(0, 255, 0, 0.1)", border: "1px solid rgba(0, 255, 0, 0.3)", color: "#00ff00" }}>
+              <div className="p-3 w-100 rounded text-center fw-semibold mb-3" style={{ background: "rgba(229, 9, 20, 0.08)", border: "1px solid rgba(229, 9, 20, 0.2)", color: "#e5e5e5" }}>
                 <i className="fa-solid fa-circle-info me-2"></i> No diet plan matched your profile yet.
                 <br />
                 Please update your profile and health conditions.
@@ -52,14 +52,13 @@ export default function DietPage() {
             {[...list]
               .sort((a, b) => mealOrder[a.mealType] - mealOrder[b.mealType])
               .map((d, i) => (
-                <div key={i} className="glass-panel mb-3 border-start border-4 border-success shadow-sm" style={{ background: "rgba(0,0,0,0.5)" }}>
+                <div key={i} className="glass-panel mb-3 shadow-sm" style={{ background: "rgba(0,0,0,0.4)", borderLeft: "3px solid rgba(229,9,20,0.4)" }}>
                   <div className="card-body">
-
                     <div className="d-flex justify-content-between align-items-center mb-2">
-                      <h5 className="fw-bold text-success text-uppercase mb-0">
-                        🍽 {d.mealType}
+                      <h5 className="fw-bold text-white text-uppercase mb-0">
+                        {d.mealType}
                       </h5>
-                      <span className="badge bg-success text-white px-3 py-2 border border-light">
+                      <span className="badge bg-dark text-white px-3 py-2" style={{ border: "1px solid rgba(255,255,255,0.2)" }}>
                         {d.calories} kcal
                       </span>
                     </div>
@@ -89,7 +88,7 @@ export default function DietPage() {
                       </div>
                     </div>
 
-                    <div className="mt-3 small px-3 py-2 rounded text-info fw-semibold" style={{ background: "rgba(0, 255, 255, 0.1)", border: "1px solid rgba(0, 255, 255, 0.2)" }}>
+                    <div className="mt-3 small px-3 py-2 rounded text-white fw-semibold" style={{ background: "rgba(255, 255, 255, 0.05)", border: "1px solid rgba(255, 255, 255, 0.1)" }}>
                       <i className="fa-solid fa-droplet me-2"></i> GI Level: {d.glycemicIndex}
                     </div>
 

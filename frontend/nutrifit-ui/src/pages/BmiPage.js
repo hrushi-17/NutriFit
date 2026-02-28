@@ -69,8 +69,8 @@ export default function BmiPage() {
           <div className="glass-panel w-100 p-1">
 
             {/* HEADER */}
-            <div className="fw-bold text-uppercase p-2 text-center text-primary border-bottom border-primary mb-3 mx-2" style={{ letterSpacing: "1px" }}>
-              📊 BMI REPORT
+            <div className="fw-bold text-uppercase p-2 text-center text-white border-bottom mb-3 mx-2" style={{ letterSpacing: "2px", borderColor: "rgba(229,9,20,0.3)" }}>
+              BMI REPORT
             </div>
 
             <div className="card-body py-3">

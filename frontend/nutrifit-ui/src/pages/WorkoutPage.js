@@ -32,9 +32,9 @@ export default function WorkoutPage() {
     <div className="row justify-content-center animate-fade-down">
       <div className="col-md-10">
 
-        <div className="glass-panel neon-blue border-0 p-3">
-          <div className="fw-bold text-center fs-5 text-uppercase border-bottom border-primary pb-3 mb-3 text-primary" style={{ letterSpacing: "1px" }}>
-            💪 Your Weekly Workout Plan (Mon – Sat)
+        <div className="glass-panel border-0 p-3">
+          <div className="fw-bold text-center fs-5 text-uppercase border-bottom pb-3 mb-3 text-white" style={{ letterSpacing: "2px", borderColor: "rgba(229,9,20,0.3)" }}>
+            Your Weekly Workout Plan (Mon – Sat)
           </div>
 
           <div className="card-body px-0">
@@ -48,11 +48,11 @@ export default function WorkoutPage() {
             )}
 
             {list.map((w, i) => (
-              <div key={i} className="glass-panel mb-3 border-start border-4 border-primary shadow-sm" style={{ background: "rgba(0,0,0,0.5)" }}>
+              <div key={i} className="glass-panel mb-3 shadow-sm" style={{ background: "rgba(0,0,0,0.4)", borderLeft: "3px solid rgba(229,9,20,0.4)" }}>
                 <div className="card-body">
 
                   <div className="d-flex justify-content-between align-items-center mb-2">
-                    <h5 className="fw-bold text-primary text-uppercase mb-0">📅 {w.dayName}</h5>
+                    <h5 className="fw-bold text-white text-uppercase mb-0">{w.dayName}</h5>
                     <span className={`badge ${getBadge(w.intensity)} px-3 py-2 border`}>
                       {w.intensity.toUpperCase()}
                     </span>
