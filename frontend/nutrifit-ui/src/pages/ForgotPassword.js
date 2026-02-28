@@ -138,7 +138,7 @@ export default function ForgotPassword() {
 
               {/* Resend OTP Button */}
               <button
-                className="btn btn-outline-glass w-100 animate-fade-up delay-4"
+                className="btn btn-outline-glass w-100 animate-fade-up delay-4 fw-bold border"
                 style={{ padding: "12px" }}
                 onClick={handleSendOtp}
                 disabled={resendTimer > 0}

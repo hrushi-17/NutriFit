@@ -61,27 +61,27 @@ export default function Profile() {
       style={{ minHeight: "calc(100vh - 56px)", background: "transparent" }}
     >
       <div className="d-flex justify-content-center">
-        <div className="card netflix-card shadow-lg p-4 p-md-5 rounded-4" style={{ maxWidth: "600px", width: "100%" }}>
-          <h3 className="text-center mb-4" style={{ fontWeight: "600", color: "#fff" }}>
-            User Profile
+        <div className="glass-panel p-4 p-md-5 w-100" style={{ maxWidth: "650px", borderTop: "3px solid #e50914" }}>
+          <h3 className="text-center mb-4 fw-bold text-uppercase border-bottom pb-3" style={{ color: "#e50914", letterSpacing: "1px", borderColor: "rgba(229, 9, 20, 0.3)" }}>
+            👤 Profile Settings
           </h3>
 
-          <div className="row g-3">
+          <div className="row g-4">
             {/* Age & Gender */}
             <div className="col-12 col-md-6">
-              <label className="form-label fw-semibold">Age</label>
+              <label className="form-label fw-semibold text-muted text-uppercase small">Age</label>
               <input
                 type="number"
-                className="form-control netflix-input"
+                className="form-control netflix-input border border-secondary"
                 placeholder="Age"
                 value={p.age || ""}
                 onChange={e => setP({ ...p, age: e.target.value })}
               />
             </div>
             <div className="col-12 col-md-6">
-              <label className="form-label fw-semibold">Gender</label>
+              <label className="form-label fw-semibold text-muted text-uppercase small">Gender</label>
               <select
-                className="form-control netflix-input"
+                className="form-control netflix-input border border-secondary"
                 value={p.gender || ""}
                 onChange={e => setP({ ...p, gender: e.target.value })}
               >
@@ -94,20 +94,20 @@ export default function Profile() {
 
             {/* Height & Weight */}
             <div className="col-12 col-md-6">
-              <label className="form-label fw-semibold">Height (cm)</label>
+              <label className="form-label fw-semibold text-muted text-uppercase small">Height (cm)</label>
               <input
                 type="number"
-                className="form-control netflix-input"
+                className="form-control netflix-input border border-secondary"
                 placeholder="Height"
                 value={p.height || ""}
                 onChange={e => setP({ ...p, height: e.target.value })}
               />
             </div>
             <div className="col-12 col-md-6">
-              <label className="form-label fw-semibold">Weight (kg)</label>
+              <label className="form-label fw-semibold text-muted text-uppercase small">Weight (kg)</label>
               <input
                 type="number"
-                className="form-control netflix-input"
+                className="form-control netflix-input border border-secondary"
                 placeholder="Weight"
                 value={p.weight || ""}
                 onChange={e => setP({ ...p, weight: e.target.value })}
@@ -116,9 +116,9 @@ export default function Profile() {
 
             {/* Activity Level & Goal */}
             <div className="col-12 col-md-6">
-              <label className="form-label fw-semibold">Activity Level</label>
+              <label className="form-label fw-semibold text-muted text-uppercase small">Activity Level</label>
               <select
-                className="form-control netflix-input"
+                className="form-control netflix-input border border-secondary"
                 value={p.activityLevel || ""}
                 onChange={e => setP({ ...p, activityLevel: e.target.value })}
               >
@@ -129,9 +129,9 @@ export default function Profile() {
               </select>
             </div>
             <div className="col-12 col-md-6">
-              <label className="form-label fw-semibold">Goal</label>
+              <label className="form-label fw-semibold text-muted text-uppercase small">Goal</label>
               <select
-                className="form-control netflix-input"
+                className="form-control netflix-input border border-secondary"
                 value={p.goal || ""}
                 onChange={e => setP({ ...p, goal: e.target.value })}
               >
@@ -144,9 +144,9 @@ export default function Profile() {
 
             {/* Food Preference */}
             <div className="col-12">
-              <label className="form-label fw-semibold">Food Preference</label>
+              <label className="form-label fw-semibold text-muted text-uppercase small">Food Preference</label>
               <select
-                className="form-control netflix-input"
+                className="form-control netflix-input border border-secondary"
                 value={p.foodPreference || ""}
                 onChange={e => setP({ ...p, foodPreference: e.target.value })}
               >
@@ -158,21 +158,13 @@ export default function Profile() {
             </div>
 
             {/* Action Buttons */}
-            <div className="col-12 d-flex flex-column flex-md-row justify-content-center mt-4 gap-3">
+            <div className="col-12 d-flex justify-content-center mt-4">
               <button
-                className="btn btn-netflix px-4 py-2 fw-bold"
+                className="btn btn-netflix px-5 py-3 fw-bold fs-5 shadow-lg"
+                style={{ letterSpacing: "1px" }}
                 onClick={save}
               >
                 <i className="fa-solid fa-floppy-disk me-2"></i> Save Profile
-              </button>
-
-              <button
-                className="btn btn-outline-glass px-4 py-2 fw-bold text-danger border-danger"
-                onMouseEnter={(e) => { e.currentTarget.style.background = "#e50914"; e.currentTarget.style.color = "#fff"; }}
-                onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = "#dc3545"; }}
-                onClick={logout}
-              >
-                <i className="fa-solid fa-right-from-bracket me-2"></i> Logout
               </button>
             </div>
           </div>

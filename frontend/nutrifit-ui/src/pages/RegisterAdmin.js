@@ -36,113 +36,127 @@ export default function RegisterAdmin() {
   };
 
   return (
-    <div
-      className="d-flex justify-content-center align-items-center vh-100"
-      style={{ background: "transparent" }}
-    >
-      <div className="card netflix-card shadow-lg p-4 p-md-5 rounded-4" style={{ minWidth: "350px", maxWidth: "450px" }}>
-        <h3 className="text-center mb-4" style={{ fontWeight: "600", color: "#fff" }}>
-          Admin Registration
-        </h3>
+    <div className="auth-background animate-fade-down">
+      <div className="auth-overlay"></div>
 
-        {/* Name Field */}
-        <label className="form-label" style={{ fontWeight: "500" }}>Full Name</label>
-        <input
-          className="form-control netflix-input mb-3"
-          placeholder="Enter your full name"
-          onChange={e => setData({ ...data, name: e.target.value })}
-        />
-
-        {/* Email Field */}
-        <label className="form-label" style={{ fontWeight: "500" }}>Email</label>
-        <input
-          className="form-control netflix-input mb-3"
-          placeholder="Enter your email"
-          type="email"
-          onChange={e => setData({ ...data, email: e.target.value })}
-        />
-
-        {/* Password Field */}
-        <label className="form-label" style={{ fontWeight: "500" }}>Password</label>
-        <div className="mb-2 position-relative">
-          <input
-            type={showPassword ? "text" : "password"}
-            className="form-control netflix-input"
-            placeholder="Enter password"
-            onChange={e => setData({ ...data, password: e.target.value })}
-          />
-          <span
-            style={{
-              position: "absolute",
-              right: "10px",
-              top: "50%",
-              transform: "translateY(-50%)",
-              cursor: "pointer"
-            }}
-            onClick={() => setShowPassword(!showPassword)}
-          >
-            <i className={showPassword ? "fa fa-eye" : "fa fa-eye-slash"}></i>
-          </span>
+      <div className="auth-horizontal-card shadow-lg" style={{ maxWidth: "1000px" }}>
+        {/* Left Graphic Side */}
+        <div className="auth-graphic-side">
+          <h1 className="auth-graphic-title"><i className="fa-solid fa-user-shield text-danger me-2"></i><br />ADMIN ACCESS</h1>
+          <p className="auth-graphic-subtitle mt-3">Manage the NutriFit platform.</p>
         </div>
 
+        {/* Right Form Side */}
+        <div className="auth-form-side">
+          <h3 className="auth-title mb-4 text-center">Admin Registration</h3>
 
+          <div className="row g-3">
+            {/* Name Field */}
+            <div className="col-md-6">
+              <label className="auth-label text-light fw-semibold">Full Name</label>
+              <div className="auth-input-group">
+                <input
+                  className="form-control netflix-input"
+                  placeholder="Enter name"
+                  onChange={e => setData({ ...data, name: e.target.value })}
+                />
+              </div>
+            </div>
 
-        {/* Confirm Password Field */}
-        <label className="form-label" style={{ fontWeight: "500" }}>Confirm Password</label>
-        <div className="mb-3 position-relative">
-          <input
-            type={showConfirm ? "text" : "password"}
-            className="form-control netflix-input"
-            placeholder="Confirm password"
-            onChange={e => setData({ ...data, confirmPassword: e.target.value })}
-          />
-          <span
-            style={{
-              position: "absolute",
-              right: "10px",
-              top: "50%",
-              transform: "translateY(-50%)",
-              cursor: "pointer"
-            }}
-            onClick={() => setShowConfirm(!showConfirm)}
+            {/* Email Field */}
+            <div className="col-md-6">
+              <label className="auth-label text-light fw-semibold">Email</label>
+              <div className="auth-input-group">
+                <input
+                  className="form-control netflix-input"
+                  placeholder="Enter email"
+                  type="email"
+                  onChange={e => setData({ ...data, email: e.target.value })}
+                />
+              </div>
+            </div>
+
+            {/* Password Field */}
+            <div className="col-md-6">
+              <label className="auth-label text-light fw-semibold">Password</label>
+              <div className="auth-input-group position-relative">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  className="form-control netflix-input"
+                  placeholder="Password"
+                  onChange={e => setData({ ...data, password: e.target.value })}
+                />
+                <span
+                  style={{
+                    position: "absolute",
+                    right: "10px",
+                    top: "50%",
+                    transform: "translateY(-50%)",
+                    cursor: "pointer",
+                    color: "#b3b3b3"
+                  }}
+                  onClick={() => setShowPassword(!showPassword)}
+                >
+                  <i className={showPassword ? "fa fa-eye" : "fa fa-eye-slash"}></i>
+                </span>
+              </div>
+            </div>
+
+            {/* Confirm Password Field */}
+            <div className="col-md-6">
+              <label className="auth-label text-light fw-semibold">Confirm Password</label>
+              <div className="auth-input-group position-relative">
+                <input
+                  type={showConfirm ? "text" : "password"}
+                  className="form-control netflix-input"
+                  placeholder="Confirm"
+                  onChange={e => setData({ ...data, confirmPassword: e.target.value })}
+                />
+                <span
+                  style={{
+                    position: "absolute",
+                    right: "10px",
+                    top: "50%",
+                    transform: "translateY(-50%)",
+                    cursor: "pointer",
+                    color: "#b3b3b3"
+                  }}
+                  onClick={() => setShowConfirm(!showConfirm)}
+                >
+                  <i className={showConfirm ? "fa fa-eye" : "fa fa-eye-slash"}></i>
+                </span>
+              </div>
+            </div>
+
+            {/* Secret Key Field */}
+            <div className="col-12">
+              <label className="auth-label text-light fw-semibold">Admin Secret Key</label>
+              <div className="auth-input-group">
+                <input
+                  className="form-control netflix-input"
+                  placeholder="Enter admin secret key"
+                  onChange={e => setData({ ...data, secretKey: e.target.value })}
+                />
+              </div>
+            </div>
+          </div>
+
+          <button
+            className="btn btn-netflix w-100 mt-4 py-3 fw-bold fs-5"
+            onClick={register}
           >
-            <i className={showConfirm ? "fa fa-eye" : "fa fa-eye-slash"}></i>
-          </span>
+            Create Admin Account
+          </button>
+
+          <p className="auth-footer-text text-center mt-4">
+            Already have an account? <span
+              className="auth-footer-link"
+              onClick={() => navigate("/login")}
+            >
+              Sign In
+            </span>
+          </p>
         </div>
-
-        {/* Secret Key Field */}
-        <label className="form-label" style={{ fontWeight: "500" }}>Admin Secret Key</label>
-        <input
-          className="form-control netflix-input mb-4"
-          placeholder="Enter admin secret key"
-          onChange={e => setData({ ...data, secretKey: e.target.value })}
-        />
-
-        <button
-          className="btn btn-netflix w-100"
-          style={{
-            padding: "12px",
-            fontWeight: "500",
-            fontSize: "1rem",
-            borderRadius: "8px",
-            transition: "0.3s",
-            background: "transparent"
-          }}
-          onMouseEnter={e => (e.target.style.background = "linear-gradient(to right, #23272b, #343a40)")}
-          onMouseLeave={e => (e.target.style.background = "linear-gradient(to right, #343a40, #23272b)")}
-          onClick={register}
-        >
-          Register Admin
-        </button>
-
-        <p className="text-center mt-3" style={{ fontSize: "0.9rem", color: "#fff" }}>
-          Already have an account? <span
-            style={{ color: "#007bff", cursor: "pointer" }}
-            onClick={() => navigate("/login")}
-          >
-            Login
-          </span>
-        </p>
       </div>
     </div>
   );
