@@ -13,7 +13,7 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="navbar navbar-expand-lg px-4 py-3 sticky-top animate-fade-down" style={{ background: "rgba(10, 10, 10, 0.8)", backdropFilter: "blur(15px)", borderBottom: "1px solid var(--glass-border)", zIndex: 1050, transition: "0.3s" }}>
+    <nav className="navbar navbar-expand-lg px-4 py-3 sticky-top animate-fade-down" style={{ background: "#141414", borderBottom: "1px solid rgba(255, 255, 255, 0.1)", zIndex: 1050, transition: "0.3s" }}>
       <div className="container-fluid">
 
         {/* Brand Logo */}
@@ -40,7 +40,7 @@ export default function Navbar() {
         </button>
 
         {/* Offcanvas Mobile Menu */}
-        <div className="offcanvas offcanvas-start text-bg-dark" tabIndex="-1" id="netflixOffcanvas" aria-labelledby="netflixOffcanvasLabel" style={{ width: "300px", background: "var(--bg-dark) !important", borderRight: "1px solid var(--border-light)" }}>
+        <div className="offcanvas offcanvas-start text-bg-dark" tabIndex="-1" id="netflixOffcanvas" aria-labelledby="netflixOffcanvasLabel" style={{ width: "100%", maxWidth: "300px", background: "#141414", borderRight: "1px solid rgba(255, 255, 255, 0.1)", height: "100vh" }}>
           <div className="offcanvas-header border-bottom border-dark d-lg-none">
             <h5 className="offcanvas-title fw-bold" id="netflixOffcanvasLabel" style={{ letterSpacing: "1px", fontFamily: "'Bebas Neue', 'Roboto', sans-serif", fontSize: "1.8rem" }}>
               <span style={{ color: "var(--accent-red)" }}>NUTRI</span>FIT
@@ -48,12 +48,12 @@ export default function Navbar() {
             <button type="button" className="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
           </div>
 
-          <div className="offcanvas-body d-flex flex-column flex-lg-row align-items-lg-center w-100">
+          <div className="offcanvas-body d-flex flex-column flex-lg-row align-items-lg-center w-100" style={{ overflowY: "auto", height: "100%" }}>
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               {/* Optional Links can go here */}
             </ul>
 
-            <div className="d-flex flex-column flex-lg-row align-items-stretch align-items-lg-center gap-3 mt-auto mt-lg-0 mb-4 mb-lg-0">
+            <div className="d-flex flex-column flex-lg-row align-items-stretch align-items-lg-center gap-3 mt-4 mt-lg-0 mb-4 mb-lg-0">
               {!token ? (
                 <>
                   <Link className="text-white text-decoration-none fw-semibold text-center py-2 py-lg-0" to="/login" style={{ transition: "color 0.2s" }} onMouseEnter={e => e.currentTarget.style.color = "var(--accent-red)"} onMouseLeave={e => e.currentTarget.style.color = "white"}>
