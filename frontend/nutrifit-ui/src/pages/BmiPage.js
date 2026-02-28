@@ -66,36 +66,44 @@ export default function BmiPage() {
       <div className="row justify-content-center">
         <div className="col-lg-5 col-md-7">
 
-          <div className="glass-panel w-100 p-1">
+          <div className="glass-panel w-100 p-0" style={{ background: "linear-gradient(135deg, rgba(20,20,20,0.9), rgba(10,10,10,0.95))", border: "1px solid rgba(229,9,20,0.3)", boxShadow: "0 8px 32px rgba(0,0,0,0.6)" }}>
 
             {/* HEADER */}
-            <div className="fw-bold text-uppercase p-2 text-center text-white border-bottom mb-3 mx-2" style={{ letterSpacing: "2px", borderColor: "rgba(229,9,20,0.3)" }}>
-              BMI REPORT
+            <div className="fw-bold px-4 py-3 text-white border-bottom" style={{ background: "rgba(229,9,20,0.15)", borderColor: "rgba(229,9,20,0.4)", letterSpacing: "2px", fontSize: "0.85rem", textTransform: "uppercase", display: "flex", alignItems: "center", justifyContent: "center", gap: "10px" }}>
+              <i className="fa-solid fa-file-medical text-danger"></i> BMI REPORT
             </div>
 
-            <div className="card-body py-3">
+            <div className="card-body py-4 px-4">
 
               {/* BMI CIRCLE */}
-              <div className="text-center mb-2">
+              <div className="text-center mb-4">
                 <div className={`bmi-circle-sm ${bmiColor}`}>
                   <div>
-                    <div className="bmi-value-sm">{animatedBmi.toFixed(2)}</div>
+                    <div className="bmi-value-sm" style={{ textShadow: `0 0 15px ${bmiColor === 'bmi-low' ? '#f59e0b' : bmiColor === 'bmi-normal' ? '#22c55e' : '#e50914'}60` }}>{animatedBmi.toFixed(2)}</div>
                     <div className="bmi-label-sm">BMI</div>
                   </div>
                 </div>
 
-                <span className={`badge mt-2 px-2 py-1 ${p.weightCategory?.toLowerCase() === "low"
-                  ? "bg-warning"
-                  : p.weightCategory?.toLowerCase() === "normal"
-                    ? "bg-success"
-                    : "bg-danger"
-                  }`}>
+                <span className="badge mt-3" style={{
+                  background: p.weightCategory?.toLowerCase() === "low" ? "rgba(245,158,11,0.15)" :
+                    p.weightCategory?.toLowerCase() === "normal" ? "rgba(34,197,94,0.15)" :
+                      "linear-gradient(145deg, rgba(229, 9, 20, 0.3), rgba(130, 0, 0, 0.15))",
+                  color: p.weightCategory?.toLowerCase() === "low" ? "#f59e0b" :
+                    p.weightCategory?.toLowerCase() === "normal" ? "#22c55e" :
+                      "#fff",
+                  border: `1px solid ${p.weightCategory?.toLowerCase() === "low" ? "rgba(245,158,11,0.3)" :
+                    p.weightCategory?.toLowerCase() === "normal" ? "rgba(34,197,94,0.3)" :
+                      "rgba(229,9,20,0.5)"}`,
+                  letterSpacing: "1.5px", textTransform: "uppercase", fontSize: "0.75rem", fontWeight: "800", padding: "6px 16px", borderRadius: "6px",
+                  boxShadow: p.weightCategory?.toLowerCase() !== "normal" ? "0 4px 10px rgba(229, 9, 20, 0.2)" : "none",
+                  display: "inline-block"
+                }}>
                   {getBadgeLabel(p.weightCategory)}
                 </span>
               </div>
 
               {/* STAT GRID */}
-              <div className="row g-2">
+              <div className="row g-3 mt-2">
 
                 <div className="col-6 col-md-4">
                   <div className="bmi-stat-sm"><span>Age</span><b>{p.age}</b></div>
@@ -118,11 +126,14 @@ export default function BmiPage() {
                 </div>
 
                 <div className="col-6 col-md-4">
-                  <div className="bmi-stat-sm"><span>Goal</span><b>{p.goal}</b></div>
+                  <div className="bmi-stat-sm"><span>Goal</span><b style={{ textTransform: "capitalize" }}>{p.goal.replace(/_/g, " ")}</b></div>
                 </div>
 
-                <div className="col-12 mt-3">
-                  <div className="bg-dark p-2 rounded text-center border border-secondary text-light"><span>Food Preference</span><b className="ms-2">{p.foodPreference}</b></div>
+                <div className="col-12 mt-2">
+                  <div className="p-3 rounded text-center" style={{ background: "rgba(0,0,0,0.5)", border: "1px solid rgba(255,255,255,0.08)", boxShadow: "inset 0 0 15px rgba(0,0,0,0.8)" }}>
+                    <span style={{ color: "#a3a3a3", fontSize: "0.65rem", fontWeight: "700", letterSpacing: "2px", textTransform: "uppercase" }}>Food Preference</span>
+                    <h6 className="text-white fw-bold mb-0 mt-2" style={{ textTransform: "capitalize" }}>{p.foodPreference}</h6>
+                  </div>
                 </div>
 
               </div>
