@@ -106,10 +106,10 @@ export default function GoalPage() {
               </div>
 
               <button
-                className="btn btn-hero-primary fw-bold w-100 mt-auto shadow-lg"
+                className="btn btn-netflix fw-bold w-100 mt-auto shadow-lg"
                 onClick={setGoalHandler}
               >
-                🎯 Set / Update Goal
+                Set / Update Goal
               </button>
             </div>
           </div>
@@ -120,8 +120,8 @@ export default function GoalPage() {
 
           {/* CURRENT GOAL */}
           {goal && (
-            <div className="glass-panel neon-green mb-3 overflow-hidden p-0" style={{ borderTop: "3px solid #10b981" }}>
-              <div className="fw-bold px-3 py-2 text-success border-bottom border-success" style={{ background: "rgba(0,0,0,0.5)" }}>📌 Current Goal</div>
+            <div className="glass-panel mb-3 overflow-hidden p-0">
+              <div className="fw-bold px-3 py-2 text-white border-bottom" style={{ background: "rgba(0,0,0,0.5)", borderColor: "rgba(229,9,20,0.3)", letterSpacing: "1px", fontSize: "0.85rem", textTransform: "uppercase" }}>Current Goal</div>
 
               <div className="card-body p-3">
                 <div className="row g-3 align-items-stretch">
@@ -161,8 +161,8 @@ export default function GoalPage() {
 
           {/* BODY STATUS */}
           {latest && (
-            <div className="glass-panel neon-sky-blue overflow-hidden p-0" style={{ borderTop: "3px solid #06b6d4" }}>
-              <div className="fw-bold px-3 py-2 text-info border-bottom border-info" style={{ background: "rgba(0,0,0,0.5)" }}>📊 Current Body Status</div>
+            <div className="glass-panel overflow-hidden p-0">
+              <div className="fw-bold px-3 py-2 text-white border-bottom" style={{ background: "rgba(0,0,0,0.5)", borderColor: "rgba(229,9,20,0.3)", letterSpacing: "1px", fontSize: "0.85rem", textTransform: "uppercase" }}>Current Body Status</div>
 
               <div className="card-body p-3">
                 <div className="row g-3 align-items-stretch">
@@ -205,9 +205,9 @@ export default function GoalPage() {
 
       {/* RESET ZONE */}
       <div className="mt-4 animate-fade-up delay-2">
-        <div className="glass-panel neon-red d-flex justify-content-between align-items-center p-4">
+        <div className="glass-panel d-flex justify-content-between align-items-center p-4" style={{ borderLeft: "4px solid rgba(229,9,20,0.6)" }}>
           <div>
-            <h6 className="fw-bold text-danger border-bottom border-danger pb-1 d-inline-block">⚠ Danger Zone</h6>
+            <h6 className="fw-bold text-white mb-1" style={{ letterSpacing: "1px", textTransform: "uppercase", fontSize: "0.85rem" }}>Danger Zone</h6>
             <div className="text-light small mt-2">
               Resetting will permanently remove all your goal and progress history.
             </div>

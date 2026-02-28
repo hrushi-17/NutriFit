@@ -131,13 +131,41 @@ export default function AdminDashboard() {
 
         {/* USERS */}
         <div className="col-xl-2 col-md-3 d-flex">
-          <div className="glass-panel w-100 d-flex flex-column h-100 p-2">
-            <div className="fw-bold text-uppercase text-light mb-3 ms-2 pb-2 border-bottom" style={{ letterSpacing: "1px" }}>👥 Users</div>
-            <div className="user-scroll h-100" style={{ overflowY: "auto", overflowX: "hidden" }}>
+          <div className="glass-panel w-100 d-flex flex-column h-100 p-0" style={{ overflow: "hidden" }}>
+            <div className="fw-bold text-uppercase text-white px-3 py-2 border-bottom" style={{ letterSpacing: "2px", fontSize: "0.75rem", background: "rgba(229,9,20,0.1)", borderColor: "rgba(229,9,20,0.3)" }}>Users</div>
+            <div style={{ overflowY: "auto", overflowX: "hidden", flex: 1 }}>
               {users.map(u => (
-                <div key={u.userId} className="user-tile" onClick={() => loadDetails(u.userId)} style={{ cursor: "pointer" }}>
-                  <div className="fw-semibold">{u.name}</div>
-                  <small className="text-light">{u.email}</small>
+                <div
+                  key={u.userId}
+                  onClick={() => loadDetails(u.userId)}
+                  style={{
+                    cursor: "pointer",
+                    padding: "12px 14px",
+                    borderBottom: "1px solid rgba(255,255,255,0.06)",
+                    transition: "background 0.2s",
+                    background: "transparent",
+                  }}
+                  onMouseEnter={e => e.currentTarget.style.background = "rgba(229,9,20,0.08)"}
+                  onMouseLeave={e => e.currentTarget.style.background = "transparent"}
+                >
+                  <div
+                    style={{
+                      width: "32px", height: "32px",
+                      background: "#e50914",
+                      borderRadius: "50%",
+                      display: "inline-flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      fontWeight: 700,
+                      fontSize: "0.9rem",
+                      color: "#fff",
+                      marginBottom: "6px",
+                    }}
+                  >
+                    {u.name?.charAt(0).toUpperCase()}
+                  </div>
+                  <div className="fw-semibold text-white" style={{ fontSize: "0.85rem", lineHeight: 1.2 }}>{u.name}</div>
+                  <small className="text-muted" style={{ fontSize: "0.7rem" }}>{u.email}</small>
                 </div>
               ))}
             </div>
@@ -165,7 +193,7 @@ export default function AdminDashboard() {
 
                 {/* PROFILE */}
                 <div className="col-md-3 d-flex">
-                  <div className="glass-panel w-100 p-3 neon-blue">
+                  <div className="glass-panel w-100 p-3">
                     <div className="d-flex align-items-center gap-3 mb-3 pb-3 border-bottom border-secondary">
                       <div className="bg-primary text-white flex-shrink-0 d-flex justify-content-center align-items-center rounded" style={{ width: "50px", height: "50px", fontSize: "1.5rem", fontWeight: "bold" }}>
                         {data.user?.name?.charAt(0)}
@@ -199,17 +227,16 @@ export default function AdminDashboard() {
 
                 {/* HEALTH */}
                 <div className="col-md-3 d-flex">
-                  <div className={`glass-panel w-100 p-3 d-flex flex-column ${noDisease ? "neon-green" : "neon-red"}`}>
-                    <div className="fw-bold text-uppercase mb-3 pb-2 border-bottom border-secondary text-light">
-                      ❤️ Health Conditions
+                  <div className="glass-panel w-100 p-3 d-flex flex-column">
+                    <div className="fw-bold text-uppercase mb-3 pb-2 border-bottom text-white" style={{ fontSize: "0.75rem", letterSpacing: "1.5px", borderColor: "rgba(255,255,255,0.1)" }}>
+                      Health Conditions
                     </div>
                     <div className="flex-grow-1 d-flex justify-content-center align-items-center flex-column text-center">
 
                       {noDisease ? (
-                        <div className="p-3 w-100 rounded" style={{ background: "rgba(0, 255, 0, 0.1)", border: "1px solid rgba(0, 255, 0, 0.3)", color: "#00ff00" }}>
-                          <div className="fs-1 mb-2">✅</div>
-                          <div className="fw-bold fs-5">Healthy</div>
-                          <small>No disease detected</small>
+                        <div className="p-3 w-100 rounded" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)" }}>
+                          <div className="fw-bold fs-5 text-white">Healthy</div>
+                          <small className="text-muted">No conditions recorded</small>
                         </div>
                       ) : (
                         <div className="d-flex flex-wrap justify-content-center gap-2">

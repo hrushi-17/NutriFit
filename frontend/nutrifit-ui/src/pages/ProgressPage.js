@@ -104,7 +104,7 @@ export default function ProgressPage() {
   return (
     <div className="container py-3">
 
-      <h4 className="fw-bold mb-3 text-primary">📈 Progress Tracker</h4>
+      <h4 className="fw-bold mb-3 text-white" style={{ textTransform: "uppercase", letterSpacing: "2px", fontSize: "1.2rem" }}>Progress Tracker</h4>
 
       {/* ===== ROW 1 ===== */}
       <div className="row g-3 align-items-stretch mb-3">
@@ -112,9 +112,9 @@ export default function ProgressPage() {
         {/* PROGRESS TRACKER – 60% */}
         {latest && (
           <div className="col-lg-7">
-            <div className="glass-panel neon-sky-blue h-100 overflow-hidden p-0" style={{ borderTop: "3px solid #06b6d4" }}>
-              <div className="fw-bold px-3 py-2 text-info border-bottom border-info" style={{ background: "rgba(0,0,0,0.5)" }}>
-                📊 Progress Tracker
+            <div className="glass-panel h-100 overflow-hidden p-0">
+              <div className="fw-bold px-3 py-2 text-white border-bottom" style={{ background: "rgba(0,0,0,0.5)", borderColor: "rgba(229,9,20,0.3)", letterSpacing: "1px", fontSize: "0.8rem", textTransform: "uppercase" }}>
+                Progress Snapshot
               </div>
 
               <div className="card-body p-3 d-flex align-items-center">
@@ -156,7 +156,7 @@ export default function ProgressPage() {
 
         {/* ADD PROGRESS – 40% */}
         <div className="col-lg-5">
-          <div className="glass-panel neon-blue h-100 overflow-hidden p-0" style={{ borderTop: "3px solid #3b82f6" }}>
+          <div className="glass-panel h-100 overflow-hidden p-0">
             <div className="fw-bold px-3 py-2 text-primary border-bottom border-primary" style={{ background: "rgba(0,0,0,0.5)" }}>
               ➕ Add Today’s Progress
             </div>
@@ -176,7 +176,7 @@ export default function ProgressPage() {
                   onChange={(e) => setWeight(e.target.value)}
                 />
                 <button
-                  className="btn btn-hero-primary shadow-lg fw-bold px-4 border"
+                  className="btn btn-netflix shadow-lg fw-bold px-4"
                   onClick={saveProgress}
                 >
                   Save
