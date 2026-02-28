@@ -110,9 +110,7 @@ export default function AdminDashboard() {
     setChart(newChart);
   };
 
-  const latest = data?.progressHistory?.length
-    ? data.progressHistory[data.progressHistory.length - 1]
-    : null;
+
 
   const noDisease = (data?.healthIssues || []).length === 0;
 
