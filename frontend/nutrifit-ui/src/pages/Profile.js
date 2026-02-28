@@ -59,7 +59,7 @@ export default function Profile() {
       <div className="d-flex justify-content-center">
         <div className="glass-panel p-4 p-md-5 w-100" style={{ maxWidth: "650px", borderTop: "3px solid #e50914" }}>
           <h3 className="text-center mb-4 fw-bold text-uppercase border-bottom pb-3" style={{ color: "#e50914", letterSpacing: "1px", borderColor: "rgba(229, 9, 20, 0.3)" }}>
-            👤 Profile Settings
+            Profile Settings
           </h3>
 
           <div className="row g-4">

@@ -54,6 +54,23 @@ export default function GoalPage() {
   // Today's date in YYYY-MM-DD format for min attribute
   const todayDate = new Date().toISOString().split("T")[0];
 
+  const getBmiStyle = (bmi) => {
+    const val = parseFloat(bmi);
+    if (!val) return { color: "#fff" };
+    if (val < 18.5) return { color: "#60a5fa" }; // Underweight - Blue
+    if (val >= 18.5 && val <= 24.9) return { color: "#22c55e" }; // Normal - Green
+    if (val >= 25 && val <= 29.9) return { color: "#f59e0b" }; // Overweight - Orange
+    return { color: "#e50914" }; // Obese - Red
+  };
+
+  const getCategoryStyle = (category) => {
+    const cat = category?.toLowerCase() || "";
+    if (cat.includes("under")) return { bg: "rgba(96,165,250,0.15)", color: "#60a5fa", border: "rgba(96,165,250,0.4)" };
+    if (cat.includes("normal") || cat.includes("healthy")) return { bg: "rgba(34,197,94,0.15)", color: "#22c55e", border: "rgba(34,197,94,0.4)" };
+    if (cat.includes("over")) return { bg: "rgba(245,158,11,0.15)", color: "#f59e0b", border: "rgba(245,158,11,0.4)" };
+    return { bg: "linear-gradient(145deg, rgba(229, 9, 20, 0.3), rgba(130, 0, 0, 0.15))", color: "#fff", border: "rgba(229,9,20,0.5)" }; // Obese default red gradient
+  };
+
   return (
     <div className="container py-3">
 
@@ -190,14 +207,25 @@ export default function GoalPage() {
                   <div className="col-md-3 col-6">
                     <div className="p-3 rounded h-100 text-center d-flex flex-column justify-content-center" style={{ background: "rgba(0,0,0,0.5)", border: "1px solid rgba(255,255,255,0.08)", boxShadow: "inset 0 0 15px rgba(0,0,0,0.8)" }}>
                       <span style={{ color: "#a3a3a3", fontSize: "0.65rem", fontWeight: "700", letterSpacing: "2px", textTransform: "uppercase", marginBottom: "8px" }}>BMI</span>
-                      <h5 style={{ color: "#e50914", fontWeight: "900", margin: 0 }}>{latest.bmi}</h5>
+                      <h5 style={{ color: getBmiStyle(latest.bmi).color, fontWeight: "900", margin: 0, textShadow: `0 0 10px ${getBmiStyle(latest.bmi).color}40` }}>{latest.bmi}</h5>
                     </div>
                   </div>
 
                   <div className="col-md-3 col-6">
                     <div className="p-3 rounded h-100 text-center d-flex flex-column justify-content-center" style={{ background: "rgba(0,0,0,0.5)", border: "1px solid rgba(255,255,255,0.08)", boxShadow: "inset 0 0 15px rgba(0,0,0,0.8)" }}>
-                      <span style={{ color: "#a3a3a3", fontSize: "0.65rem", fontWeight: "700", letterSpacing: "2px", textTransform: "uppercase", marginBottom: "8px" }}>Category</span>
-                      <h6 style={{ color: "#fff", fontWeight: "800", margin: 0 }}>{latest.weightCategory}</h6>
+                      <span style={{ color: "#a3a3a3", fontSize: "0.65rem", fontWeight: "700", letterSpacing: "2px", textTransform: "uppercase", marginBottom: "12px" }}>Category</span>
+                      <h6 className="mb-0">
+                        <span style={{
+                          background: getCategoryStyle(latest.weightCategory).bg,
+                          color: getCategoryStyle(latest.weightCategory).color,
+                          border: `1px solid ${getCategoryStyle(latest.weightCategory).border}`,
+                          letterSpacing: "1px", textTransform: "uppercase", fontSize: "0.65rem", fontWeight: "800", padding: "6px 12px", borderRadius: "6px",
+                          boxShadow: `0 4px 10px ${getCategoryStyle(latest.weightCategory).border.replace('0.4)', '0.2)')}`,
+                          display: "inline-block"
+                        }}>
+                          {latest.weightCategory}
+                        </span>
+                      </h6>
                     </div>
                   </div>
 
