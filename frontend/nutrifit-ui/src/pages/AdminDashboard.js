@@ -140,14 +140,14 @@ export default function AdminDashboard() {
                   onClick={() => loadDetails(u.userId)}
                   style={{
                     cursor: "pointer",
-                    padding: "14px 10px",
+                    padding: "14px 16px",
                     borderBottom: "1px solid rgba(255,255,255,0.06)",
                     transition: "background 0.2s",
                     background: "transparent",
                     display: "flex",
-                    flexDirection: "column",
+                    flexDirection: "row",
                     alignItems: "center",
-                    textAlign: "center",
+                    gap: "12px"
                   }}
                   onMouseEnter={e => e.currentTarget.style.background = "rgba(229,9,20,0.08)"}
                   onMouseLeave={e => e.currentTarget.style.background = "transparent"}
@@ -163,14 +163,16 @@ export default function AdminDashboard() {
                       fontWeight: 800,
                       fontSize: "1rem",
                       color: "#fff",
-                      marginBottom: "8px",
+                      marginBottom: "0",
                       flexShrink: 0,
                     }}
                   >
                     {u.name?.charAt(0).toUpperCase()}
                   </div>
-                  <div style={{ fontWeight: 700, color: "#fff", fontSize: "0.8rem", lineHeight: 1.3, wordBreak: "break-word" }}>{u.name}</div>
-                  <small style={{ color: "#606060", fontSize: "0.65rem", wordBreak: "break-all" }}>{u.email}</small>
+                  <div>
+                    <div style={{ fontWeight: 700, color: "#fff", fontSize: "0.85rem", lineHeight: 1.2 }}>{u.name}</div>
+                    <small style={{ color: "#a3a3a3", fontSize: "0.7rem" }}>{u.email}</small>
+                  </div>
                 </div>
               ))}
             </div>
@@ -185,12 +187,12 @@ export default function AdminDashboard() {
           {data && (
             <>
               {/* ================= DELETE USER BUTTON ================= */}
-              <div className="mb-2 text-end">
+              <div className="mb-3 text-end">
                 <button
-                  className="btn btn-danger"
+                  className="btn btn-netflix shadow-lg px-4 fw-bold"
                   onClick={() => deleteUser(data.user.userId)}
                 >
-                  Delete User
+                  <i className="fa-solid fa-trash me-2"></i> Delete User
                 </button>
               </div>
 
@@ -199,32 +201,35 @@ export default function AdminDashboard() {
                 {/* PROFILE */}
                 <div className="col-md-3 d-flex">
                   <div className="glass-panel w-100 p-3">
-                    <div className="d-flex align-items-center gap-3 mb-3 pb-3 border-bottom border-secondary">
-                      <div className="bg-primary text-white flex-shrink-0 d-flex justify-content-center align-items-center rounded" style={{ width: "50px", height: "50px", fontSize: "1.5rem", fontWeight: "bold" }}>
-                        {data.user?.name?.charAt(0)}
+                    <div className="fw-bold text-uppercase mb-3 pb-2 border-bottom text-white" style={{ fontSize: "0.75rem", letterSpacing: "1.5px", borderColor: "rgba(255,255,255,0.1)" }}>
+                      User Profile
+                    </div>
+                    <div className="d-flex align-items-center gap-3 mb-3 pb-3 border-bottom" style={{ borderColor: "rgba(255,255,255,0.05)" }}>
+                      <div className="text-white flex-shrink-0 d-flex justify-content-center align-items-center rounded-circle" style={{ background: "#e50914", width: "42px", height: "42px", fontSize: "1.2rem", fontWeight: "bold" }}>
+                        {data.user?.name?.charAt(0).toUpperCase()}
                       </div>
                       <div>
-                        <div className="fw-bold fs-5 text-light">{data.user?.name}</div>
-                        <small className="text-muted">{data.user?.email}</small>
+                        <div className="fw-bold fs-6 text-light lh-1 mb-1">{data.user?.name}</div>
+                        <small style={{ color: "#a3a3a3" }}>{data.user?.email}</small>
                       </div>
                     </div>
 
                     <div className="d-grid gap-2" style={{ gridTemplateColumns: "1fr 1fr" }}>
-                      <div className="bg-dark p-2 rounded text-center border border-secondary">
-                        <span className="d-block text-muted small text-uppercase">Age</span>
-                        <b className="text-light">{data.profile?.age}</b>
+                      <div className="p-2 rounded text-center" style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)" }}>
+                        <span className="d-block small text-uppercase fw-bold" style={{ color: "#a3a3a3", fontSize: "0.65rem", letterSpacing: "1px", marginBottom: "2px" }}>Age</span>
+                        <b className="text-white fs-6">{data.profile?.age}</b>
                       </div>
-                      <div className="bg-dark p-2 rounded text-center border border-secondary">
-                        <span className="d-block text-muted small text-uppercase">Height</span>
-                        <b className="text-light">{data.profile?.height} cm</b>
+                      <div className="p-2 rounded text-center" style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)" }}>
+                        <span className="d-block small text-uppercase fw-bold" style={{ color: "#a3a3a3", fontSize: "0.65rem", letterSpacing: "1px", marginBottom: "2px" }}>Height</span>
+                        <b className="text-white fs-6">{data.profile?.height} cm</b>
                       </div>
-                      <div className="bg-dark p-2 rounded text-center border border-secondary">
-                        <span className="d-block text-muted small text-uppercase">Weight</span>
-                        <b className="text-light">{data.profile?.weight} kg</b>
+                      <div className="p-2 rounded text-center" style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)" }}>
+                        <span className="d-block small text-uppercase fw-bold" style={{ color: "#a3a3a3", fontSize: "0.65rem", letterSpacing: "1px", marginBottom: "2px" }}>Weight</span>
+                        <b className="text-white fs-6">{data.profile?.weight} kg</b>
                       </div>
-                      <div className="bg-dark p-2 rounded text-center border border-secondary">
-                        <span className="d-block text-muted small text-uppercase">BMI</span>
-                        <b className="text-light">{data.profile?.bmi}</b>
+                      <div className="p-2 rounded text-center" style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)" }}>
+                        <span className="d-block small text-uppercase fw-bold" style={{ color: "#a3a3a3", fontSize: "0.65rem", letterSpacing: "1px", marginBottom: "2px" }}>BMI</span>
+                        <b className="text-white fs-6">{data.profile?.bmi}</b>
                       </div>
                     </div>
                   </div>
@@ -265,36 +270,32 @@ export default function AdminDashboard() {
                     </div>
                     <div className="small flex-grow-1 d-flex flex-column justify-content-between">
 
-                      <div className="mb-3 bg-dark p-2 rounded border border-secondary">
-                        <div className="text-muted text-uppercase fw-bold mb-2 border-bottom pb-1 border-secondary">Current Goal</div>
+                      <div className="mb-3 p-2 rounded" style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)" }}>
+                        <div className="text-uppercase fw-bold mb-2 pb-1" style={{ color: "#a3a3a3", fontSize: "0.65rem", letterSpacing: "1px", borderBottom: "1px solid rgba(255,255,255,0.05)" }}>Current Goal</div>
 
                         {data.activeGoal ? (
                           <div className="d-grid gap-2" style={{ gridTemplateColumns: "1fr 1fr" }}>
-                            <div><span className="text-muted d-block">Type</span><b className="text-light">{data.activeGoal.goalType}</b></div>
-                            <div><span className="text-muted d-block">Target</span><b className="text-light">{data.activeGoal.targetValue}</b></div>
+                            <div><span className="d-block fw-bold" style={{ color: "#888", fontSize: "0.65rem" }}>TYPE</span><b className="text-white fs-6">{data.activeGoal.goalType}</b></div>
+                            <div><span className="d-block fw-bold" style={{ color: "#888", fontSize: "0.65rem" }}>TARGET</span><b className="text-white fs-6">{data.activeGoal.targetValue}</b></div>
 
-                            <div className="col-span-2 mt-2 pt-2 border-top border-secondary text-center">
-                              <span className="text-muted me-2">Status:</span>
-                              <b className={
-                                data.activeGoal.status === "completed"
-                                  ? "text-success text-uppercase"
-                                  : "text-warning text-uppercase"
-                              }>
+                            <div className="col-span-2 mt-2 pt-2 text-center" style={{ borderTop: "1px solid rgba(255,255,255,0.05)" }}>
+                              <span style={{ color: "#a3a3a3", marginRight: "6px", fontSize: "0.8rem" }}>Status:</span>
+                              <b className="text-uppercase" style={{ color: data.activeGoal.status === "completed" ? "#22c55e" : "#f59e0b", fontSize: "0.85rem" }}>
                                 {data.activeGoal.status}
                               </b>
                             </div>
                           </div>
-                        ) : <span className="text-light d-block text-center py-2">No goal</span>}
+                        ) : <span className="text-white d-block text-center py-2" style={{ fontSize: "0.85rem" }}>No active goal</span>}
                       </div>
 
-                      <div className="bg-dark p-2 rounded border border-secondary">
-                        <div className="text-muted text-uppercase fw-bold mb-2 border-bottom pb-1 border-secondary">Body Status</div>
+                      <div className="p-2 rounded" style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)" }}>
+                        <div className="text-uppercase fw-bold mb-2 pb-1" style={{ color: "#a3a3a3", fontSize: "0.65rem", letterSpacing: "1px", borderBottom: "1px solid rgba(255,255,255,0.05)" }}>Body Status</div>
                         {latest && (
                           <div className="d-grid gap-2" style={{ gridTemplateColumns: "1fr 1fr" }}>
-                            <div><span className="text-muted d-block">Weight</span><b className="text-light">{latest.weight} kg</b></div>
-                            <div><span className="text-muted d-block">BMI</span><b className="text-light">{latest.bmi}</b></div>
-                            <div><span className="text-muted d-block">Category</span><b className="text-light">{latest.weightCategory}</b></div>
-                            <div><span className="text-muted d-block">Date</span><b className="text-light">{latest.date.split("T")[0]}</b></div>
+                            <div><span className="d-block fw-bold" style={{ color: "#888", fontSize: "0.65rem" }}>WEIGHT</span><b className="text-white">{latest.weight} kg</b></div>
+                            <div><span className="d-block fw-bold" style={{ color: "#888", fontSize: "0.65rem" }}>BMI</span><b className="text-white">{latest.bmi}</b></div>
+                            <div><span className="d-block fw-bold" style={{ color: "#888", fontSize: "0.65rem" }}>CATEGORY</span><b className="text-white">{latest.weightCategory}</b></div>
+                            <div><span className="d-block fw-bold" style={{ color: "#888", fontSize: "0.65rem" }}>DATE</span><b className="text-white">{latest.date.split("T")[0]}</b></div>
                           </div>
                         )}
                       </div>
