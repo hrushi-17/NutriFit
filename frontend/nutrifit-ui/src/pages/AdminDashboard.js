@@ -2,6 +2,7 @@ import { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../api/axios";
 import Chart from "chart.js/auto";
+import "../styles/pages/Admin.css";
 
 export default function AdminDashboard() {
   const navigate = useNavigate();
@@ -331,7 +332,7 @@ export default function AdminDashboard() {
 
               {/* WORKOUT */}
               <div className="glass-panel w-100 mb-3 overflow-hidden">
-                <div className="fw-bold text-uppercase p-3 border-bottom" style={{ background: "rgba(0,0,0,0.5)", letterSpacing: "1px" }}>Workout Plan</div>
+                <div className="fw-bold text-uppercase p-3 border-bottom text-white" style={{ background: "rgba(0,0,0,0.5)", letterSpacing: "1px", fontSize: "0.8rem" }}>Workout Plan</div>
                 <div className="table-responsive">
                   <table className="table table-dark table-hover table-sm m-0 border-0" style={{ background: "transparent" }}>
                     <thead>
