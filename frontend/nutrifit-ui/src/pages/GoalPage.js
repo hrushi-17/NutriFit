@@ -264,7 +264,7 @@ export default function GoalPage() {
           )}
 
           {/* DANGER ZONE */}
-          <div className="glass-panel mt-3 overflow-hidden p-0 animate-fade-up delay-2" style={{ background: "rgba(15,15,15,0.9)", border: "1px solid rgba(229,9,20,0.2)", borderLeft: "4px solid #e50914", boxShadow: "0 8px 32px rgba(0,0,0,0.4)" }}>
+          <div className="glass-panel mt-3 overflow-hidden p-0 animate-fade-up delay-2" style={{ background: "rgba(15,15,15,0.9)", border: "1px solid rgba(229,9,20,0.3)", boxShadow: "0 8px 32px rgba(0,0,0,0.4)" }}>
             <div className="d-flex justify-content-between align-items-center p-4">
               <div>
                 <h6 className="fw-bold text-white mb-1" style={{ letterSpacing: "1.5px", textTransform: "uppercase", fontSize: "0.85rem", display: "flex", alignItems: "center", gap: "8px" }}>
