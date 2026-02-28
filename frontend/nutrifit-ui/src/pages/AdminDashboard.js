@@ -358,7 +358,7 @@ export default function AdminDashboard() {
                                 </div>
                                 <div className="d-flex justify-content-between align-items-center">
                                   <span style={{ color: "#a3a3a3", fontSize: "0.55rem", fontWeight: "700", letterSpacing: "0.5px" }}>DATE</span>
-                                  <span style={{ color: "#fff", fontWeight: "800", fontSize: "0.65rem" }}>{latest.date.split("T")[0].substring(5)}</span>
+                                  <span style={{ color: "#fff", fontWeight: "800", fontSize: "0.55rem", letterSpacing: "0.5px" }}>{latest.date.split("T")[0]}</span>
                                 </div>
                               </div>
                             </div>
