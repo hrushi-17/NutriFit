@@ -44,12 +44,31 @@ export default function ProgressPage() {
           {
             label: "Weight (kg)",
             data: weights,
+            borderColor: "#00ffff",
+            backgroundColor: "rgba(0, 255, 255, 0.1)",
+            pointBackgroundColor: "#00ffff",
+            pointBorderColor: "#fff",
+            pointBorderWidth: 2,
+            pointHoverRadius: 6,
+            pointHoverBackgroundColor: "#fff",
+            pointHoverBorderColor: "#00ffff",
+            pointRadius: 4,
             tension: 0.4,
-            borderWidth: 3
+            borderWidth: 3,
+            fill: true
           },
           {
             label: "BMI",
             data: bmis,
+            borderColor: "#ff3366",
+            backgroundColor: "rgba(255, 51, 102, 0.1)",
+            pointBackgroundColor: "#ff3366",
+            pointBorderColor: "#fff",
+            pointBorderWidth: 2,
+            pointHoverRadius: 6,
+            pointHoverBackgroundColor: "#fff",
+            pointHoverBorderColor: "#ff3366",
+            pointRadius: 4,
             tension: 0.4,
             borderDash: [6, 6],
             borderWidth: 2

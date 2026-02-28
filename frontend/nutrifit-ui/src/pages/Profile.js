@@ -49,6 +49,12 @@ export default function Profile() {
     }
   };
 
+  const logout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("role");
+    navigate("/login");
+  };
+
   return (
     <div
       className="container-fluid py-4"
@@ -151,23 +157,22 @@ export default function Profile() {
               </select>
             </div>
 
-            {/* Save Button */}
-            <div className="col-12 d-flex justify-content-center mt-3">
+            {/* Action Buttons */}
+            <div className="col-12 d-flex flex-column flex-md-row justify-content-center mt-4 gap-3">
               <button
-                className="btn btn-netflix px-4"
-                style={{
-                  padding: "10px 30px",
-                  fontWeight: "500",
-                  fontSize: "1rem",
-                  borderRadius: "8px",
-                  background: "transparent",
-                  transition: "0.3s"
-                }}
-                onMouseEnter={e => (e.target.style.background = "linear-gradient(to right, #0a58ca, #0d6efd)")}
-                onMouseLeave={e => (e.target.style.background = "linear-gradient(to right, #0d6efd, #0a58ca)")}
+                className="btn btn-netflix px-4 py-2 fw-bold"
                 onClick={save}
               >
-                Save Profile
+                <i className="fa-solid fa-floppy-disk me-2"></i> Save Profile
+              </button>
+
+              <button
+                className="btn btn-outline-glass px-4 py-2 fw-bold text-danger border-danger"
+                onMouseEnter={(e) => { e.currentTarget.style.background = "#e50914"; e.currentTarget.style.color = "#fff"; }}
+                onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = "#dc3545"; }}
+                onClick={logout}
+              >
+                <i className="fa-solid fa-right-from-bracket me-2"></i> Logout
               </button>
             </div>
           </div>

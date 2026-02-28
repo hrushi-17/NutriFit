@@ -1,10 +1,9 @@
 /* Auth.css - Netflix Corporate Horizontal Auth Pages */
+/* Auth.css - Netflix Corporate Horizontal Auth Pages */
 
 .auth-background {
-    background: var(--bg-dark);
-    background-image:
-        linear-gradient(to right, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.4) 50%, rgba(0, 0, 0, 0.9) 100%),
-        url('https://assets.nflxext.com/ffe/siteui/vlv3/1fd8c6d0-20db-4667-860e-dd1ad7353ac0/10f8d166-7c8c-499a-b16f-57c3ce98df85/US-en-20240325-popsignuptwoweeks-perspective_alpha_website_small.jpg');
+    /* Replaced broken image link with a rich Netflix-style gradient */
+    background: radial-gradient(circle at 40% 50%, rgba(229, 9, 20, 0.18) 0%, rgba(20, 20, 20, 1) 70%), #141414;
     background-size: cover;
     background-position: center;
     position: relative;

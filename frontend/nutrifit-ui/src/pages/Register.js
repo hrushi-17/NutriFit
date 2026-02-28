@@ -1,60 +1,43 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import "../styles/pages/Auth.css";
 
 export default function Register() {
   const navigate = useNavigate();
 
   return (
-    <div
-      className="d-flex justify-content-center align-items-center vh-100"
-      style={{ background: "transparent" }}
-    >
-      <div className="card netflix-card shadow-lg p-4 p-md-5 rounded-4" style={{ minWidth: "350px", maxWidth: "400px" }}>
-        <h3 className="text-center mb-4" style={{ fontWeight: "600", color: "#fff" }}>
-          Register As
-        </h3>
+    <div className="auth-background animate-fade-down">
+      <div className="auth-overlay"></div>
 
-        <button
-          className="btn btn-netflix w-100 mb-3"
-          style={{
-            padding: "12px",
-            fontWeight: "500",
-            fontSize: "1rem",
-            borderRadius: "8px",
-            transition: "0.3s",
-            background: "transparent"
-          }}
-          onMouseEnter={e => (e.target.style.background = "linear-gradient(to right, #218838, #28a745)")}
-          onMouseLeave={e => (e.target.style.background = "linear-gradient(to right, #28a745, #218838)")}
-          onClick={() => navigate("/register-user")}
-        >
-          👤 User Registration
-        </button>
+      <div className="auth-horizontal-card shadow-lg" style={{ maxWidth: "800px" }}>
 
-        <button
-          className="btn btn-netflix w-100"
-          style={{
-            padding: "12px",
-            fontWeight: "500",
-            fontSize: "1rem",
-            borderRadius: "8px",
-            transition: "0.3s",
-            background: "transparent"
-          }}
-          onMouseEnter={e => (e.target.style.background = "linear-gradient(to right, #23272b, #343a40)")}
-          onMouseLeave={e => (e.target.style.background = "linear-gradient(to right, #343a40, #23272b)")}
-          onClick={() => navigate("/register-admin")}
-        >
-          🛡 Admin Registration
-        </button>
+        {/* Left Graphic Side */}
+        <div className="auth-graphic-side">
+          <h1 className="auth-graphic-title">NUTRI<span style={{ color: "var(--accent-red)" }}>FIT</span></h1>
+          <p className="auth-graphic-subtitle">Join us and transform your life today.</p>
+        </div>
 
-        <p className="text-center mt-4" style={{ fontSize: "0.9rem", color: "#fff" }}>
-          Already have an account? <span
-            style={{ color: "#007bff", cursor: "pointer" }}
-            onClick={() => navigate("/login")}
+        {/* Right Form Side */}
+        <div className="auth-form-side d-flex flex-column justify-content-center">
+          <h3 className="auth-title mb-4 text-center">Select Account Type</h3>
+
+          <button
+            className="btn btn-netflix w-100 mb-3 py-3 fs-5 fw-bold"
+            onClick={() => navigate("/register-user")}
           >
-            Login
-          </span>
-        </p>
+            <i className="fa-solid fa-user me-2"></i> User Registration
+          </button>
+
+          <button
+            className="btn btn-outline-glass w-100 py-3 fs-5 fw-bold"
+            onClick={() => navigate("/register-admin")}
+          >
+            <i className="fa-solid fa-user-shield me-2"></i> Admin Registration
+          </button>
+
+          <div className="auth-footer-text mt-4 text-center">
+            Already have an account? <Link to="/login" className="auth-footer-link">Sign in now.</Link>
+          </div>
+        </div>
       </div>
     </div>
   );
