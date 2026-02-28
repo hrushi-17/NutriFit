@@ -39,8 +39,8 @@ export default function Navbar() {
           <i className="fa-solid fa-bars fs-3"></i>
         </button>
 
-        {/* Offcanvas Mobile/Desktop Menu */}
-        <div className="offcanvas offcanvas-top text-bg-dark" tabIndex="-1" id="netflixOffcanvas" aria-labelledby="netflixOffcanvasLabel" style={{ height: "auto", maxHeight: "80vh", background: "var(--bg-dark) !important", borderBottom: "1px solid var(--border-light)" }}>
+        {/* Offcanvas Mobile Menu */}
+        <div className="offcanvas offcanvas-start text-bg-dark" tabIndex="-1" id="netflixOffcanvas" aria-labelledby="netflixOffcanvasLabel" style={{ width: "300px", background: "var(--bg-dark) !important", borderRight: "1px solid var(--border-light)" }}>
           <div className="offcanvas-header border-bottom border-dark d-lg-none">
             <h5 className="offcanvas-title fw-bold" id="netflixOffcanvasLabel" style={{ letterSpacing: "1px", fontFamily: "'Bebas Neue', 'Roboto', sans-serif", fontSize: "1.8rem" }}>
               <span style={{ color: "var(--accent-red)" }}>NUTRI</span>FIT
