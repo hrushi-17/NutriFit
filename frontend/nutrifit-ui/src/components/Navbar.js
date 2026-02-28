@@ -17,9 +17,19 @@ export default function Navbar() {
       <div className="container-fluid">
 
         {/* Brand Logo */}
-        <Link className="navbar-brand d-flex align-items-center" to="/" style={{ transition: "transform 0.3s" }} onMouseEnter={e => e.currentTarget.style.transform = "scale(1.05)"} onMouseLeave={e => e.currentTarget.style.transform = "none"}>
-          <i className="fa-solid fa-heart-pulse fs-3 me-2" style={{ color: "var(--accent-red)" }}></i>
-          <span className="fw-bolder fs-4 text-white" style={{ letterSpacing: "1px" }}>
+        <Link className="navbar-brand d-flex align-items-center text-decoration-none" to="/" style={{ transition: "transform 0.3s" }} onMouseEnter={e => e.currentTarget.style.transform = "scale(1.05)"} onMouseLeave={e => e.currentTarget.style.transform = "none"}>
+          <img
+            src="/images/Nutrifit-logo.png"
+            alt="NutriFit Logo"
+            style={{
+              width: "36px",
+              height: "36px",
+              objectFit: "contain",
+              filter: "brightness(0) saturate(100%) invert(18%) sepia(86%) saturate(6011%) hue-rotate(352deg) brightness(96%) contrast(106%) drop-shadow(0 0 8px rgba(229, 9, 20, 0.6))"
+            }}
+            className="me-2"
+          />
+          <span style={{ fontFamily: "'Bebas Neue', 'Roboto', sans-serif", fontSize: "2.2rem", letterSpacing: "2px", fontWeight: "900", color: "#fff", textTransform: "uppercase", textShadow: "0 2px 10px rgba(0,0,0,0.5)", lineHeight: "1" }}>
             <span style={{ color: "var(--accent-red)" }}>NUTRI</span>FIT
           </span>
         </Link>
