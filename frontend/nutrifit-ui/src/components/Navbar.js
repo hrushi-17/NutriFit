@@ -40,7 +40,7 @@ export default function Navbar() {
         </button>
 
         {/* Offcanvas Mobile Menu */}
-        <div className="offcanvas offcanvas-start text-bg-dark" tabIndex="-1" id="netflixOffcanvas" aria-labelledby="netflixOffcanvasLabel" style={{ maxWidth: "300px", height: "100vh", background: "rgba(10, 10, 10, 0.85)", backdropFilter: "blur(24px)", WebkitBackdropFilter: "blur(24px)", borderRight: "1px solid rgba(229, 9, 20, 0.25)", boxShadow: "4px 0 30px rgba(0,0,0,0.8), inset 0 0 40px rgba(229,9,20,0.04)" }}>
+        <div className="offcanvas offcanvas-start text-bg-dark" tabIndex="-1" id="netflixOffcanvas" aria-labelledby="netflixOffcanvasLabel" style={{ maxWidth: "300px", height: "100vh", background: "linear-gradient(160deg, rgba(12,12,12,0.98) 0%, rgba(20,10,10,0.99) 100%)", borderRight: "1px solid rgba(229, 9, 20, 0.25)", boxShadow: "4px 0 30px rgba(0,0,0,0.9), inset -1px 0 20px rgba(229,9,20,0.05)" }}>
           <div className="offcanvas-header border-bottom border-dark d-lg-none">
             <h5 className="offcanvas-title fw-bold" id="netflixOffcanvasLabel" style={{ letterSpacing: "1px", fontFamily: "'Bebas Neue', 'Roboto', sans-serif", fontSize: "1.8rem", margin: 0 }}>
               <span style={{ color: "var(--accent-red)" }}>NUTRI</span>FIT
