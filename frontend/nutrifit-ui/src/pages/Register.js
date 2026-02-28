@@ -1,36 +1,60 @@
-import { useNavigate, Link } from "react-router-dom";
-import "../styles/pages/Auth.css";
+import { useNavigate } from "react-router-dom";
 
 export default function Register() {
   const navigate = useNavigate();
 
   return (
-    <div className="auth-background animate-fade-up">
-      <div className="auth-overlay"></div>
-
-      <div className="auth-card">
-        <h1 className="auth-title">Join NutriFit</h1>
-        <p className="auth-label mb-4">Choose your account type to get started.</p>
+    <div
+      className="d-flex justify-content-center align-items-center vh-100"
+      style={{ background: "transparent" }}
+    >
+      <div className="card netflix-card shadow-lg p-4 p-md-5 rounded-4" style={{ minWidth: "350px", maxWidth: "400px" }}>
+        <h3 className="text-center mb-4" style={{ fontWeight: "600", color: "#fff" }}>
+          Register As
+        </h3>
 
         <button
-          className="btn-netflix w-100 mb-3 animate-fade-up delay-1"
-          style={{ padding: "16px", fontSize: "1.1rem" }}
+          className="btn btn-netflix w-100 mb-3"
+          style={{
+            padding: "12px",
+            fontWeight: "500",
+            fontSize: "1rem",
+            borderRadius: "8px",
+            transition: "0.3s",
+            background: "transparent"
+          }}
+          onMouseEnter={e => (e.target.style.background = "linear-gradient(to right, #218838, #28a745)")}
+          onMouseLeave={e => (e.target.style.background = "linear-gradient(to right, #28a745, #218838)")}
           onClick={() => navigate("/register-user")}
         >
-          USER ACCOUNT
+          👤 User Registration
         </button>
 
         <button
-          className="btn-outline-glass w-100 animate-fade-up delay-2"
-          style={{ padding: "16px", fontSize: "1.1rem" }}
+          className="btn btn-netflix w-100"
+          style={{
+            padding: "12px",
+            fontWeight: "500",
+            fontSize: "1rem",
+            borderRadius: "8px",
+            transition: "0.3s",
+            background: "transparent"
+          }}
+          onMouseEnter={e => (e.target.style.background = "linear-gradient(to right, #23272b, #343a40)")}
+          onMouseLeave={e => (e.target.style.background = "linear-gradient(to right, #343a40, #23272b)")}
           onClick={() => navigate("/register-admin")}
         >
-          ADMIN ACCOUNT
+          🛡 Admin Registration
         </button>
 
-        <div className="auth-footer-text animate-fade-up delay-3 mt-5">
-          Already have an account? <Link to="/login" className="auth-footer-link">Sign in.</Link>
-        </div>
+        <p className="text-center mt-4" style={{ fontSize: "0.9rem", color: "#fff" }}>
+          Already have an account? <span
+            style={{ color: "#007bff", cursor: "pointer" }}
+            onClick={() => navigate("/login")}
+          >
+            Login
+          </span>
+        </p>
       </div>
     </div>
   );

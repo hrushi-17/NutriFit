@@ -1,7 +1,6 @@
 import api from "../api/axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "../styles/pages/Profile.css";
 
 export default function Profile() {
   const [p, setP] = useState({
@@ -51,118 +50,126 @@ export default function Profile() {
   };
 
   return (
-    <div className="profile-container animate-fade-up">
-      <div className="profile-card">
-        <div className="profile-header">
-          <h2 className="profile-title">Update Profile</h2>
-          <p className="profile-subtitle">Customize your health tracking metrics</p>
-        </div>
+    <div
+      className="container-fluid py-4"
+      style={{ minHeight: "calc(100vh - 56px)", background: "transparent" }}
+    >
+      <div className="d-flex justify-content-center">
+        <div className="card netflix-card shadow-lg p-4 p-md-5 rounded-4" style={{ maxWidth: "600px", width: "100%" }}>
+          <h3 className="text-center mb-4" style={{ fontWeight: "600", color: "#fff" }}>
+            User Profile
+          </h3>
 
-        <div className="profile-grid">
-          {/* Age */}
-          <div className="profile-input-group animate-fade-up delay-1">
-            <label className="profile-label">Age</label>
-            <input
-              type="number"
-              className="profile-input"
-              placeholder="Enter your age"
-              value={p.age || ""}
-              onChange={e => setP({ ...p, age: e.target.value })}
-            />
-          </div>
+          <div className="row g-3">
+            {/* Age & Gender */}
+            <div className="col-12 col-md-6">
+              <label className="form-label fw-semibold">Age</label>
+              <input
+                type="number"
+                className="form-control netflix-input"
+                placeholder="Age"
+                value={p.age || ""}
+                onChange={e => setP({ ...p, age: e.target.value })}
+              />
+            </div>
+            <div className="col-12 col-md-6">
+              <label className="form-label fw-semibold">Gender</label>
+              <select
+                className="form-control netflix-input"
+                value={p.gender || ""}
+                onChange={e => setP({ ...p, gender: e.target.value })}
+              >
+                <option value="">-- Select Gender --</option>
+                <option>Male</option>
+                <option>Female</option>
+                <option>Other</option>
+              </select>
+            </div>
 
-          {/* Gender */}
-          <div className="profile-input-group animate-fade-up delay-1">
-            <label className="profile-label">Gender</label>
-            <select
-              className="profile-input"
-              value={p.gender || ""}
-              onChange={e => setP({ ...p, gender: e.target.value })}
-            >
-              <option value="">-- Select Gender --</option>
-              <option value="Male">Male</option>
-              <option value="Female">Female</option>
-              <option value="Other">Other</option>
-            </select>
-          </div>
+            {/* Height & Weight */}
+            <div className="col-12 col-md-6">
+              <label className="form-label fw-semibold">Height (cm)</label>
+              <input
+                type="number"
+                className="form-control netflix-input"
+                placeholder="Height"
+                value={p.height || ""}
+                onChange={e => setP({ ...p, height: e.target.value })}
+              />
+            </div>
+            <div className="col-12 col-md-6">
+              <label className="form-label fw-semibold">Weight (kg)</label>
+              <input
+                type="number"
+                className="form-control netflix-input"
+                placeholder="Weight"
+                value={p.weight || ""}
+                onChange={e => setP({ ...p, weight: e.target.value })}
+              />
+            </div>
 
-          {/* Height */}
-          <div className="profile-input-group animate-fade-up delay-2">
-            <label className="profile-label">Height (cm)</label>
-            <input
-              type="number"
-              className="profile-input"
-              placeholder="Height in cm"
-              value={p.height || ""}
-              onChange={e => setP({ ...p, height: e.target.value })}
-            />
-          </div>
+            {/* Activity Level & Goal */}
+            <div className="col-12 col-md-6">
+              <label className="form-label fw-semibold">Activity Level</label>
+              <select
+                className="form-control netflix-input"
+                value={p.activityLevel || ""}
+                onChange={e => setP({ ...p, activityLevel: e.target.value })}
+              >
+                <option value="">-- Select Activity Level --</option>
+                <option value="Low">Low (Sedentary)</option>
+                <option value="Medium">Medium (Active)</option>
+                <option value="High">High (Very Active)</option>
+              </select>
+            </div>
+            <div className="col-12 col-md-6">
+              <label className="form-label fw-semibold">Goal</label>
+              <select
+                className="form-control netflix-input"
+                value={p.goal || ""}
+                onChange={e => setP({ ...p, goal: e.target.value })}
+              >
+                <option value="">-- Select Goal --</option>
+                <option value="Weight Loss">Weight Loss</option>
+                <option value="Muscle Gain">Muscle Gain</option>
+                <option value="Fitness">Stay Fit</option>
+              </select>
+            </div>
 
-          {/* Weight */}
-          <div className="profile-input-group animate-fade-up delay-2">
-            <label className="profile-label">Weight (kg)</label>
-            <input
-              type="number"
-              className="profile-input"
-              placeholder="Weight in kg"
-              value={p.weight || ""}
-              onChange={e => setP({ ...p, weight: e.target.value })}
-            />
-          </div>
+            {/* Food Preference */}
+            <div className="col-12">
+              <label className="form-label fw-semibold">Food Preference</label>
+              <select
+                className="form-control netflix-input"
+                value={p.foodPreference || ""}
+                onChange={e => setP({ ...p, foodPreference: e.target.value })}
+              >
+                <option value="">-- Select Food Preference --</option>
+                <option value="Vegetarian">Vegetarian</option>
+                <option value="Non-Vegetarian">Non-Vegetarian</option>
+                <option value="Vegan">Vegan</option>
+              </select>
+            </div>
 
-          {/* Activity Level */}
-          <div className="profile-input-group animate-fade-up delay-3">
-            <label className="profile-label">Activity Level</label>
-            <select
-              className="profile-input"
-              value={p.activityLevel || ""}
-              onChange={e => setP({ ...p, activityLevel: e.target.value })}
-            >
-              <option value="">-- Select Activity --</option>
-              <option value="Low">Low (Sedentary)</option>
-              <option value="Medium">Medium (Active)</option>
-              <option value="High">High (Very Active)</option>
-            </select>
-          </div>
-
-          {/* Target Goal */}
-          <div className="profile-input-group animate-fade-up delay-3">
-            <label className="profile-label">Target Goal</label>
-            <select
-              className="profile-input"
-              value={p.goal || ""}
-              onChange={e => setP({ ...p, goal: e.target.value })}
-            >
-              <option value="">-- Select Goal --</option>
-              <option value="Weight Loss">Weight Loss</option>
-              <option value="Muscle Gain">Muscle Gain</option>
-              <option value="Fitness">Stay Fit</option>
-            </select>
-          </div>
-
-          {/* Food Preference */}
-          <div className="profile-input-group animate-fade-up delay-3" style={{ gridColumn: "1 / -1" }}>
-            <label className="profile-label">Food Preference</label>
-            <select
-              className="profile-input"
-              value={p.foodPreference || ""}
-              onChange={e => setP({ ...p, foodPreference: e.target.value })}
-            >
-              <option value="">-- Select Diet --</option>
-              <option value="Vegetarian">Vegetarian</option>
-              <option value="Non-Vegetarian">Non-Vegetarian</option>
-              <option value="Vegan">Vegan</option>
-            </select>
-          </div>
-
-          {/* Save Button */}
-          <div className="profile-submit-wrapper animate-fade-up delay-4">
-            <button
-              className="btn-netflix w-100 py-3 fs-5"
-              onClick={save}
-            >
-              Save Profile Details
-            </button>
+            {/* Save Button */}
+            <div className="col-12 d-flex justify-content-center mt-3">
+              <button
+                className="btn btn-netflix px-4"
+                style={{
+                  padding: "10px 30px",
+                  fontWeight: "500",
+                  fontSize: "1rem",
+                  borderRadius: "8px",
+                  background: "transparent",
+                  transition: "0.3s"
+                }}
+                onMouseEnter={e => (e.target.style.background = "linear-gradient(to right, #0a58ca, #0d6efd)")}
+                onMouseLeave={e => (e.target.style.background = "linear-gradient(to right, #0d6efd, #0a58ca)")}
+                onClick={save}
+              >
+                Save Profile
+              </button>
+            </div>
           </div>
         </div>
       </div>

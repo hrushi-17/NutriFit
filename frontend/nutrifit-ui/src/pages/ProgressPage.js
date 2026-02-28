@@ -2,7 +2,6 @@ import { useEffect, useState, useCallback, useRef } from "react";
 import api from "../api/axios";
 import $ from "jquery";
 import Chart from "chart.js/auto";
-import "../styles/pages/Progress.css";
 
 export default function ProgressPage() {
   const [weight, setWeight] = useState("");
@@ -37,10 +36,6 @@ export default function ProgressPage() {
 
     const ctx = document.getElementById("progressChart");
 
-    // Dark mode chart configuration
-    Chart.defaults.color = "#9ca3af";
-    Chart.defaults.borderColor = "rgba(255,255,255,0.05)";
-
     chartRef.current = new Chart(ctx, {
       type: "line",
       data: {
@@ -50,54 +45,20 @@ export default function ProgressPage() {
             label: "Weight (kg)",
             data: weights,
             tension: 0.4,
-            borderWidth: 3,
-            borderColor: "#00ffff", // Neon Sky Blue
-            backgroundColor: "rgba(0, 255, 255, 0.1)",
-            fill: true,
-            pointBackgroundColor: "#00ffff",
-            pointBorderColor: "#fff",
-            pointHoverBackgroundColor: "#fff",
-            pointHoverBorderColor: "#00ffff",
-            pointRadius: 6,
-            pointHoverRadius: 8
+            borderWidth: 3
           },
           {
             label: "BMI",
             data: bmis,
             tension: 0.4,
             borderDash: [6, 6],
-            borderWidth: 3,
-            borderColor: "#ff3366", // Reddish Pink
-            backgroundColor: "transparent",
-            pointBackgroundColor: "#ff3366",
-            pointBorderColor: "#fff",
-            pointHoverBackgroundColor: "#fff",
-            pointHoverBorderColor: "#ff3366",
-            pointRadius: 6,
-            pointHoverRadius: 8
+            borderWidth: 2
           }
         ]
       },
       options: {
         responsive: true,
-        maintainAspectRatio: false,
-        elements: {
-          line: {
-            shadowColor: 'rgba(0, 0, 0, 0.8)',
-            shadowBlur: 10,
-            shadowOffsetX: 0,
-            shadowOffsetY: 0
-          }
-        },
-        plugins: {
-          legend: {
-            labels: { color: "#f3f4f6" }
-          }
-        },
-        scales: {
-          x: { grid: { color: "rgba(255,255,255,0.05)" }, ticks: { color: "#9ca3af" } },
-          y: { grid: { color: "rgba(255,255,255,0.05)" }, ticks: { color: "#9ca3af" } }
-        }
+        maintainAspectRatio: false
       }
     });
 
@@ -117,103 +78,183 @@ export default function ProgressPage() {
     loadLatest();
     loadGraph();
 
-    $(".metric-card").css("transform", "scale(1.05)");
-    setTimeout(() => $(".metric-card").css("transform", "scale(1)"), 300);
+    $(".kpi-card").addClass("pulse");
+    setTimeout(() => $(".kpi-card").removeClass("pulse"), 600);
   };
 
   return (
-    <div className="progress-container animate-fade-up">
+    <div className="container py-3">
 
-      <h4 className="progress-header-title">PROGRESS TRACKER</h4>
+      <h4 className="fw-bold mb-3 text-primary">📈 Progress Tracker</h4>
 
       {/* ===== ROW 1 ===== */}
-      <div className="row g-4 align-items-stretch mb-4">
+      <div className="row g-3 align-items-stretch mb-3">
 
-        {/* PROGRESS TRACKER */}
+        {/* PROGRESS TRACKER – 60% */}
         {latest && (
-          <div className="col-lg-8 animate-fade-up delay-1">
-            <div className="netflix-card h-100 p-4">
-              <h6 className="progress-form-label" style={{ color: "var(--accent-blue)" }}>
-                LATEST METRICS
-              </h6>
+          <div className="col-lg-7">
+            <div className="card netflix-card corporate-card h-100 small-top-card">
+              <div className="card-header corporate-header-info py-2">
+                📊 Progress Tracker
+              </div>
 
-              <div className="metric-grid">
-                <div className="metric-card">
-                  <span className="metric-label">Weight</span>
-                  <h4 className="metric-value neon-sky-blue">{latest.weight} kg</h4>
-                </div>
+              <div className="card-body d-flex align-items-center py-3">
+                <div className="row g-2 w-100">
 
-                <div className="metric-card">
-                  <span className="metric-label">BMI</span>
-                  <h4 className="metric-value neon-pink">{latest.bmi}</h4>
-                </div>
+                  <div className="col-md-3 col-6">
+                    <div className="kpi-card">
+                      <span>Weight</span>
+                      <h5>{latest.weight} kg</h5>
+                    </div>
+                  </div>
 
-                <div className="metric-card">
-                  <span className="metric-label">Category</span>
-                  <h6 className="metric-value text-capitalize" style={{ fontSize: "1rem" }}>{latest.weightCategory}</h6>
-                </div>
+                  <div className="col-md-3 col-6">
+                    <div className="kpi-card">
+                      <span>BMI</span>
+                      <h5>{latest.bmi}</h5>
+                    </div>
+                  </div>
 
-                <div className="metric-card">
-                  <span className="metric-label">Updated</span>
-                  <h6 className="metric-value" style={{ fontSize: "1rem" }}>{latest.date.split("T")[0]}</h6>
+                  <div className="col-md-3 col-6">
+                    <div className="kpi-card">
+                      <span>Category</span>
+                      <h6>{latest.weightCategory}</h6>
+                    </div>
+                  </div>
+
+                  <div className="col-md-3 col-6">
+                    <div className="kpi-card">
+                      <span>Last Update</span>
+                      <h6>{latest.date.split("T")[0]}</h6>
+                    </div>
+                  </div>
+
                 </div>
               </div>
             </div>
           </div>
         )}
 
-        {/* ADD PROGRESS */}
-        <div className="col-lg-4 animate-fade-up delay-2">
-          <div className="netflix-card h-100 p-4 progress-form-card">
-            <h6 className="progress-form-label" style={{ color: "var(--accent-red)" }}>
-              ADD TODAY'S PROGRESS
-            </h6>
-
-            <label className="form-label text-white small mb-2">
-              Body Weight (kg)
-            </label>
-
-            <div className="input-group mb-2">
-              <input
-                type="number"
-                className="netflix-input form-control rounded-start"
-                placeholder="Enter weight"
-                value={weight}
-                onChange={(e) => setWeight(e.target.value)}
-              />
-              <button
-                className="btn-netflix fw-bold px-4 m-0 rounded-end"
-                style={{ borderTopLeftRadius: 0, borderBottomLeftRadius: 0, border: "1px solid var(--accent-red)" }}
-                onClick={saveProgress}
-              >
-                Log Info
-              </button>
+        {/* ADD PROGRESS – 40% */}
+        <div className="col-lg-5">
+          <div className="card netflix-card corporate-card h-100 small-top-card">
+            <div className="card-header corporate-header-primary py-2">
+              ➕ Add Today’s Progress
             </div>
 
-            <p className="progress-form-subtitle">
-              <span>NOTE:</span> Daily updates improve plan accuracy and predictive insights.
-            </p>
+            <div className="card-body d-flex flex-column justify-content-center py-3">
+
+              <label className="form-label fw-semibold small">
+                Today’s Weight
+              </label>
+
+              <div className="input-group mb-2">
+                <input
+                  type="number"
+                  className="form-control netflix-input"
+                  placeholder="Enter weight"
+                  value={weight}
+                  onChange={(e) => setWeight(e.target.value)}
+                />
+                <button
+                  className="btn btn-netflix fw-bold px-4"
+                  onClick={saveProgress}
+                >
+                  Save
+                </button>
+              </div>
+
+              <small className="text-light">
+                Daily updates improve plan accuracy.
+              </small>
+
+            </div>
           </div>
         </div>
 
       </div>
 
       {/* ===== ROW 2: GRAPH ===== */}
-      <div className="row animate-fade-up delay-3">
+      <div className="row">
         <div className="col-12">
-          <div className="netflix-card p-4" id="graphPanel">
-            <h6 className="progress-form-label mb-3" style={{ color: "white" }}>
-              WEIGHT & BMI PROGRESS ANALYTICS
-            </h6>
-            <div className="chart-wrapper">
-              <div className="chart-canvas-container">
-                <canvas id="progressChart"></canvas>
-              </div>
+          <div className="card netflix-card corporate-card" id="graphPanel">
+            <div className="card-header corporate-header-dark py-2">
+              📈 Weight & BMI Progress Analytics
+            </div>
+            <div className="card-body" style={{ height: 360 }}>
+              <canvas id="progressChart"></canvas>
             </div>
           </div>
         </div>
       </div>
 
+      {/* ===================== */}
+      {/* 🎨 CORPORATE PROGRESS UI */}
+      {/* ===================== */}
+      <style>{`
+        .corporate-card {
+          border:0;
+          border-radius:18px;
+          box-shadow:0 6px 22px rgba(0,0,0,.08);
+          overflow:hidden;
+        }
+
+        .small-top-card {
+          min-height:170px;
+        }
+
+        .corporate-header-primary {
+          background:linear-gradient(45deg,#2563eb,#3b82f6);
+          color:white;
+          font-weight:700;
+        }
+
+        .corporate-header-info {
+          background:linear-gradient(45deg,#0891b2,#06b6d4);
+          color:white;
+          font-weight:700;
+        }
+
+        .corporate-header-dark {
+          background:#0f172a;
+          color:white;
+          font-weight:700;
+        }
+
+        .kpi-card {
+          background:#f1f5f9;
+          border-radius:14px;
+          padding:14px 8px;
+          text-align:center;
+          height:100%;
+          display:flex;
+          flex-direction:column;
+          justify-content:center;
+          box-shadow:0 3px 10px rgba(0,0,0,.05);
+        }
+
+        .kpi-card span {
+          font-size:11px;
+          color:#6b7280;
+        }
+
+        .kpi-card h5,
+        .kpi-card h6 {
+          margin-top:4px;
+          font-weight:800;
+          color:#111827;
+        }
+
+        .pulse {
+          animation:pulseAnim .6s;
+        }
+
+        @keyframes pulseAnim {
+          0% { transform:scale(1); }
+          50% { transform:scale(1.04); }
+          100% { transform:scale(1); }
+        }
+      `}</style>
     </div>
   );
 }

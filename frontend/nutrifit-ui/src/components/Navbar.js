@@ -13,7 +13,7 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="navbar navbar-expand-lg px-4 py-3 sticky-top animate-fade-down" style={{ background: "#141414", borderBottom: "1px solid rgba(255, 255, 255, 0.1)", zIndex: 1050, transition: "0.3s" }}>
+    <nav className="navbar navbar-expand-lg px-4 py-3 sticky-top animate-fade-down" style={{ background: "rgba(10, 10, 10, 0.7)", backdropFilter: "blur(15px)", borderBottom: "1px solid rgba(255, 255, 255, 0.1)", zIndex: 1050, transition: "0.3s" }}>
       <div className="container-fluid">
 
         {/* Brand Logo */}

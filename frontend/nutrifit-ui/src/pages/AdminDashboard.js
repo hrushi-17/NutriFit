@@ -2,14 +2,12 @@ import { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../api/axios";
 import Chart from "chart.js/auto";
-import "../styles/pages/Admin.css";
 
 export default function AdminDashboard() {
   const navigate = useNavigate();
   const [users, setUsers] = useState([]);
   const [data, setData] = useState(null);
   const [chart, setChart] = useState(null);
-  const [activeTab, setActiveTab] = useState(null);
 
   const loadUsers = useCallback(async () => {
     const res = await api.get("/admin/users");
@@ -25,7 +23,6 @@ export default function AdminDashboard() {
   }, [navigate, loadUsers]);
 
   const loadDetails = async (id) => {
-    setActiveTab(id);
     const res = await api.get("/admin/users/" + id);
     setData(res.data);
 
@@ -57,67 +54,37 @@ export default function AdminDashboard() {
           {
             label: "Weight (kg)",
             data: weights,
-            borderColor: "#00ffff", // Neon Sky Blue
-            backgroundColor: "rgba(0, 255, 255, 0.1)",
             tension: 0.4,
             borderWidth: 3,
-            fill: true,
-            pointBackgroundColor: "#00ffff",
-            pointBorderColor: "#fff",
-            pointHoverBackgroundColor: "#fff",
-            pointHoverBorderColor: "#00ffff",
-            pointRadius: 6,
-            pointHoverRadius: 8
+            fill: true
           },
           {
             label: "BMI",
             data: bmis,
-            borderColor: "#ff3366", // Reddish Pink
-            backgroundColor: "transparent",
             tension: 0.4,
             borderDash: [6, 6],
-            borderWidth: 3,
-            pointBackgroundColor: "#ff3366",
-            pointBorderColor: "#fff",
-            pointHoverBackgroundColor: "#fff",
-            pointHoverBorderColor: "#ff3366",
-            pointRadius: 6,
-            pointHoverRadius: 8
+            borderWidth: 2
           }
         ]
       },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        elements: {
-          line: {
-            shadowColor: 'rgba(0, 0, 0, 0.8)',
-            shadowBlur: 10,
-            shadowOffsetX: 0,
-            shadowOffsetY: 0
-          }
-        },
-        scales: {
-          x: { grid: { color: "rgba(255,255,255,0.05)" }, ticks: { color: "#a3a3a3" } },
-          y: { grid: { color: "rgba(255,255,255,0.05)" }, ticks: { color: "#a3a3a3" } }
-        },
-        plugins: {
-          legend: { labels: { color: "#fff" } }
-        }
-      }
+      options: { responsive: true, maintainAspectRatio: false }
     });
 
     setChart(newChart);
   };
 
-
+  const latest = data?.progressHistory?.length
+    ? data.progressHistory[data.progressHistory.length - 1]
+    : null;
 
   const noDisease = (data?.healthIssues || []).length === 0;
 
+  // ✅ UPDATED: Delete User function (fixed 405 issue)
   const deleteUser = async (id) => {
     if (!window.confirm("Are you sure you want to delete this user and all related data?")) return;
 
     try {
+      // Using full Axios config ensures headers are sent correctly
       const res = await api({
         method: "delete",
         url: "/admin/users/" + id,
@@ -129,8 +96,8 @@ export default function AdminDashboard() {
 
       console.log("Delete response:", res);
       alert("User deleted successfully!");
-      setData(null);
-      loadUsers();
+      setData(null); // clear selected user
+      loadUsers();   // reload users list
     } catch (error) {
       console.error("Delete error:", error.response || error);
       alert("Failed to delete user: " + (error.response?.data?.message || error.message));
@@ -138,132 +105,139 @@ export default function AdminDashboard() {
   };
 
   return (
-    <div className="admin-container animate-fade-up">
+    <div className="container-fluid px-3 py-2 admin-bg">
 
-      <h4 className="admin-header">
-        <span>Admin</span> Dashboard
-      </h4>
+      <h4 className="fw-bold text-primary mb-3">🛡 NutriFit Admin Dashboard</h4>
 
-      <div className="admin-grid">
+      <div className="row g-2 align-items-stretch">
 
-        {/* USERS SIDEBAR */}
-        <div className="admin-card">
-          <div className="admin-card-header">Users Directory</div>
-          <div className="admin-card-body users-sidebar">
-            {users.map(u => (
-              <div
-                key={u.userId}
-                className={`user-tile ${activeTab === u.userId ? "active" : ""}`}
-                onClick={() => loadDetails(u.userId)}
-              >
-                <div className="user-tile-name">{u.name}</div>
-                <div className="user-tile-email">{u.email}</div>
-              </div>
-            ))}
+        {/* USERS */}
+        <div className="col-xl-2 col-md-3 d-flex">
+          <div className="card netflix-card admin-card w-100">
+            <div className="card-header admin-header-dark">👥 Users</div>
+            <div className="card-body p-2 user-scroll">
+              {users.map(u => (
+                <div key={u.userId} className="user-tile" onClick={() => loadDetails(u.userId)}>
+                  <div className="fw-semibold">{u.name}</div>
+                  <small className="text-light">{u.email}</small>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
 
-        {/* MAIN DASHBOARD */}
-        <div>
-          {!data && <div className="alert mt-2" style={{ background: "rgba(255,255,255,0.05)", color: "var(--text-muted)", border: "1px solid var(--border-light)" }}>Select a user to view full corporate dashboard</div>}
+        {/* MAIN */}
+        <div className="col-xl-10 col-md-9">
+
+          {!data && <div className="alert alert-info">Select a user to view full dashboard</div>}
 
           {data && (
-            <div className="animate-fade-up">
-
-              <div className="d-flex justify-content-between align-items-center mb-3">
-                <h5 style={{ fontWeight: 800, letterSpacing: "1px", margin: 0 }}>USER DATA SUMMARY</h5>
+            <>
+              {/* ================= DELETE USER BUTTON ================= */}
+              <div className="mb-2 text-end">
                 <button
-                  className="btn btn-outline-danger btn-sm"
-                  style={{ fontWeight: 700 }}
+                  className="btn btn-danger"
                   onClick={() => deleteUser(data.user.userId)}
                 >
-                  DELETE USER
+                  Delete User
                 </button>
               </div>
 
-              <div className="info-cards-grid">
+              <div className="row g-2 mb-2 align-items-stretch">
 
-                {/* PROFILE CARD */}
-                <div className="admin-card">
-                  <div className="admin-card-header">User Profile</div>
-                  <div className="admin-card-body p-2">
-                    <div className="admin-profile-top">
-                      <div className="admin-avatar">{data.user?.name?.charAt(0)}</div>
+                {/* PROFILE */}
+                <div className="col-md-3 d-flex">
+                  <div className="card netflix-card admin-card w-100 profile-card">
+                    <div className="profile-top">
+                      <div className="avatar">{data.user?.name?.charAt(0)}</div>
                       <div>
-                        <div style={{ fontWeight: 700, fontSize: "1rem" }}>{data.user?.name}</div>
-                        <div style={{ fontSize: "0.80rem", color: "var(--text-muted)" }}>{data.user?.email}</div>
+                        <div className="fw-bold">{data.user?.name}</div>
+                        <small>{data.user?.email}</small>
                       </div>
                     </div>
-                    <div className="admin-stats-grid">
-                      <div className="admin-stat-box">
-                        <div className="admin-stat-label">Age</div>
-                        <div className="admin-stat-value">{data.profile?.age || "N/A"}</div>
-                      </div>
-                      <div className="admin-stat-box">
-                        <div className="admin-stat-label">BMI</div>
-                        <div className="admin-stat-value">{data.profile?.bmi || "N/A"}</div>
-                      </div>
-                      <div className="admin-stat-box">
-                        <div className="admin-stat-label">Wt (kg)</div>
-                        <div className="admin-stat-value">{data.profile?.weight || "N/A"}</div>
-                      </div>
-                      <div className="admin-stat-box">
-                        <div className="admin-stat-label">Ht (cm)</div>
-                        <div className="admin-stat-value">{data.profile?.height || "N/A"}</div>
-                      </div>
+
+                    <div className="profile-stats">
+                      <div><span>Age</span><b>{data.profile?.age}</b></div>
+                      <div><span>Height</span><b>{data.profile?.height} cm</b></div>
+                      <div><span>Weight</span><b>{data.profile?.weight} kg</b></div>
+                      <div><span>BMI</span><b>{data.profile?.bmi}</b></div>
                     </div>
                   </div>
                 </div>
 
-                {/* HEALTH CONDITIONS CARD */}
-                <div className="admin-card">
-                  <div className="admin-card-header">Health Conditions</div>
-                  <div className="admin-card-body d-flex align-items-center justify-content-center p-2">
-                    {noDisease ? (
-                      <div className="health-badge-ok w-100">
-                        CLEAN BILL OF HEALTH<br />
-                        <span style={{ fontSize: "0.75rem", fontWeight: "normal", opacity: 0.8 }}>No disease detected</span>
-                      </div>
-                    ) : (
-                      <div className="w-100 text-center">
-                        {data.healthIssues.map((h, i) => (
-                          <span key={i} className="disease-chip">{h.name}</span>
-                        ))}
-                      </div>
-                    )}
+                {/* HEALTH */}
+                <div className="col-md-3 d-flex">
+                  <div className={`card admin-card w-100 health-card ${noDisease ? "health-ok" : "health-bad"}`}>
+                    <div className="card-header admin-header-danger">❤️ Health Conditions</div>
+                    <div className="card-body text-center">
+
+                      {noDisease ? (
+                        <div className="healthy-box-green">
+                          ✅ Healthy <br />
+                          <small>No disease detected</small>
+                        </div>
+                      ) : (
+                        <div className="disease-grid">
+                          {data.healthIssues.map((h, i) => (
+                            <div key={i} className="disease-chip-red">
+                              🩺 {h.name}
+                            </div>
+                          ))}
+                        </div>
+                      )}
+
+                    </div>
                   </div>
                 </div>
 
-                {/* ACTIVE GOAL CARD */}
-                <div className="admin-card">
-                  <div className="admin-card-header">Goal Trajectory</div>
-                  <div className="admin-card-body p-2">
-                    {data.activeGoal ? (
-                      <div className="admin-stats-grid mb-2">
-                        <div className="admin-stat-box" style={{ gridColumn: "1 / -1" }}>
-                          <div className="admin-stat-label">Objective</div>
-                          <div className="admin-stat-value" style={{ color: "var(--accent-red)" }}>{data.activeGoal.goalType}</div>
-                        </div>
-                        <div className="admin-stat-box">
-                          <div className="admin-stat-label">Target</div>
-                          <div className="admin-stat-value">{data.activeGoal.targetValue}</div>
-                        </div>
-                        <div className="admin-stat-box">
-                          <div className="admin-stat-label">Status</div>
-                          <div className="admin-stat-value" style={{ color: data.activeGoal.status === "completed" ? "#10b981" : "var(--accent-warning)" }}>
-                            {data.activeGoal.status}
+                {/* GOAL */}
+                <div className="col-md-3 d-flex">
+                  <div className="card netflix-card admin-card w-100 goal-card">
+                    <div className="card-header admin-header-success">🎯 Goal & Status</div>
+                    <div className="card-body small">
+
+                      <div className="mb-2">
+                        <div className="fw-bold mb-1">Current Goal</div>
+
+                        {data.activeGoal ? (
+                          <div className="status-grid mb-2">
+                            <div><span>Type</span><b>{data.activeGoal.goalType}</b></div>
+                            <div><span>Target</span><b>{data.activeGoal.targetValue}</b></div>
+
+                            <div className="status-center-box">
+                              <span>Status</span>
+                              <b className={
+                                data.activeGoal.status === "completed"
+                                  ? "text-success"
+                                  : "text-warning"
+                              }>
+                                {data.activeGoal.status}
+                              </b>
+                            </div>
                           </div>
-                        </div>
+                        ) : <span className="text-light">No goal</span>}
                       </div>
-                    ) : <div className="text-center text-muted mt-3">No Active Goal</div>}
+
+                      <div>
+                        <div className="fw-bold mb-1">Body Status</div>
+                        {latest && (
+                          <div className="status-grid">
+                            <div><span>Weight</span><b>{latest.weight} kg</b></div>
+                            <div><span>BMI</span><b>{latest.bmi}</b></div>
+                            <div><span>Category</span><b>{latest.weightCategory}</b></div>
+                            <div><span>Date</span><b>{latest.date.split("T")[0]}</b></div>
+                          </div>
+                        )}
+                      </div>
+                    </div>
                   </div>
                 </div>
 
-                {/* CHART MINI CARD */}
-                <div className="admin-card">
-                  <div className="admin-card-header">Progress Chart</div>
-                  <div className="admin-card-body p-2" style={{ background: "rgba(0,0,0,0.5)" }}>
-                    <div className="admin-chart-container">
+                {/* GRAPH */}
+                <div className="col-md-3 d-flex">
+                  <div className="card netflix-card admin-card w-100 progress-animate">
+                    <div className="card-header admin-header-info">📈 Progress</div>
+                    <div className="card-body" style={{ height: 200 }}>
                       <canvas id="adminProgressChart"></canvas>
                     </div>
                   </div>
@@ -271,82 +245,111 @@ export default function AdminDashboard() {
 
               </div>
 
-              <div className="row g-3">
-                {/* WORKOUT */}
-                <div className="col-12 col-md-6">
-                  <div className="admin-card flex-fill h-100">
-                    <div className="admin-card-header">Workout Directive</div>
-                    <div className="netflix-table-wrapper h-100">
-                      <table className="netflix-table">
-                        <thead>
-                          <tr>
-                            <th>Day</th>
-                            <th>Routine</th>
-                            <th>Lvl</th>
-                            <th>Min</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {(data.workoutPlan || []).map((w, i) => (
-                            <tr key={i}>
-                              <td style={{ fontWeight: "700" }}>{w.dayName}</td>
-                              <td>{w.workoutName} <span className="text-muted" style={{ fontSize: "0.75rem", display: "block" }}>{w.workoutType}</span></td>
-                              <td>
-                                <span style={{
-                                  padding: "4px 8px",
-                                  borderRadius: "4px",
-                                  background: "rgba(255,255,255,0.1)",
-                                  fontSize: "0.75rem",
-                                  fontWeight: "600"
-                                }}>{w.intensity}</span>
-                              </td>
-                              <td style={{ color: "var(--accent-blue)", fontWeight: "bold" }}>{w.durationMinutes}</td>
-                            </tr>
-                          ))}
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
+              {/* WORKOUT */}
+              <div className="card netflix-card admin-card mb-2">
+                <div className="card-header admin-header-dark">🏋️ Workout Plan</div>
+                <div className="table-responsive corporate-table">
+                  <table className="table table-hover table-bordered table-sm m-0">
+                    <thead>
+                      <tr>
+                        <th>Day</th>
+                        <th>Workout</th>
+                        <th>Type</th>
+                        <th>Intensity</th>
+                        <th>Minutes</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {(data.workoutPlan || []).map((w, i) => (
+                        <tr key={i}>
+                          <td className="fw-bold">{w.dayName}</td>
+                          <td>{w.workoutName}</td>
+                          <td>{w.workoutType}</td>
+                          <td><span className="badge bg-info">{w.intensity}</span></td>
+                          <td>{w.durationMinutes}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
                 </div>
-
-                {/* DIET */}
-                <div className="col-12 col-md-6">
-                  <div className="admin-card flex-fill h-100">
-                    <div className="admin-card-header">Diet Protocol</div>
-                    <div className="netflix-table-wrapper h-100">
-                      <table className="netflix-table">
-                        <thead>
-                          <tr>
-                            <th>Meal Segment</th>
-                            <th>Nutrition Source</th>
-                            <th>kCal</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {(data.dietPlan || []).map((d, i) => (
-                            <tr key={i}>
-                              <td style={{ fontWeight: "700", textTransform: "capitalize" }}>{d.mealType}</td>
-                              <td>
-                                {d.foodName}
-                                <div style={{ fontSize: "0.70rem", color: "var(--text-muted)", marginTop: "2px" }}>
-                                  P: {d.protein} | C: {d.carbs} | F: {d.fat}
-                                </div>
-                              </td>
-                              <td style={{ color: "#10b981", fontWeight: "bold" }}>{d.calories}</td>
-                            </tr>
-                          ))}
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                </div>
-
               </div>
 
-            </div>
+              {/* DIET */}
+              <div className="card netflix-card admin-card">
+                <div className="card-header admin-header-warning">🥗 Diet Plan</div>
+                <div className="table-responsive corporate-table">
+                  <table className="table table-hover table-bordered table-sm m-0">
+                    <thead>
+                      <tr>
+                        <th>Meal</th>
+                        <th>Food</th>
+                        <th>Calories</th>
+                        <th>Protein</th>
+                        <th>Carbs</th>
+                        <th>Fat</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {(data.dietPlan || []).map((d, i) => (
+                        <tr key={i}>
+                          <td className="fw-bold text-capitalize">{d.mealType}</td>
+                          <td>{d.foodName}</td>
+                          <td>{d.calories}</td>
+                          <td>{d.protein}</td>
+                          <td>{d.carbs}</td>
+                          <td>{d.fat}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </>
           )}
         </div>
       </div>
+
+      <style>{`
+        .admin-bg { background:#f4f7fb; min-height:100vh; }
+        .admin-card { border:0; border-radius:16px; box-shadow:0 6px 18px rgba(0,0,0,.08); overflow:hidden; }
+
+        .admin-header-dark { background:#111827; color:white; font-weight:600; }
+        .admin-header-danger { background:linear-gradient(45deg,#dc2626,#ef4444); color:white; font-weight:600; }
+        .admin-header-success { background:linear-gradient(45deg,#059669,#10b981); color:white; font-weight:600; }
+        .admin-header-info { background:linear-gradient(45deg,#0891b2,#06b6d4); color:white; font-weight:600; }
+        .admin-header-warning { background:linear-gradient(45deg,#f59e0b,#fbbf24); color:#111; font-weight:600; }
+
+        .profile-top { display:flex; gap:10px; align-items:center; background:#2563eb; color:white; padding:12px; }
+        .avatar { width:42px; height:42px; border-radius:50%; background:white; color:#2563eb; font-weight:800; display:flex; align-items:center; justify-content:center; }
+
+        .profile-stats { display:grid; grid-template-columns:1fr 1fr; gap:8px; padding:12px; }
+        .profile-stats div { background:#f1f5f9; border-radius:10px; padding:8px; text-align:center; }
+        .profile-stats span { font-size:11px; color:#6b7280; display:block; }
+
+        .healthy-box-green { background:#ecfdf5; border-radius:12px; padding:20px; color:#065f46; font-weight:700; }
+        .disease-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+        .disease-chip-red { background:#fee2e2; color:#991b1b; border-radius:12px; padding:8px; font-weight:600; text-align:center; }
+
+        .status-grid { display:grid; grid-template-columns:1fr 1fr; gap:6px; }
+        .status-grid div { background:#f1f5f9; border-radius:10px; padding:6px; text-align:center; }
+        .status-grid span { font-size:11px; color:#6b7280; display:block; }
+
+        .status-center-box { display:flex; flex-direction:column; justify-content:center; align-items:center; }
+
+        .progress-animate { animation:fadeUp .6s ease; }
+        @keyframes fadeUp {
+          from { opacity:0; transform:translateY(12px); }
+          to { opacity:1; transform:translateY(0); }
+        }
+
+        .corporate-table thead th { background:#f1f5f9; position:sticky; top:0; z-index:1; }
+        .corporate-table tbody tr:hover { background:#eef4ff; }
+
+        .user-scroll { max-height:85vh; overflow:auto; }
+        .user-tile { padding:8px; border-radius:10px; border:1px solid #e5e7eb; margin-bottom:6px; cursor:pointer; background:white; }
+        .user-tile:hover { background:#eef4ff; border-left:4px solid #2563eb; }
+      `}</style>
+
     </div>
   );
 }

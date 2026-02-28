@@ -1,116 +1,148 @@
 import api from "../api/axios";
 import { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
-import "../styles/pages/Auth.css";
+import { useNavigate } from "react-router-dom";
 
 export default function RegisterAdmin() {
   const [data, setData] = useState({ name: "", email: "", password: "", confirmPassword: "", secretKey: "" });
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirm, setShowConfirm] = useState(false);
   const navigate = useNavigate();
 
+  // Password validation regex: min 8 chars, 1 uppercase, 1 lowercase, 1 number, 1 special char
   const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
   const register = async () => {
+    // ✅ Email validation regex
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(data.email)) {
-      alert("Please enter a valid email address!");
+      alert("❌ Please enter a valid email address!");
       return;
     }
 
+    // ✅ Password strength validation
     if (!passwordRegex.test(data.password)) {
-      alert("Password does not meet the required criteria.");
+      alert("❌ Password does not meet the required criteria. Please check the requirements below the password field.");
       return;
     }
 
     if (data.password !== data.confirmPassword) {
-      alert("Passwords do not match!");
+      alert("❌ Password and Confirm Password do not match!");
       return;
     }
 
-    try {
-      await api.post("/auth/register-admin", data);
-      alert("Admin registered successfully. Please login.");
-      navigate("/login");
-    } catch (e) {
-      alert("Failed to register admin.");
-    }
+    await api.post("/auth/register-admin", data);
+    alert("Admin registered successfully. Please login.");
+    navigate("/login");
   };
 
   return (
-    <div className="auth-background animate-fade-up">
-      <div className="auth-overlay"></div>
+    <div
+      className="d-flex justify-content-center align-items-center vh-100"
+      style={{ background: "transparent" }}
+    >
+      <div className="card netflix-card shadow-lg p-4 p-md-5 rounded-4" style={{ minWidth: "350px", maxWidth: "450px" }}>
+        <h3 className="text-center mb-4" style={{ fontWeight: "600", color: "#fff" }}>
+          Admin Registration
+        </h3>
 
-      <div className="auth-card auth-card-wide">
-        <h1 className="auth-title">Create Admin Account</h1>
+        {/* Name Field */}
+        <label className="form-label" style={{ fontWeight: "500" }}>Full Name</label>
+        <input
+          className="form-control netflix-input mb-3"
+          placeholder="Enter your full name"
+          onChange={e => setData({ ...data, name: e.target.value })}
+        />
 
-        <div className="auth-grid">
-          {/* Name Field */}
-          <div className="auth-input-group animate-fade-up delay-1">
-            <label className="auth-label">Full Name</label>
-            <input
-              className="netflix-input"
-              placeholder="Name"
-              onChange={e => setData({ ...data, name: e.target.value })}
-            />
-          </div>
+        {/* Email Field */}
+        <label className="form-label" style={{ fontWeight: "500" }}>Email</label>
+        <input
+          className="form-control netflix-input mb-3"
+          placeholder="Enter your email"
+          type="email"
+          onChange={e => setData({ ...data, email: e.target.value })}
+        />
 
-          {/* Email Field */}
-          <div className="auth-input-group animate-fade-up delay-1">
-            <label className="auth-label">Email Address</label>
-            <input
-              className="netflix-input"
-              placeholder="Email"
-              type="email"
-              onChange={e => setData({ ...data, email: e.target.value })}
-            />
-          </div>
-
-          {/* Password Field */}
-          <div className="auth-input-group animate-fade-up delay-2">
-            <label className="auth-label">Password</label>
-            <input
-              type="password"
-              className="netflix-input"
-              placeholder="Password"
-              onChange={e => setData({ ...data, password: e.target.value })}
-            />
-            <small style={{ color: "#737373", fontSize: "0.75rem", display: "block", marginTop: "8px" }}>
-              Min 8 chars, 1 uppercase, 1 lowercase, 1 number, 1 special char.
-            </small>
-          </div>
-
-          {/* Confirm Password Field */}
-          <div className="auth-input-group animate-fade-up delay-2">
-            <label className="auth-label">Confirm Password</label>
-            <input
-              type="password"
-              className="netflix-input"
-              placeholder="Confirm password"
-              onChange={e => setData({ ...data, confirmPassword: e.target.value })}
-            />
-          </div>
-
-          {/* Secret Key Field - spans both columns conceptually but grid places it next */}
-          <div className="auth-input-group animate-fade-up delay-3" style={{ gridColumn: "1 / -1" }}>
-            <label className="auth-label" style={{ color: "var(--accent-red)" }}>Secret Key Required</label>
-            <input
-              type="password"
-              className="netflix-input"
-              placeholder="Enter admin verification key"
-              onChange={e => setData({ ...data, secretKey: e.target.value })}
-            />
-          </div>
+        {/* Password Field */}
+        <label className="form-label" style={{ fontWeight: "500" }}>Password</label>
+        <div className="mb-2 position-relative">
+          <input
+            type={showPassword ? "text" : "password"}
+            className="form-control netflix-input"
+            placeholder="Enter password"
+            onChange={e => setData({ ...data, password: e.target.value })}
+          />
+          <span
+            style={{
+              position: "absolute",
+              right: "10px",
+              top: "50%",
+              transform: "translateY(-50%)",
+              cursor: "pointer"
+            }}
+            onClick={() => setShowPassword(!showPassword)}
+          >
+            <i className={showPassword ? "fa fa-eye" : "fa fa-eye-slash"}></i>
+          </span>
         </div>
+
+
+
+        {/* Confirm Password Field */}
+        <label className="form-label" style={{ fontWeight: "500" }}>Confirm Password</label>
+        <div className="mb-3 position-relative">
+          <input
+            type={showConfirm ? "text" : "password"}
+            className="form-control netflix-input"
+            placeholder="Confirm password"
+            onChange={e => setData({ ...data, confirmPassword: e.target.value })}
+          />
+          <span
+            style={{
+              position: "absolute",
+              right: "10px",
+              top: "50%",
+              transform: "translateY(-50%)",
+              cursor: "pointer"
+            }}
+            onClick={() => setShowConfirm(!showConfirm)}
+          >
+            <i className={showConfirm ? "fa fa-eye" : "fa fa-eye-slash"}></i>
+          </span>
+        </div>
+
+        {/* Secret Key Field */}
+        <label className="form-label" style={{ fontWeight: "500" }}>Admin Secret Key</label>
+        <input
+          className="form-control netflix-input mb-4"
+          placeholder="Enter admin secret key"
+          onChange={e => setData({ ...data, secretKey: e.target.value })}
+        />
 
         <button
-          className="btn-netflix w-100 py-3 fs-5 mt-4 animate-fade-up delay-4"
+          className="btn btn-netflix w-100"
+          style={{
+            padding: "12px",
+            fontWeight: "500",
+            fontSize: "1rem",
+            borderRadius: "8px",
+            transition: "0.3s",
+            background: "transparent"
+          }}
+          onMouseEnter={e => (e.target.style.background = "linear-gradient(to right, #23272b, #343a40)")}
+          onMouseLeave={e => (e.target.style.background = "linear-gradient(to right, #343a40, #23272b)")}
           onClick={register}
         >
-          Verify & Complete Sign Up
+          Register Admin
         </button>
 
-        <div className="auth-footer-text text-center animate-fade-up delay-5 mt-5">
-          Already have an account? <Link to="/login" className="auth-footer-link">Sign in here.</Link>
-        </div>
+        <p className="text-center mt-3" style={{ fontSize: "0.9rem", color: "#fff" }}>
+          Already have an account? <span
+            style={{ color: "#007bff", cursor: "pointer" }}
+            onClick={() => navigate("/login")}
+          >
+            Login
+          </span>
+        </p>
       </div>
     </div>
   );

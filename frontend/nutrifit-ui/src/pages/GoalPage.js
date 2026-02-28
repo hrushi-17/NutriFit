@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import api from "../api/axios";
-import "../styles/pages/Goal.css";
 
 export default function GoalPage() {
   const [goalType, setGoalType] = useState("weight_loss");
@@ -25,9 +24,10 @@ export default function GoalPage() {
   };
 
   const setGoalHandler = async () => {
+    // Validate that selected date is today or in the future
     const today = new Date().toISOString().split("T")[0];
     if (endDate < today) {
-      alert("Please select a valid date (today or future date only).");
+      alert("⚠ Please select a valid date (today or future date only).");
       return;
     }
 
@@ -51,45 +51,42 @@ export default function GoalPage() {
     alert("All data cleared. You can start fresh.");
   };
 
+  // Today's date in YYYY-MM-DD format for min attribute
   const todayDate = new Date().toISOString().split("T")[0];
 
   return (
-    <div className="container py-3 animate-fade-up">
+    <div className="container py-3">
 
-      <h4 className="fw-bolder mb-4 text-white text-uppercase" style={{ letterSpacing: "2px" }}>GOAL CONFIGURATION</h4>
+      <h4 className="fw-bold mb-3 text-primary">🎯 My Goal</h4>
 
-      <div className="row g-4 align-items-stretch">
+      <div className="row g-3 align-items-stretch">
 
         {/* SET GOAL */}
-        <div className="col-xl-4 animate-fade-up delay-1">
-          <div className="netflix-card h-100 p-4">
-            <div className="text-center mb-4">
-              <h5 className="fw-bolder mb-0 text-uppercase" style={{ color: "var(--accent-blue)", letterSpacing: "1px" }}>
-                SET OBJECTIVE
-              </h5>
-            </div>
+        <div className="col-xl-4">
+          <div className="card netflix-card goal-form-card h-100">
+            <div className="goal-header">🎯 Set Your Goal</div>
 
-            <div className="card-body p-0 d-flex flex-column justify-content-between mt-2">
+            <div className="card-body d-flex flex-column justify-content-between">
 
               <div>
                 <div className="mb-3">
-                  <label className="form-label fw-bold text-muted small text-uppercase" style={{ letterSpacing: "1px" }}>Goal Type</label>
+                  <label className="form-label fw-semibold small">Goal Type</label>
                   <select
-                    className="netflix-input w-100"
+                    className="form-select netflix-input form-select-sm"
                     value={goalType}
                     onChange={e => setGoalType(e.target.value)}
                   >
-                    <option value="weight_loss" style={{ color: "black" }}>Weight Loss</option>
-                    <option value="muscle_gain" style={{ color: "black" }}>Muscle Gain</option>
-                    <option value="fitness" style={{ color: "black" }}>Stay Fit</option>
+                    <option value="weight_loss">Weight Loss</option>
+                    <option value="muscle_gain">Muscle Gain</option>
+                    <option value="fitness">Stay Fit</option>
                   </select>
                 </div>
 
                 <div className="mb-3">
-                  <label className="form-label fw-bold text-muted small text-uppercase" style={{ letterSpacing: "1px" }}>Target Weight (kg)</label>
+                  <label className="form-label fw-semibold small">Target Weight</label>
                   <input
                     type="number"
-                    className="netflix-input w-100"
+                    className="form-control netflix-input form-control-sm"
                     placeholder="Enter target weight"
                     value={targetValue}
                     onChange={e => setTargetValue(e.target.value)}
@@ -97,22 +94,22 @@ export default function GoalPage() {
                 </div>
 
                 <div className="mb-4">
-                  <label className="form-label fw-bold text-muted small text-uppercase" style={{ letterSpacing: "1px" }}>Target Date</label>
+                  <label className="form-label fw-semibold small">Target Date</label>
                   <input
                     type="date"
-                    className="netflix-input w-100"
+                    className="form-control netflix-input form-control-sm"
                     value={endDate}
                     onChange={e => setEndDate(e.target.value)}
-                    min={todayDate}
+                    min={todayDate} // Prevent past date selection
                   />
                 </div>
               </div>
 
               <button
-                className="btn-netflix w-100 mt-2 py-3 fw-bold"
+                className="btn btn-netflix fw-bold goal-btn mt-auto"
                 onClick={setGoalHandler}
               >
-                SAVE DIRECTIVE
+                🎯 Set / Update Goal
               </button>
             </div>
           </div>
@@ -123,41 +120,38 @@ export default function GoalPage() {
 
           {/* CURRENT GOAL */}
           {goal && (
-            <div className="netflix-card mb-4 p-4 animate-fade-up delay-2">
-              <div className="border-bottom border-secondary pb-3 mb-3">
-                <h6 className="fw-bolder mb-0 text-uppercase" style={{ color: "var(--accent-green)", letterSpacing: "1px" }}>
-                  ACTIVE GOAL STATE
-                </h6>
-              </div>
+            <div className="card netflix-card goal-corporate-card mb-3">
+              <div className="goal-header-success">📌 Current Goal</div>
 
-              <div className="card-body p-0">
+              <div className="card-body">
                 <div className="row g-3 align-items-stretch">
 
                   <div className="col-md-4">
-                    <div className="p-3 rounded text-center h-100 d-flex flex-column justify-content-center" style={{ background: "var(--bg-card-hover)", border: "1px solid var(--border-light)" }}>
-                      <span className="small text-muted mb-1 text-uppercase fw-bold" style={{ letterSpacing: "1px" }}>Type</span>
-                      <h5 className="fw-bolder text-white mb-0 text-capitalize">{goal.goalType.replace("_", " ")}</h5>
+                    <div className="goal-kpi">
+                      <span>Goal Type</span>
+                      <h5>{goal.goalType}</h5>
                     </div>
                   </div>
 
                   <div className="col-md-4">
-                    <div className="p-3 rounded text-center h-100 d-flex flex-column justify-content-center" style={{ background: "var(--bg-card-hover)", border: "1px solid var(--border-light)" }}>
-                      <span className="small text-muted mb-1 text-uppercase fw-bold" style={{ letterSpacing: "1px" }}>Target Weight</span>
-                      <h4 className="fw-bolder mb-0" style={{ color: "var(--accent-blue)", textShadow: "0 0 10px rgba(59, 130, 246, 0.4)" }}>{goal.targetValue} kg</h4>
+                    <div className="goal-kpi">
+                      <span>Target Weight</span>
+                      <h4>{goal.targetValue} kg</h4>
                     </div>
                   </div>
 
                   <div className="col-md-4">
-                    <div className="p-3 rounded text-center h-100 d-flex flex-column justify-content-center" style={{ background: "var(--bg-card-hover)", border: "1px solid var(--border-light)" }}>
-                      <span className="small text-muted mb-2 text-uppercase fw-bold" style={{ letterSpacing: "1px" }}>Status</span>
-                      <div>
-                        <span className="fw-bold fs-5 text-uppercase" style={{
-                          color: goal.status === "completed" ? "var(--accent-green)" : "var(--accent-warning)",
-                          letterSpacing: "1px"
-                        }}>
+                    <div className="goal-kpi">
+                      <span>Status</span>
+                      <h5>
+                        <span className={`badge px-3 py-2 ${
+                          goal.status === "completed"
+                            ? "bg-success"
+                            : "bg-warning text-white"
+                        }`}>
                           {goal.status}
                         </span>
-                      </div>
+                      </h5>
                     </div>
                   </div>
 
@@ -168,41 +162,37 @@ export default function GoalPage() {
 
           {/* BODY STATUS */}
           {latest && (
-            <div className="netflix-card p-4 animate-fade-up delay-3">
-              <div className="border-bottom border-secondary pb-3 mb-3">
-                <h6 className="fw-bolder mb-0 text-white text-uppercase" style={{ letterSpacing: "1px" }}>
-                  <span style={{ color: "var(--accent-warning)" }}>LATEST</span> METRICS
-                </h6>
-              </div>
+            <div className="card netflix-card goal-corporate-card">
+              <div className="goal-header-info">📊 Current Body Status</div>
 
-              <div className="card-body p-0">
+              <div className="card-body">
                 <div className="row g-3 align-items-stretch">
 
                   <div className="col-md-3 col-6">
-                    <div className="p-3 rounded text-center h-100 d-flex flex-column justify-content-center" style={{ background: "var(--bg-card-hover)", border: "1px solid var(--border-light)", transition: "transform 0.2s" }} onMouseEnter={e => e.currentTarget.style.transform = "translateY(-3px)"} onMouseLeave={e => e.currentTarget.style.transform = "none"}>
-                      <span className="small text-muted mb-1 text-uppercase fw-bold" style={{ fontSize: "0.7rem", letterSpacing: "1px" }}>Weight</span>
-                      <h5 className="fw-bold text-white mb-0">{latest.weight} kg</h5>
+                    <div className="body-kpi">
+                      <span>Weight</span>
+                      <h5>{latest.weight} kg</h5>
                     </div>
                   </div>
 
                   <div className="col-md-3 col-6">
-                    <div className="p-3 rounded text-center h-100 d-flex flex-column justify-content-center" style={{ background: "var(--bg-card-hover)", border: "1px solid var(--border-light)", transition: "transform 0.2s" }} onMouseEnter={e => e.currentTarget.style.transform = "translateY(-3px)"} onMouseLeave={e => e.currentTarget.style.transform = "none"}>
-                      <span className="small text-muted mb-1 text-uppercase fw-bold" style={{ fontSize: "0.7rem", letterSpacing: "1px" }}>BMI</span>
-                      <h5 className="fw-bold mb-0" style={{ color: "var(--accent-blue)" }}>{latest.bmi}</h5>
+                    <div className="body-kpi">
+                      <span>BMI</span>
+                      <h5>{latest.bmi}</h5>
                     </div>
                   </div>
 
                   <div className="col-md-3 col-6">
-                    <div className="p-3 rounded text-center h-100 d-flex flex-column justify-content-center" style={{ background: "var(--bg-card-hover)", border: "1px solid var(--border-light)", transition: "transform 0.2s" }} onMouseEnter={e => e.currentTarget.style.transform = "translateY(-3px)"} onMouseLeave={e => e.currentTarget.style.transform = "none"}>
-                      <span className="small text-muted mb-1 text-uppercase fw-bold" style={{ fontSize: "0.7rem", letterSpacing: "1px" }}>Category</span>
-                      <h6 className="fw-bold mb-0 text-uppercase" style={{ color: latest.weightCategory.toLowerCase() === 'normal' ? 'var(--accent-green)' : 'var(--accent-warning)', fontSize: "0.9rem" }}>{latest.weightCategory}</h6>
+                    <div className="body-kpi">
+                      <span>Category</span>
+                      <h6>{latest.weightCategory}</h6>
                     </div>
                   </div>
 
                   <div className="col-md-3 col-6">
-                    <div className="p-3 rounded text-center h-100 d-flex flex-column justify-content-center" style={{ background: "var(--bg-card-hover)", border: "1px solid var(--border-light)", transition: "transform 0.2s" }} onMouseEnter={e => e.currentTarget.style.transform = "translateY(-3px)"} onMouseLeave={e => e.currentTarget.style.transform = "none"}>
-                      <span className="small text-muted mb-1 text-uppercase fw-bold" style={{ fontSize: "0.7rem", letterSpacing: "1px" }}>Updated</span>
-                      <h6 className="fw-bold text-white mb-0 mt-1" style={{ fontSize: "0.85rem" }}>{latest.date.split("T")[0]}</h6>
+                    <div className="body-kpi">
+                      <span>Last Update</span>
+                      <h6>{latest.date.split("T")[0]}</h6>
                     </div>
                   </div>
 
@@ -215,29 +205,123 @@ export default function GoalPage() {
       </div>
 
       {/* RESET ZONE */}
-      <div className="animate-fade-up delay-4 mt-5">
-        <div className="netflix-card border-0" style={{ background: "rgba(229, 9, 20, 0.05)", border: "1px solid rgba(229, 9, 20, 0.2)" }}>
-          <div className="card-body d-flex flex-column flex-md-row justify-content-between align-items-center p-4">
-            <div className="mb-3 mb-md-0">
-              <h5 className="fw-bold mb-1 text-uppercase" style={{ color: "var(--accent-red)", letterSpacing: "1px" }}>DANGER ZONE</h5>
-              <p className="text-muted mb-0">
-                Resetting will permanently remove all your goal and progress history. This cannot be undone.
-              </p>
-            </div>
-
-            <button
-              className="btn btn-outline-glass px-5 py-3 fw-bold text-uppercase"
-              style={{ color: "var(--accent-red)", borderColor: "var(--accent-red)" }}
-              onClick={resetAllHandler}
-              onMouseEnter={(e) => { e.currentTarget.style.background = "var(--accent-red)"; e.currentTarget.style.color = "white"; }}
-              onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = "var(--accent-red)"; }}
-            >
-              RESET ALL DATA
-            </button>
+      <div className="danger-zone mt-4">
+        <div className="danger-box">
+          <div>
+            <h6 className="fw-bold mb-1 text-danger">⚠ Danger Zone</h6>
+            <small className="text-light">
+              Resetting will permanently remove all your goal and progress history.
+            </small>
           </div>
+
+          <button
+            className="btn btn-outline-danger fw-bold px-4"
+            onClick={resetAllHandler}
+          >
+            ❌ Reset All Data
+          </button>
         </div>
       </div>
 
+      {/* ===================== */}
+      {/* 🎨 ENTERPRISE GOAL UI */}
+      {/* ===================== */}
+      <style>{`
+        .goal-form-card, .goal-corporate-card {
+          border:0;
+          border-radius:18px;
+          box-shadow:0 8px 22px rgba(0,0,0,.08);
+          overflow:hidden;
+        }
+
+        .goal-header {
+          background:linear-gradient(45deg,#2563eb,#3b82f6);
+          color:white;
+          font-weight:700;
+          padding:14px;
+          text-align:center;
+        }
+
+        .goal-header-success {
+          background:linear-gradient(45deg,#059669,#10b981);
+          color:white;
+          font-weight:700;
+          padding:12px 14px;
+        }
+
+        .goal-header-info {
+          background:linear-gradient(45deg,#0891b2,#06b6d4);
+          color:white;
+          font-weight:700;
+          padding:12px 14px;
+        }
+
+        .goal-btn {
+          padding:10px;
+          border-radius:12px;
+          font-size:14px;
+        }
+
+        .goal-kpi {
+          background:#f8fafc;
+          border-radius:16px;
+          padding:22px 14px;
+          text-align:center;
+          height:100%;
+          display:flex;
+          flex-direction:column;
+          justify-content:center;
+        }
+
+        .goal-kpi span {
+          font-size:11px;
+          color:#6b7280;
+          letter-spacing:.5px;
+        }
+
+        .goal-kpi h4, .goal-kpi h5 {
+          margin:6px 0 0;
+          font-weight:700;
+          color:#111827;
+        }
+
+        .body-kpi {
+          background:#f1f5f9;
+          border-radius:16px;
+          padding:22px 10px;
+          text-align:center;
+          height:100%;
+          display:flex;
+          flex-direction:column;
+          justify-content:center;
+        }
+
+        .body-kpi span {
+          font-size:11px;
+          color:#6b7280;
+        }
+
+        .body-kpi h5, .body-kpi h6 {
+          margin:6px 0 0;
+          font-weight:700;
+          color:#111827;
+        }
+
+        .danger-zone {
+          margin-top:10px;
+        }
+
+        .danger-box {
+          background:#fef2f2;
+          border:1px solid #fecaca;
+          border-radius:16px;
+          padding:14px 16px;
+          display:flex;
+          justify-content:space-between;
+          align-items:center;
+          box-shadow:0 4px 12px rgba(0,0,0,.05);
+        }
+      `}</style>
     </div>
   );
 }

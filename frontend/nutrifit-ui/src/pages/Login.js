@@ -1,11 +1,11 @@
 import api from "../api/axios";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import "../styles/pages/Auth.css";
 
 export default function Login() {
   const [data, setData] = useState({ email: "", password: "" });
   const [msg, setMsg] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
   const login = async () => {
@@ -25,62 +25,86 @@ export default function Login() {
   };
 
   return (
-    <div className="auth-background animate-fade-up">
-      <div className="auth-overlay"></div>
-
-      <div className="auth-card">
-        <h1 className="auth-title">Sign In</h1>
+    <div
+      className="d-flex justify-content-center align-items-center vh-100"
+      style={{ background: "transparent" }}
+    >
+      <div className="card netflix-card shadow-lg p-4 p-md-5 rounded-4" style={{ minWidth: "350px", maxWidth: "450px" }}>
+        <h3 className="text-center mb-4" style={{ fontWeight: "600", color: "#fff" }}>
+          Login
+        </h3>
 
         {/* Error Message */}
         {msg && (
-          <div className="alert mb-4" style={{ background: "#e87c03", color: "white", border: "none", borderRadius: "4px", padding: "10px 20px" }}>
+          <div className="alert alert-danger py-2 px-3" style={{ fontSize: "0.9rem" }}>
             {msg}
           </div>
         )}
 
         {/* Email Field */}
-        <div className="auth-input-group animate-fade-up delay-1">
-          <input
-            type="email"
-            className="netflix-input"
-            placeholder="Email Address"
-            onChange={e => setData({ ...data, email: e.target.value })}
-          />
-        </div>
+        <label className="form-label mt-3" style={{ fontWeight: "500" }}>Email</label>
+        <input
+          type="email"
+          className="form-control netflix-input mb-3"
+          placeholder="Enter your email"
+          onChange={e => setData({ ...data, email: e.target.value })}
+        />
 
         {/* Password Field */}
-        <div className="auth-input-group animate-fade-up delay-2">
+        <label className="form-label" style={{ fontWeight: "500" }}>Password</label>
+        <div className="mb-2 position-relative">
           <input
-            type="password"
-            className="netflix-input"
-            placeholder="Password"
+            type={showPassword ? "text" : "password"}
+            className="form-control netflix-input"
+            placeholder="Enter password"
             onChange={e => setData({ ...data, password: e.target.value })}
           />
+          <span
+            style={{
+              position: "absolute",
+              right: "10px",
+              top: "50%",
+              transform: "translateY(-50%)",
+              cursor: "pointer"
+            }}
+            onClick={() => setShowPassword(!showPassword)}
+          >
+            <i className={showPassword ? "fa fa-eye" : "fa fa-eye-slash"}></i>
+          </span>
+        </div>
+
+        {/* ✅ Forgot Password Link */}
+        <div className="text-end mb-3">
+          <Link to="/forgot-password" style={{ fontSize: "0.85rem", textDecoration: "none", color: "#0d6efd" }}>
+            Forgot Password?
+          </Link>
         </div>
 
         {/* Login Button */}
         <button
-          className="btn-netflix w-100 mt-4 animate-fade-up delay-3"
-          style={{ padding: "16px", fontSize: "1.1rem" }}
+          className="btn btn-netflix w-100"
+          style={{
+            padding: "12px",
+            fontWeight: "500",
+            fontSize: "1rem",
+            borderRadius: "8px",
+            transition: "0.3s",
+            background: "transparent"
+          }}
+          onMouseEnter={e => (e.target.style.background = "linear-gradient(to right, #0a58ca, #0d6efd)")}
+          onMouseLeave={e => (e.target.style.background = "linear-gradient(to right, #0d6efd, #0a58ca)")}
           onClick={login}
         >
-          Sign In
+          Login
         </button>
 
-        {/* Footer Links */}
-        <div className="d-flex justify-content-between mt-3 animate-fade-up delay-3 text-muted" style={{ fontSize: "0.85rem" }}>
-          <div>
-            <input type="checkbox" id="rememberMe" className="me-2" />
-            <label htmlFor="rememberMe">Remember me</label>
-          </div>
-          <Link to="/forgot-password" style={{ textDecoration: "none", color: "#b3b3b3" }} onMouseEnter={e => e.currentTarget.style.textDecoration = "underline"} onMouseLeave={e => e.currentTarget.style.textDecoration = "none"}>
-            Need help?
+        {/* Register Link */}
+        <p className="text-center mt-4" style={{ fontSize: "0.9rem", color: "#fff" }}>
+          New user?{" "}
+          <Link to="/register" style={{ color: "#007bff", textDecoration: "none" }}>
+            Register
           </Link>
-        </div>
-
-        <div className="auth-footer-text animate-fade-up delay-4 mt-5">
-          New to NutriFit? <Link to="/register" className="auth-footer-link">Sign up now.</Link>
-        </div>
+        </p>
       </div>
     </div>
   );

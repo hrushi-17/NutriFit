@@ -1,81 +1,123 @@
 import { useState } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import api from "../api/axios";
-import "../styles/pages/Auth.css";
 
 export default function ResetPassword() {
   const [searchParams] = useSearchParams();
-  const token = searchParams.get("token");
+  const token = searchParams.get("token"); // token from query string
   const navigate = useNavigate();
 
   const [data, setData] = useState({ newPassword: "", confirmPassword: "" });
   const [msg, setMsg] = useState("");
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
+  // Password validation regex: min 8 chars, 1 uppercase, 1 lowercase, 1 number, 1 special char
   const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
   const handleSubmit = async () => {
+    // ✅ Password strength validation
     if (!passwordRegex.test(data.newPassword)) {
-      setMsg("Password does not meet the required criteria.");
+      setMsg("❌ Password does not meet the required criteria. Please check the requirements below.");
       return;
     }
 
     if (data.newPassword !== data.confirmPassword) {
-      setMsg("Passwords do not match!");
+      setMsg("❌ Passwords do not match!");
       return;
     }
 
     try {
+      // Call backend API to reset password
       await api.post("/auth/reset-password", {
         token,
         newPassword: data.newPassword,
         confirmPassword: data.confirmPassword
       });
 
-      setMsg("Password reset successfully!");
+      setMsg("✅ Password reset successfully!");
+
+      // Redirect to login page after 2 seconds
       setTimeout(() => navigate("/login"), 2000);
     } catch (err) {
-      setMsg(err.response?.data || "Something went wrong");
+      setMsg("❌ " + (err.response?.data || "Something went wrong"));
     }
   };
 
   return (
-    <div className="auth-background animate-fade-up">
-      <div className="auth-overlay"></div>
+    <div
+      className="d-flex justify-content-center align-items-center vh-100"
+      style={{ background: "transparent" }}
+    >
+      <div
+        className="card netflix-card shadow-lg p-4 rounded-4"
+        style={{ maxWidth: "400px", width: "100%" }}
+      >
+        <h3 className="text-center mb-4">Reset Password</h3>
 
-      <div className="auth-card">
-        <h1 className="auth-title">Reset Password</h1>
-
+        {/* Display message */}
         {msg && (
-          <div className="alert mb-4" style={{ background: "#e87c03", color: "white", border: "none", borderRadius: "4px", padding: "10px 20px" }}>
+          <div
+            className={`alert ${msg.startsWith("✅") ? "alert-success" : "alert-danger"} py-2 mb-3`}
+            style={{ fontSize: "0.9rem" }}
+          >
             {msg}
           </div>
         )}
 
-        <div className="auth-input-group animate-fade-up delay-1">
+        {/* New Password Field */}
+        <label className="form-label" style={{ fontWeight: "500" }}>New Password</label>
+        <div className="mb-2 position-relative">
           <input
-            type="password"
-            className="netflix-input"
+            type={showNewPassword ? "text" : "password"}
+            className="form-control netflix-input"
             placeholder="New Password"
             value={data.newPassword}
             onChange={e => setData({ ...data, newPassword: e.target.value })}
           />
-          <small style={{ color: "#737373", fontSize: "0.75rem", display: "block", marginTop: "8px" }}>
-            Min 8 chars, 1 uppercase, 1 lowercase, 1 number, 1 special char.
-          </small>
+          <span
+            style={{
+              position: "absolute",
+              right: "10px",
+              top: "50%",
+              transform: "translateY(-50%)",
+              cursor: "pointer"
+            }}
+            onClick={() => setShowNewPassword(!showNewPassword)}
+          >
+            <i className={showNewPassword ? "fa fa-eye" : "fa fa-eye-slash"}></i>
+          </span>
         </div>
 
-        <div className="auth-input-group animate-fade-up delay-2 mt-4">
+
+
+        {/* Confirm Password Field */}
+        <div className="mb-4 position-relative">
           <input
-            type="password"
-            className="netflix-input"
+            type={showConfirmPassword ? "text" : "password"}
+            className="form-control netflix-input"
             placeholder="Confirm New Password"
             value={data.confirmPassword}
             onChange={e => setData({ ...data, confirmPassword: e.target.value })}
           />
+          <span
+            style={{
+              position: "absolute",
+              right: "10px",
+              top: "50%",
+              transform: "translateY(-50%)",
+              cursor: "pointer"
+            }}
+            onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+          >
+            <i className={showConfirmPassword ? "fa fa-eye" : "fa fa-eye-slash"}></i>
+          </span>
         </div>
 
+        {/* Reset Button */}
         <button
-          className="btn-netflix w-100 py-3 fs-5 mt-4 animate-fade-up delay-3"
+          className="btn btn-netflix w-100"
+          style={{ fontWeight: "500", borderRadius: "6px" }}
           onClick={handleSubmit}
         >
           Reset Password
