@@ -140,32 +140,37 @@ export default function AdminDashboard() {
                   onClick={() => loadDetails(u.userId)}
                   style={{
                     cursor: "pointer",
-                    padding: "12px 14px",
+                    padding: "14px 10px",
                     borderBottom: "1px solid rgba(255,255,255,0.06)",
                     transition: "background 0.2s",
                     background: "transparent",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    textAlign: "center",
                   }}
                   onMouseEnter={e => e.currentTarget.style.background = "rgba(229,9,20,0.08)"}
                   onMouseLeave={e => e.currentTarget.style.background = "transparent"}
                 >
                   <div
                     style={{
-                      width: "32px", height: "32px",
+                      width: "38px", height: "38px",
                       background: "#e50914",
                       borderRadius: "50%",
-                      display: "inline-flex",
+                      display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
-                      fontWeight: 700,
-                      fontSize: "0.9rem",
+                      fontWeight: 800,
+                      fontSize: "1rem",
                       color: "#fff",
-                      marginBottom: "6px",
+                      marginBottom: "8px",
+                      flexShrink: 0,
                     }}
                   >
                     {u.name?.charAt(0).toUpperCase()}
                   </div>
-                  <div className="fw-semibold text-white" style={{ fontSize: "0.85rem", lineHeight: 1.2 }}>{u.name}</div>
-                  <small className="text-muted" style={{ fontSize: "0.7rem" }}>{u.email}</small>
+                  <div style={{ fontWeight: 700, color: "#fff", fontSize: "0.8rem", lineHeight: 1.3, wordBreak: "break-word" }}>{u.name}</div>
+                  <small style={{ color: "#606060", fontSize: "0.65rem", wordBreak: "break-all" }}>{u.email}</small>
                 </div>
               ))}
             </div>
@@ -254,8 +259,8 @@ export default function AdminDashboard() {
 
                 {/* GOAL */}
                 <div className="col-md-3 d-flex">
-                  <div className="glass-panel w-100 p-3 h-100 d-flex flex-column" style={{ borderTop: "3px solid #f59e0b" }}>
-                    <div className="fw-bold text-uppercase mb-3 pb-2 border-bottom border-warning text-warning">
+                  <div className="glass-panel w-100 p-3 h-100 d-flex flex-column">
+                    <div className="fw-bold text-uppercase mb-3 pb-2 border-bottom text-white" style={{ fontSize: "0.75rem", letterSpacing: "1.5px", borderColor: "rgba(255,255,255,0.1)" }}>
                       🎯 Goal & Status
                     </div>
                     <div className="small flex-grow-1 d-flex flex-column justify-content-between">
@@ -299,9 +304,9 @@ export default function AdminDashboard() {
 
                 {/* GRAPH */}
                 <div className="col-md-3 d-flex">
-                  <div className="glass-panel w-100 p-3 progress-animate" style={{ borderTop: "3px solid #00ff00" }}>
-                    <div className="fw-bold text-uppercase mb-3 pb-2 border-bottom" style={{ color: "#00ff00", borderColor: "rgba(0,255,0,0.3)" }}>
-                      📈 Progress
+                  <div className="glass-panel w-100 p-3 progress-animate">
+                    <div className="fw-bold text-uppercase mb-3 pb-2 border-bottom text-white" style={{ fontSize: "0.75rem", letterSpacing: "1.5px", borderColor: "rgba(255,255,255,0.1)" }}>
+                      Progress
                     </div>
                     <div style={{ height: 200, width: "100%" }}>
                       <canvas id="adminProgressChart"></canvas>
@@ -342,7 +347,7 @@ export default function AdminDashboard() {
 
               {/* DIET */}
               <div className="glass-panel w-100 overflow-hidden">
-                <div className="fw-bold text-uppercase p-3 border-bottom" style={{ background: "rgba(0,0,0,0.5)", color: "#f59e0b", letterSpacing: "1px" }}>🥗 Diet Plan</div>
+                <div className="fw-bold text-uppercase p-3 border-bottom text-white" style={{ background: "rgba(0,0,0,0.5)", letterSpacing: "1px", fontSize: "0.8rem" }}>Diet Plan</div>
                 <div className="table-responsive">
                   <table className="table table-dark table-hover table-sm m-0 border-0" style={{ background: "transparent" }}>
                     <thead>
@@ -412,3 +417,5 @@ export default function AdminDashboard() {
     </div>
   );
 }
+
+
