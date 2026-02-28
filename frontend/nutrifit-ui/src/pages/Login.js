@@ -1,6 +1,7 @@
 import api from "../api/axios";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import "../styles/pages/Auth.css";
 
 export default function Login() {
   const [data, setData] = useState({ email: "", password: "" });
@@ -25,86 +26,82 @@ export default function Login() {
   };
 
   return (
-    <div
-      className="d-flex justify-content-center align-items-center vh-100"
-      style={{ background: "transparent" }}
-    >
-      <div className="card netflix-card shadow-lg p-4 p-md-5 rounded-4" style={{ minWidth: "350px", maxWidth: "450px" }}>
-        <h3 className="text-center mb-4" style={{ fontWeight: "600", color: "#fff" }}>
-          Login
-        </h3>
+    <div className="auth-background animate-fade-down">
+      <div className="auth-overlay"></div>
 
-        {/* Error Message */}
-        {msg && (
-          <div className="alert alert-danger py-2 px-3" style={{ fontSize: "0.9rem" }}>
-            {msg}
+      <div className="auth-horizontal-card shadow-lg">
+        {/* Left Graphic Side */}
+        <div className="auth-graphic-side">
+          <h1 className="auth-graphic-title">NUTRI<span style={{ color: "var(--accent-red)" }}>FIT</span></h1>
+          <p className="auth-graphic-subtitle">Sign in to continue your journey.</p>
+        </div>
+
+        {/* Right Form Side */}
+        <div className="auth-form-side">
+          <h3 className="auth-title">Sign In</h3>
+
+          {/* Error Message */}
+          {msg && (
+            <div className="alert alert-danger py-2 px-3 border-0 bg-danger text-white rounded">
+              {msg}
+            </div>
+          )}
+
+          {/* Email Field */}
+          <label className="form-label text-light fw-semibold">Email</label>
+          <div className="auth-input-group animate-fade-up delay-1">
+            <input
+              type="email"
+              className="form-control netflix-input"
+              placeholder="Enter your email"
+              onChange={e => setData({ ...data, email: e.target.value })}
+            />
           </div>
-        )}
 
-        {/* Email Field */}
-        <label className="form-label mt-3" style={{ fontWeight: "500" }}>Email</label>
-        <input
-          type="email"
-          className="form-control netflix-input mb-3"
-          placeholder="Enter your email"
-          onChange={e => setData({ ...data, email: e.target.value })}
-        />
+          {/* Password Field */}
+          <div className="d-flex justify-content-between align-items-end mb-1">
+            <label className="form-label text-light fw-semibold mb-0">Password</label>
+            <Link to="/forgot-password" style={{ fontSize: "0.85rem", color: "#b3b3b3", textDecoration: "none" }} onMouseEnter={e => e.currentTarget.style.color = "white"} onMouseLeave={e => e.currentTarget.style.color = "#b3b3b3"}>
+              Forgot Password?
+            </Link>
+          </div>
+          <div className="auth-input-group animate-fade-up delay-2 position-relative">
+            <input
+              type={showPassword ? "text" : "password"}
+              className="form-control netflix-input"
+              placeholder="Enter password"
+              style={{ paddingRight: "40px" }}
+              onChange={e => setData({ ...data, password: e.target.value })}
+            />
+            <span
+              style={{
+                position: "absolute",
+                right: "15px",
+                top: "50%",
+                transform: "translateY(-50%)",
+                cursor: "pointer",
+                color: "#b3b3b3"
+              }}
+              onClick={() => setShowPassword(!showPassword)}
+            >
+              <i className={showPassword ? "fa fa-eye" : "fa fa-eye-slash"}></i>
+            </span>
+          </div>
 
-        {/* Password Field */}
-        <label className="form-label" style={{ fontWeight: "500" }}>Password</label>
-        <div className="mb-2 position-relative">
-          <input
-            type={showPassword ? "text" : "password"}
-            className="form-control netflix-input"
-            placeholder="Enter password"
-            onChange={e => setData({ ...data, password: e.target.value })}
-          />
-          <span
-            style={{
-              position: "absolute",
-              right: "10px",
-              top: "50%",
-              transform: "translateY(-50%)",
-              cursor: "pointer"
-            }}
-            onClick={() => setShowPassword(!showPassword)}
+          {/* Login Button */}
+          <button
+            className="btn btn-netflix w-100 mt-4 animate-fade-up delay-3"
+            style={{ padding: "14px", fontSize: "1.05rem" }}
+            onClick={login}
           >
-            <i className={showPassword ? "fa fa-eye" : "fa fa-eye-slash"}></i>
-          </span>
+            Sign In
+          </button>
+
+          {/* Footer */}
+          <div className="auth-footer-text animate-fade-up delay-4 mt-4 text-center">
+            New to NutriFit? <Link to="/register" className="auth-footer-link">Sign up now.</Link>
+          </div>
         </div>
-
-        {/* ✅ Forgot Password Link */}
-        <div className="text-end mb-3">
-          <Link to="/forgot-password" style={{ fontSize: "0.85rem", textDecoration: "none", color: "#0d6efd" }}>
-            Forgot Password?
-          </Link>
-        </div>
-
-        {/* Login Button */}
-        <button
-          className="btn btn-netflix w-100"
-          style={{
-            padding: "12px",
-            fontWeight: "500",
-            fontSize: "1rem",
-            borderRadius: "8px",
-            transition: "0.3s",
-            background: "transparent"
-          }}
-          onMouseEnter={e => (e.target.style.background = "linear-gradient(to right, #0a58ca, #0d6efd)")}
-          onMouseLeave={e => (e.target.style.background = "linear-gradient(to right, #0d6efd, #0a58ca)")}
-          onClick={login}
-        >
-          Login
-        </button>
-
-        {/* Register Link */}
-        <p className="text-center mt-4" style={{ fontSize: "0.9rem", color: "#fff" }}>
-          New user?{" "}
-          <Link to="/register" style={{ color: "#007bff", textDecoration: "none" }}>
-            Register
-          </Link>
-        </p>
       </div>
     </div>
   );

@@ -57,20 +57,20 @@ export default function GoalPage() {
   return (
     <div className="container py-3">
 
-      <h4 className="fw-bold mb-3 text-primary">🎯 My Goal</h4>
+      <h4 className="fw-bold mb-4 text-primary" style={{ textShadow: "0 2px 10px rgba(0,136,255,0.4)" }}>🎯 My Goal</h4>
 
       <div className="row g-3 align-items-stretch">
 
         {/* SET GOAL */}
         <div className="col-xl-4">
-          <div className="card netflix-card goal-form-card h-100">
-            <div className="goal-header">🎯 Set Your Goal</div>
+          <div className="glass-panel neon-blue h-100 p-0 overflow-hidden d-flex flex-column" style={{ borderTop: "3px solid #3b82f6" }}>
+            <div className="fw-bold text-center text-primary p-3 mb-2 border-bottom border-primary" style={{ background: "rgba(0,0,0,0.5)" }}>🎯 Set Your Goal</div>
 
-            <div className="card-body d-flex flex-column justify-content-between">
+            <div className="card-body p-3 d-flex flex-column justify-content-between h-100">
 
               <div>
                 <div className="mb-3">
-                  <label className="form-label fw-semibold small">Goal Type</label>
+                  <label className="form-label fw-semibold small text-light">Goal Type</label>
                   <select
                     className="form-select netflix-input form-select-sm"
                     value={goalType}
@@ -83,7 +83,7 @@ export default function GoalPage() {
                 </div>
 
                 <div className="mb-3">
-                  <label className="form-label fw-semibold small">Target Weight</label>
+                  <label className="form-label fw-semibold small text-light">Target Weight</label>
                   <input
                     type="number"
                     className="form-control netflix-input form-control-sm"
@@ -94,7 +94,7 @@ export default function GoalPage() {
                 </div>
 
                 <div className="mb-4">
-                  <label className="form-label fw-semibold small">Target Date</label>
+                  <label className="form-label fw-semibold small text-light">Target Date</label>
                   <input
                     type="date"
                     className="form-control netflix-input form-control-sm"
@@ -106,7 +106,7 @@ export default function GoalPage() {
               </div>
 
               <button
-                className="btn btn-netflix fw-bold goal-btn mt-auto"
+                className="btn btn-hero-primary fw-bold w-100 mt-auto shadow-lg"
                 onClick={setGoalHandler}
               >
                 🎯 Set / Update Goal
@@ -120,35 +120,34 @@ export default function GoalPage() {
 
           {/* CURRENT GOAL */}
           {goal && (
-            <div className="card netflix-card goal-corporate-card mb-3">
-              <div className="goal-header-success">📌 Current Goal</div>
+            <div className="glass-panel neon-green mb-3 overflow-hidden p-0" style={{ borderTop: "3px solid #10b981" }}>
+              <div className="fw-bold px-3 py-2 text-success border-bottom border-success" style={{ background: "rgba(0,0,0,0.5)" }}>📌 Current Goal</div>
 
-              <div className="card-body">
+              <div className="card-body p-3">
                 <div className="row g-3 align-items-stretch">
 
                   <div className="col-md-4">
-                    <div className="goal-kpi">
-                      <span>Goal Type</span>
-                      <h5>{goal.goalType}</h5>
+                    <div className="bg-dark p-3 rounded h-100 border border-secondary text-center d-flex flex-column justify-content-center">
+                      <span className="text-muted small text-uppercase mb-1">Goal Type</span>
+                      <h5 className="text-white mb-0">{goal.goalType}</h5>
                     </div>
                   </div>
 
                   <div className="col-md-4">
-                    <div className="goal-kpi">
-                      <span>Target Weight</span>
-                      <h4>{goal.targetValue} kg</h4>
+                    <div className="bg-dark p-3 rounded h-100 border border-secondary text-center d-flex flex-column justify-content-center">
+                      <span className="text-muted small text-uppercase mb-1">Target Weight</span>
+                      <h4 className="text-white mb-0">{goal.targetValue} kg</h4>
                     </div>
                   </div>
 
                   <div className="col-md-4">
-                    <div className="goal-kpi">
-                      <span>Status</span>
-                      <h5>
-                        <span className={`badge px-3 py-2 ${
-                          goal.status === "completed"
+                    <div className="bg-dark p-3 rounded h-100 border border-secondary text-center d-flex flex-column justify-content-center">
+                      <span className="text-muted small text-uppercase mb-2">Status</span>
+                      <h5 className="mb-0">
+                        <span className={`badge px-3 py-2 ${goal.status === "completed"
                             ? "bg-success"
-                            : "bg-warning text-white"
-                        }`}>
+                            : "bg-warning text-dark"
+                          }`}>
                           {goal.status}
                         </span>
                       </h5>
@@ -162,37 +161,37 @@ export default function GoalPage() {
 
           {/* BODY STATUS */}
           {latest && (
-            <div className="card netflix-card goal-corporate-card">
-              <div className="goal-header-info">📊 Current Body Status</div>
+            <div className="glass-panel neon-sky-blue overflow-hidden p-0" style={{ borderTop: "3px solid #06b6d4" }}>
+              <div className="fw-bold px-3 py-2 text-info border-bottom border-info" style={{ background: "rgba(0,0,0,0.5)" }}>📊 Current Body Status</div>
 
-              <div className="card-body">
+              <div className="card-body p-3">
                 <div className="row g-3 align-items-stretch">
 
                   <div className="col-md-3 col-6">
-                    <div className="body-kpi">
-                      <span>Weight</span>
-                      <h5>{latest.weight} kg</h5>
+                    <div className="bg-dark p-3 rounded h-100 border border-secondary text-center d-flex flex-column justify-content-center">
+                      <span className="text-muted small text-uppercase mb-1">Weight</span>
+                      <h5 className="text-white mb-0">{latest.weight} kg</h5>
                     </div>
                   </div>
 
                   <div className="col-md-3 col-6">
-                    <div className="body-kpi">
-                      <span>BMI</span>
-                      <h5>{latest.bmi}</h5>
+                    <div className="bg-dark p-3 rounded h-100 border border-secondary text-center d-flex flex-column justify-content-center">
+                      <span className="text-muted small text-uppercase mb-1">BMI</span>
+                      <h5 className="text-white mb-0">{latest.bmi}</h5>
                     </div>
                   </div>
 
                   <div className="col-md-3 col-6">
-                    <div className="body-kpi">
-                      <span>Category</span>
-                      <h6>{latest.weightCategory}</h6>
+                    <div className="bg-dark p-3 rounded h-100 border border-secondary text-center d-flex flex-column justify-content-center">
+                      <span className="text-muted small text-uppercase mb-1">Category</span>
+                      <h6 className="text-white mb-0">{latest.weightCategory}</h6>
                     </div>
                   </div>
 
                   <div className="col-md-3 col-6">
-                    <div className="body-kpi">
-                      <span>Last Update</span>
-                      <h6>{latest.date.split("T")[0]}</h6>
+                    <div className="bg-dark p-3 rounded h-100 border border-secondary text-center d-flex flex-column justify-content-center">
+                      <span className="text-muted small text-uppercase mb-1">Last Update</span>
+                      <h6 className="text-white mb-0">{latest.date.split("T")[0]}</h6>
                     </div>
                   </div>
 
@@ -205,17 +204,17 @@ export default function GoalPage() {
       </div>
 
       {/* RESET ZONE */}
-      <div className="danger-zone mt-4">
-        <div className="danger-box">
+      <div className="mt-4 animate-fade-up delay-2">
+        <div className="glass-panel neon-red d-flex justify-content-between align-items-center p-4">
           <div>
-            <h6 className="fw-bold mb-1 text-danger">⚠ Danger Zone</h6>
-            <small className="text-light">
+            <h6 className="fw-bold text-danger border-bottom border-danger pb-1 d-inline-block">⚠ Danger Zone</h6>
+            <div className="text-light small mt-2">
               Resetting will permanently remove all your goal and progress history.
-            </small>
+            </div>
           </div>
 
           <button
-            className="btn btn-outline-danger fw-bold px-4"
+            className="btn btn-outline-danger shadow-lg fw-bold px-4"
             onClick={resetAllHandler}
           >
             ❌ Reset All Data
@@ -227,100 +226,7 @@ export default function GoalPage() {
       {/* 🎨 ENTERPRISE GOAL UI */}
       {/* ===================== */}
       <style>{`
-        .goal-form-card, .goal-corporate-card {
-          border:0;
-          border-radius:18px;
-          box-shadow:0 8px 22px rgba(0,0,0,.08);
-          overflow:hidden;
-        }
-
-        .goal-header {
-          background:linear-gradient(45deg,#2563eb,#3b82f6);
-          color:white;
-          font-weight:700;
-          padding:14px;
-          text-align:center;
-        }
-
-        .goal-header-success {
-          background:linear-gradient(45deg,#059669,#10b981);
-          color:white;
-          font-weight:700;
-          padding:12px 14px;
-        }
-
-        .goal-header-info {
-          background:linear-gradient(45deg,#0891b2,#06b6d4);
-          color:white;
-          font-weight:700;
-          padding:12px 14px;
-        }
-
-        .goal-btn {
-          padding:10px;
-          border-radius:12px;
-          font-size:14px;
-        }
-
-        .goal-kpi {
-          background:#f8fafc;
-          border-radius:16px;
-          padding:22px 14px;
-          text-align:center;
-          height:100%;
-          display:flex;
-          flex-direction:column;
-          justify-content:center;
-        }
-
-        .goal-kpi span {
-          font-size:11px;
-          color:#6b7280;
-          letter-spacing:.5px;
-        }
-
-        .goal-kpi h4, .goal-kpi h5 {
-          margin:6px 0 0;
-          font-weight:700;
-          color:#111827;
-        }
-
-        .body-kpi {
-          background:#f1f5f9;
-          border-radius:16px;
-          padding:22px 10px;
-          text-align:center;
-          height:100%;
-          display:flex;
-          flex-direction:column;
-          justify-content:center;
-        }
-
-        .body-kpi span {
-          font-size:11px;
-          color:#6b7280;
-        }
-
-        .body-kpi h5, .body-kpi h6 {
-          margin:6px 0 0;
-          font-weight:700;
-          color:#111827;
-        }
-
-        .danger-zone {
-          margin-top:10px;
-        }
-
-        .danger-box {
-          background:#fef2f2;
-          border:1px solid #fecaca;
-          border-radius:16px;
-          padding:14px 16px;
-          display:flex;
-          justify-content:space-between;
-          align-items:center;
-          box-shadow:0 4px 12px rgba(0,0,0,.05);
-        }
+        /* Styles moved to global index.js / inline classes */
       `}</style>
     </div>
   );

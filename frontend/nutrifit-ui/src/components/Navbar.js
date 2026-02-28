@@ -66,23 +66,20 @@ export default function Navbar() {
               ) : (
                 <>
                   {role === "admin" && (
-                    <Link className="btn-outline-glass px-4 py-2 text-center" to="/admin" style={{ borderColor: "var(--accent-warning)", color: "var(--accent-warning)" }} onMouseEnter={e => { e.currentTarget.style.background = "var(--accent-warning)"; e.currentTarget.style.color = "#000"; }} onMouseLeave={e => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = "var(--accent-warning)"; }}>
+                    <Link className="btn-outline-glass px-4 py-2 text-center" to="/admin">
                       <i className="fa-solid fa-user-shield me-2"></i> Admin Panel
                     </Link>
                   )}
 
                   {role === "user" && (
-                    <Link className="btn-outline-glass px-4 py-2 text-center" to="/profile" style={{ borderColor: "var(--accent-blue)", color: "var(--accent-blue)" }} onMouseEnter={e => { e.currentTarget.style.background = "var(--accent-blue)"; e.currentTarget.style.color = "white"; }} onMouseLeave={e => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = "var(--accent-blue)"; }}>
+                    <Link className="btn-outline-glass px-4 py-2 text-center" to="/profile">
                       <i className="fa-solid fa-user me-2"></i> Profile
                     </Link>
                   )}
 
                   <button
-                    className="btn-netflix px-4 py-2 text-center"
+                    className="btn btn-netflix px-4 py-2 text-center"
                     onClick={logout}
-                    style={{ background: "transparent", border: "1px solid var(--accent-red)", color: "var(--accent-red)" }}
-                    onMouseEnter={e => { e.currentTarget.style.background = "var(--accent-red)"; e.currentTarget.style.color = "white"; }}
-                    onMouseLeave={e => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = "var(--accent-red)"; }}
                   >
                     <i className="fa-solid fa-right-from-bracket me-2"></i> Logout
                   </button>

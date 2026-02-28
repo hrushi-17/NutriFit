@@ -61,15 +61,15 @@ export default function BmiPage() {
   };
 
   return (
-    <div className="container py-2">
+    <div className="container py-2 animate-fade-down">
 
       <div className="row justify-content-center">
         <div className="col-lg-5 col-md-7">
 
-          <div className="card netflix-card bmi-card-sm">
+          <div className="glass-panel w-100 p-1">
 
             {/* HEADER */}
-            <div className="bmi-header-sm">
+            <div className="fw-bold text-uppercase p-2 text-center text-primary border-bottom border-primary mb-3 mx-2" style={{ letterSpacing: "1px" }}>
               📊 BMI REPORT
             </div>
 
@@ -85,10 +85,10 @@ export default function BmiPage() {
                 </div>
 
                 <span className={`badge mt-2 px-2 py-1 ${p.weightCategory?.toLowerCase() === "low"
-                    ? "bg-warning"
-                    : p.weightCategory?.toLowerCase() === "normal"
-                      ? "bg-success"
-                      : "bg-danger"
+                  ? "bg-warning"
+                  : p.weightCategory?.toLowerCase() === "normal"
+                    ? "bg-success"
+                    : "bg-danger"
                   }`}>
                   {getBadgeLabel(p.weightCategory)}
                 </span>
@@ -121,8 +121,8 @@ export default function BmiPage() {
                   <div className="bmi-stat-sm"><span>Goal</span><b>{p.goal}</b></div>
                 </div>
 
-                <div className="col-12">
-                  <div className="bmi-stat-sm"><span>Food Preference</span><b>{p.foodPreference}</b></div>
+                <div className="col-12 mt-3">
+                  <div className="bg-dark p-2 rounded text-center border border-secondary text-light"><span>Food Preference</span><b className="ms-2">{p.foodPreference}</b></div>
                 </div>
 
               </div>
@@ -135,26 +135,9 @@ export default function BmiPage() {
       {/* 🎨 SMALL + ANIMATED BMI UI */}
       {/* ===================== */}
       <style>{`
-        .bmi-card-sm {
-          border:0;
-          border-radius:14px;
-          box-shadow:0 4px 14px rgba(0,0,0,.08);
-          overflow:hidden;
-        }
-
-        .bmi-header-sm {
-          background:linear-gradient(45deg,#2563eb,#3b82f6);
-          color:white;
-          font-weight:700;
-          text-align:center;
-          padding:8px;
-          letter-spacing:1px;
-          font-size:14px;
-        }
-
         .bmi-circle-sm {
-          width:95px;
-          height:95px;
+          width:120px;
+          height:120px;
           border-radius:50%;
           display:flex;
           align-items:center;
@@ -162,46 +145,50 @@ export default function BmiPage() {
           margin:auto;
           animation:pulse 2s infinite;
           transition: all 0.3s ease;
+          background: rgba(0,0,0,0.5);
         }
 
         @keyframes pulse {
-          0% { box-shadow:0 0 0 0 rgba(0,0,0,.15); }
-          70% { box-shadow:0 0 0 10px rgba(0,0,0,0); }
+          0% { box-shadow:0 0 0 0 rgba(0,0,0,.3); }
+          70% { box-shadow:0 0 0 15px rgba(0,0,0,0); }
           100% { box-shadow:0 0 0 0 rgba(0,0,0,0); }
         }
 
-        .bmi-low { background:#fbbf24; color:#78350f; border: 3px solid #f59e0b; }
-        .bmi-normal { background:#22c55e; color:#ffffff; border: 3px solid #16a34a; }
-        .bmi-high { background:#ef4444; color:#ffffff; border: 3px solid #dc2626; }
+        .bmi-low { color:#fbbf24; border: 3px solid #f59e0b; box-shadow: 0 0 20px rgba(245, 158, 11, 0.4); }
+        .bmi-normal { color:#22c55e; border: 3px solid #16a34a; box-shadow: 0 0 20px rgba(22, 163, 74, 0.4); }
+        .bmi-high { color:#ef4444; border: 3px solid #dc2626; box-shadow: 0 0 20px rgba(220, 38, 38, 0.4); }
 
         .bmi-value-sm {
-          font-size:24px;
-          font-weight:800;
+          font-size:32px;
+          font-weight:900;
           line-height:1;
         }
 
         .bmi-label-sm {
-          font-size:10px;
+          font-size:12px;
           letter-spacing:2px;
+          color: #b3b3b3;
         }
 
         .bmi-stat-sm {
-          background:#f1f5f9;
-          border-radius:10px;
-          padding:8px;
+          background: rgba(0,0,0,0.4);
+          border: 1px solid rgba(255,255,255,0.1);
+          border-radius:8px;
+          padding:10px;
           text-align:center;
           height:100%;
         }
 
         .bmi-stat-sm span {
           display:block;
-          font-size:10px;
-          color:#6b7280;
+          font-size:11px;
+          color:#b3b3b3;
+          text-transform: uppercase;
         }
 
         .bmi-stat-sm b {
-          font-size:13px;
-          color:#111827;
+          font-size:14px;
+          color:#ffffff;
         }
       `}</style>
     </div>

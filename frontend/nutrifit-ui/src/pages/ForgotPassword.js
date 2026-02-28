@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import api from "../api/axios";
+import "../styles/pages/Auth.css";
 
 export default function ForgotPassword() {
   const [email, setEmail] = useState("");
@@ -63,108 +64,95 @@ export default function ForgotPassword() {
   };
 
   return (
-    <div
-      className="d-flex justify-content-center align-items-center vh-100"
-      style={{ background: "transparent" }}
-    >
-      <div
-        className="card netflix-card shadow-lg p-4 rounded-4"
-        style={{ maxWidth: "450px", width: "100%" }}
-      >
-        <h3 className="text-center mb-4" style={{ fontWeight: "600", color: "#fff" }}>
-          Forgot Password
-        </h3>
+    <div className="auth-background animate-fade-down">
+      <div className="auth-overlay"></div>
 
-        {/* Message Display */}
-        {msg && (
-          <div
-            className={`alert ${msg.startsWith("✅") ? "alert-success" : "alert-danger"} py-2 mb-3`}
-            style={{ fontSize: "0.9rem" }}
-          >
-            {msg}
-          </div>
-        )}
+      <div className="auth-horizontal-card shadow-lg" style={{ maxWidth: "800px" }}>
+        {/* Left Graphic Side */}
+        <div className="auth-graphic-side">
+          <h1 className="auth-graphic-title"><i className="fa-solid fa-lock me-2 text-danger"></i><br />RECOVERY</h1>
+          <p className="auth-graphic-subtitle mt-3">Reset your access token.</p>
+        </div>
 
-        {/* Email Field */}
-        <label className="form-label" style={{ fontWeight: "500" }}>Email Address</label>
-        <input
-          type="email"
-          className="form-control netflix-input mb-3"
-          placeholder="Enter your email"
-          value={email}
-          onChange={e => setEmail(e.target.value)}
-          disabled={otpSent}
-        />
+        {/* Right Form Side */}
+        <div className="auth-form-side">
+          <h3 className="auth-title">Forgot Password</h3>
 
-        {/* OTP Field (shown after OTP is sent) */}
-        {otpSent && (
-          <>
-            <label className="form-label" style={{ fontWeight: "500" }}>Enter OTP</label>
+          {/* Message Display */}
+          {msg && (
+            <div
+              className={`alert ${msg.startsWith("✅") ? "alert-success border-0 bg-success text-white" : "alert-danger border-0 bg-danger text-white"} py-2 mb-3 rounded`}
+              style={{ fontSize: "0.9rem" }}
+            >
+              {msg}
+            </div>
+          )}
+
+          {/* Email Field */}
+          <div className="auth-input-group animate-fade-up delay-1">
+            <label className="auth-label text-light fw-semibold">Email Address</label>
             <input
-              type="text"
-              className="form-control netflix-input mb-3"
-              placeholder="Enter 6-digit OTP"
-              value={otp}
-              onChange={e => setOtp(e.target.value.replace(/\D/g, "").slice(0, 6))}
-              maxLength={6}
+              type="email"
+              className="form-control netflix-input"
+              placeholder="Enter your email"
+              value={email}
+              onChange={e => setEmail(e.target.value)}
+              disabled={otpSent}
             />
-          </>
-        )}
+          </div>
 
-        {/* Send OTP / Verify OTP Button */}
-        {!otpSent ? (
-          <button
-            className="btn btn-netflix w-100 mb-3"
-            style={{
-              padding: "12px",
-              fontWeight: "500",
-              borderRadius: "8px",
-              background: "transparent"
-            }}
-            onClick={handleSendOtp}
-          >
-            Send OTP
-          </button>
-        ) : (
-          <>
-            <button
-              className="btn btn-netflix w-100 mb-2"
-              style={{
-                padding: "12px",
-                fontWeight: "500",
-                borderRadius: "8px",
-                background: "transparent"
-              }}
-              onClick={handleVerifyOtp}
-            >
-              Verify OTP
-            </button>
+          {/* OTP Field (shown after OTP is sent) */}
+          {otpSent && (
+            <div className="auth-input-group animate-fade-up delay-2 mt-3">
+              <label className="auth-label text-light fw-semibold">Enter OTP</label>
+              <input
+                type="text"
+                className="form-control netflix-input text-center fw-bold text-white letter-spacing-2"
+                placeholder="000000"
+                value={otp}
+                onChange={e => setOtp(e.target.value.replace(/\D/g, "").slice(0, 6))}
+                maxLength={6}
+                style={{ fontSize: "1.5rem", letterSpacing: "8px" }}
+              />
+            </div>
+          )}
 
-            {/* Resend OTP Button */}
+          {/* Send OTP / Verify OTP Button */}
+          {!otpSent ? (
             <button
-              className="btn btn-outline-secondary w-100"
-              style={{
-                padding: "10px",
-                fontWeight: "500",
-                borderRadius: "8px"
-              }}
+              className="btn btn-netflix w-100 mt-4 animate-fade-up delay-3"
+              style={{ padding: "14px", fontSize: "1.05rem" }}
               onClick={handleSendOtp}
-              disabled={resendTimer > 0}
             >
-              {resendTimer > 0 ? `Resend OTP (${resendTimer}s)` : "Resend OTP"}
+              Send OTP
             </button>
-          </>
-        )}
+          ) : (
+            <>
+              <button
+                className="btn btn-netflix w-100 mt-4 mb-2 animate-fade-up delay-3"
+                style={{ padding: "14px", fontSize: "1.05rem" }}
+                onClick={handleVerifyOtp}
+              >
+                Verify OTP
+              </button>
 
-        {/* Back to Login */}
-        <p className="text-center mt-3" style={{ fontSize: "0.9rem", color: "#fff" }}>
-          Remember your password? <span
-            style={{ color: "#007bff", cursor: "pointer", fontWeight: "500" }}
-            onClick={() => navigate("/login")}
-          >
-            Login
-          </span>
-        </p>
+              {/* Resend OTP Button */}
+              <button
+                className="btn btn-outline-glass w-100 animate-fade-up delay-4"
+                style={{ padding: "12px" }}
+                onClick={handleSendOtp}
+                disabled={resendTimer > 0}
+              >
+                {resendTimer > 0 ? `Resend OTP (${resendTimer}s)` : "Resend OTP"}
+              </button>
+            </>
+          )}
+
+          {/* Back to Login */}
+          <div className="auth-footer-text animate-fade-up delay-5 text-center mt-4">
+            Remember your password? <Link to="/login" className="auth-footer-link">Sign In.</Link>
+          </div>
+        </div>
       </div>
     </div>
   );

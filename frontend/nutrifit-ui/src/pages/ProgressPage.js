@@ -93,39 +93,39 @@ export default function ProgressPage() {
         {/* PROGRESS TRACKER – 60% */}
         {latest && (
           <div className="col-lg-7">
-            <div className="card netflix-card corporate-card h-100 small-top-card">
-              <div className="card-header corporate-header-info py-2">
+            <div className="glass-panel neon-sky-blue h-100 overflow-hidden p-0" style={{ borderTop: "3px solid #06b6d4" }}>
+              <div className="fw-bold px-3 py-2 text-info border-bottom border-info" style={{ background: "rgba(0,0,0,0.5)" }}>
                 📊 Progress Tracker
               </div>
 
-              <div className="card-body d-flex align-items-center py-3">
+              <div className="card-body p-3 d-flex align-items-center">
                 <div className="row g-2 w-100">
 
                   <div className="col-md-3 col-6">
-                    <div className="kpi-card">
-                      <span>Weight</span>
-                      <h5>{latest.weight} kg</h5>
+                    <div className="bg-dark p-3 rounded h-100 text-center border border-secondary kpi-card">
+                      <span className="small text-muted text-uppercase mb-1 d-block">Weight</span>
+                      <h5 className="text-white mb-0">{latest.weight} kg</h5>
                     </div>
                   </div>
 
                   <div className="col-md-3 col-6">
-                    <div className="kpi-card">
-                      <span>BMI</span>
-                      <h5>{latest.bmi}</h5>
+                    <div className="bg-dark p-3 rounded h-100 text-center border border-secondary kpi-card">
+                      <span className="small text-muted text-uppercase mb-1 d-block">BMI</span>
+                      <h5 className="text-white mb-0">{latest.bmi}</h5>
                     </div>
                   </div>
 
                   <div className="col-md-3 col-6">
-                    <div className="kpi-card">
-                      <span>Category</span>
-                      <h6>{latest.weightCategory}</h6>
+                    <div className="bg-dark p-3 rounded h-100 text-center border border-secondary kpi-card">
+                      <span className="small text-muted text-uppercase mb-1 d-block">Category</span>
+                      <h6 className="text-white mb-0">{latest.weightCategory}</h6>
                     </div>
                   </div>
 
                   <div className="col-md-3 col-6">
-                    <div className="kpi-card">
-                      <span>Last Update</span>
-                      <h6>{latest.date.split("T")[0]}</h6>
+                    <div className="bg-dark p-3 rounded h-100 text-center border border-secondary kpi-card">
+                      <span className="small text-muted text-uppercase mb-1 d-block">Last Update</span>
+                      <h6 className="text-white mb-0">{latest.date.split("T")[0]}</h6>
                     </div>
                   </div>
 
@@ -137,18 +137,18 @@ export default function ProgressPage() {
 
         {/* ADD PROGRESS – 40% */}
         <div className="col-lg-5">
-          <div className="card netflix-card corporate-card h-100 small-top-card">
-            <div className="card-header corporate-header-primary py-2">
+          <div className="glass-panel neon-blue h-100 overflow-hidden p-0" style={{ borderTop: "3px solid #3b82f6" }}>
+            <div className="fw-bold px-3 py-2 text-primary border-bottom border-primary" style={{ background: "rgba(0,0,0,0.5)" }}>
               ➕ Add Today’s Progress
             </div>
 
-            <div className="card-body d-flex flex-column justify-content-center py-3">
+            <div className="card-body p-3 d-flex flex-column justify-content-center h-100">
 
-              <label className="form-label fw-semibold small">
+              <label className="form-label fw-semibold small text-light">
                 Today’s Weight
               </label>
 
-              <div className="input-group mb-2">
+              <div className="input-group mb-3">
                 <input
                   type="number"
                   className="form-control netflix-input"
@@ -157,7 +157,7 @@ export default function ProgressPage() {
                   onChange={(e) => setWeight(e.target.value)}
                 />
                 <button
-                  className="btn btn-netflix fw-bold px-4"
+                  className="btn btn-hero-primary shadow-lg fw-bold px-4 border"
                   onClick={saveProgress}
                 >
                   Save
@@ -177,11 +177,11 @@ export default function ProgressPage() {
       {/* ===== ROW 2: GRAPH ===== */}
       <div className="row">
         <div className="col-12">
-          <div className="card netflix-card corporate-card" id="graphPanel">
-            <div className="card-header corporate-header-dark py-2">
+          <div className="glass-panel text-white overflow-hidden p-0" id="graphPanel" style={{ background: "rgba(10, 10, 10, 0.8)", borderTop: "3px solid #ff0a16" }}>
+            <div className="fw-bold px-3 py-2 border-bottom text-uppercase" style={{ background: "rgba(0,0,0,0.5)", color: "#ff0a16", letterSpacing: "1px", borderColor: "rgba(255, 10, 22, 0.3)" }}>
               📈 Weight & BMI Progress Analytics
             </div>
-            <div className="card-body" style={{ height: 360 }}>
+            <div className="card-body p-3" style={{ height: 360 }}>
               <canvas id="progressChart"></canvas>
             </div>
           </div>
@@ -192,67 +192,14 @@ export default function ProgressPage() {
       {/* 🎨 CORPORATE PROGRESS UI */}
       {/* ===================== */}
       <style>{`
-        .corporate-card {
-          border:0;
-          border-radius:18px;
-          box-shadow:0 6px 22px rgba(0,0,0,.08);
-          overflow:hidden;
-        }
-
-        .small-top-card {
-          min-height:170px;
-        }
-
-        .corporate-header-primary {
-          background:linear-gradient(45deg,#2563eb,#3b82f6);
-          color:white;
-          font-weight:700;
-        }
-
-        .corporate-header-info {
-          background:linear-gradient(45deg,#0891b2,#06b6d4);
-          color:white;
-          font-weight:700;
-        }
-
-        .corporate-header-dark {
-          background:#0f172a;
-          color:white;
-          font-weight:700;
-        }
-
-        .kpi-card {
-          background:#f1f5f9;
-          border-radius:14px;
-          padding:14px 8px;
-          text-align:center;
-          height:100%;
-          display:flex;
-          flex-direction:column;
-          justify-content:center;
-          box-shadow:0 3px 10px rgba(0,0,0,.05);
-        }
-
-        .kpi-card span {
-          font-size:11px;
-          color:#6b7280;
-        }
-
-        .kpi-card h5,
-        .kpi-card h6 {
-          margin-top:4px;
-          font-weight:800;
-          color:#111827;
-        }
-
         .pulse {
           animation:pulseAnim .6s;
         }
 
         @keyframes pulseAnim {
-          0% { transform:scale(1); }
-          50% { transform:scale(1.04); }
-          100% { transform:scale(1); }
+          0% { transform:scale(1); box-shadow: 0 0 0 rgba(255,255,255,0.2) }
+          50% { transform:scale(1.04); box-shadow: 0 0 20px rgba(255,255,255,0.4) }
+          100% { transform:scale(1); box-shadow: 0 0 0 rgba(255,255,255,0) }
         }
       `}</style>
     </div>

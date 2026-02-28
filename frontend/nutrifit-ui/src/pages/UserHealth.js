@@ -22,13 +22,13 @@ export default function UserHealth() {
   };
 
   return (
-    <div className="container py-3">
+    <div className="container py-3 animate-fade-down">
       <div className="row justify-content-center">
         <div className="col-lg-7 col-md-9">
 
-          <div className="card netflix-card health-main-card">
+          <div className="glass-panel mb-2 overflow-hidden neon-red w-100 p-2">
 
-            <div className="health-header">
+            <div className="fw-bold text-uppercase p-2 text-center text-danger border-bottom border-danger mb-3 mx-2" style={{ letterSpacing: "1px" }}>
               ❤️ Select Your Health Conditions
             </div>
 
@@ -87,42 +87,28 @@ export default function UserHealth() {
       {/* 🎨 CORPORATE HEALTH UI */}
       {/* ===================== */}
       <style>{`
-        .health-main-card {
-          border:0;
-          border-radius:18px;
-          box-shadow:0 6px 20px rgba(0,0,0,.08);
-          overflow:hidden;
-        }
-
-        .health-header {
-          background:linear-gradient(45deg,#dc2626,#ef4444);
-          color:white;
-          font-weight:700;
-          text-align:center;
-          padding:12px;
-          letter-spacing:.5px;
-        }
-
         .health-tile {
-          background:white;
+          background: rgba(0, 0, 0, 0.4);
           border-radius:14px;
           padding:14px 10px;
           text-align:center;
           cursor:pointer;
-          border:2px solid #e5e7eb;
+          border:1px solid rgba(255,255,255,0.1);
           transition:.2s;
           height:100%;
           position:relative;
+          color: white;
         }
 
         .health-tile:hover {
           transform:translateY(-2px);
-          box-shadow:0 4px 12px rgba(0,0,0,.1);
+          background: rgba(255, 255, 255, 0.05);
         }
 
         .health-tile.active {
-          border-color:#dc2626;
-          background:#fee2e2;
+          border-color:#e50914;
+          background: rgba(229, 9, 20, 0.15);
+          box-shadow: 0 0 15px rgba(229, 9, 20, 0.3);
         }
 
         .health-icon {
@@ -132,8 +118,12 @@ export default function UserHealth() {
 
         .health-name {
           font-weight:700;
-          color:#111827;
+          color: #e5e5e5;
           font-size:14px;
+        }
+
+        .health-tile.active .health-name {
+          color: white;
         }
 
         .health-check {
@@ -143,17 +133,18 @@ export default function UserHealth() {
         }
 
         .health-check input {
-          accent-color:#dc2626;
+          accent-color:#e50914;
           transform:scale(1.1);
         }
 
         .healthy-box-user {
-          background:#ecfdf5;
+          background: rgba(16, 185, 129, 0.1);
+          border: 1px solid rgba(16, 185, 129, 0.3);
           border-radius:12px;
           padding:10px;
           text-align:center;
           font-weight:600;
-          color:#065f46;
+          color: #10b981;
         }
       `}</style>
     </div>

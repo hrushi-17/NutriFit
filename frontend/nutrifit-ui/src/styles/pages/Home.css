@@ -1,79 +1,130 @@
-/* Home.css - Netflix Style Landing */
-.home-container {
-    min-height: calc(100vh - 76px);
-    background: var(--bg-dark);
-    color: white;
-    padding: 60px 20px;
+/* Home.css - Cinematic Netflix Landing Page */
+
+.home-hero-section {
+    position: relative;
+    min-height: 100vh;
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.4) 60%, rgba(0, 0, 0, 0.8) 100%),
+        url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=2070&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
     text-align: center;
+    padding: 0 20px;
+    margin-top: -80px;
+    /* Offset the navbar */
+}
+
+.home-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, rgba(0, 0, 0, 0.2) 0%, var(--bg-dark) 100%);
+    pointer-events: none;
+    z-index: 1;
+}
+
+.home-hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
 }
 
 .home-title {
-    font-size: 3rem;
+    font-family: 'Bebas Neue', 'Roboto', sans-serif;
+    font-size: 5.5rem;
     font-weight: 900;
-    letter-spacing: 2px;
+    letter-spacing: 4px;
+    line-height: 1;
     margin-bottom: 20px;
-    background: linear-gradient(90deg, #fff, var(--text-muted));
+    text-transform: uppercase;
+    text-shadow: 0 5px 20px rgba(0, 0, 0, 0.8);
+    background: -webkit-linear-gradient(white, #b3b3b3);
     -webkit-background-clip: text;
-    background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
-.home-title span {
-    color: var(--accent-red);
-    -webkit-text-fill-color: var(--accent-red);
-    text-shadow: 0 0 20px rgba(229, 9, 20, 0.5);
+.home-title .red-text {
+    background: -webkit-linear-gradient(var(--accent-red), #990000);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 30px rgba(229, 9, 20, 0.5);
 }
 
 .home-subtitle {
-    font-size: 1.2rem;
-    color: var(--text-muted);
-    max-width: 600px;
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: #e5e5e5;
     margin-bottom: 40px;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
 }
 
-.home-features-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+.home-cta-group {
+    display: flex;
+    justify-content: center;
     gap: 20px;
-    width: 100%;
-    max-width: 1000px;
 }
 
-.feature-card {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid var(--border-light);
-    border-radius: 12px;
-    padding: 30px 20px;
-    transition: transform 0.3s ease, background 0.3s ease;
-    backdrop-filter: blur(10px);
-}
-
-.feature-card:hover {
-    transform: translateY(-5px);
-    background: rgba(255, 255, 255, 0.06);
-    border-color: rgba(255, 255, 255, 0.1);
-}
-
-.feature-icon {
-    font-size: 2.5rem;
-    color: var(--accent-red);
-    margin-bottom: 16px;
-    text-shadow: 0 0 15px rgba(229, 9, 20, 0.4);
-}
-
-.feature-title {
+.btn-hero {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px 36px;
     font-size: 1.25rem;
     font-weight: 700;
-    margin-bottom: 10px;
-    color: var(--text-light);
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
-.feature-desc {
-    font-size: 0.9rem;
-    color: var(--text-muted);
-    line-height: 1.5;
+.btn-hero-primary {
+    background: var(--accent-red);
+    color: white;
+    border: none;
+    box-shadow: 0 4px 15px rgba(229, 9, 20, 0.4);
+}
+
+.btn-hero-primary:hover {
+    background: #f40612;
+    transform: scale(1.05);
+    color: white;
+    box-shadow: 0 6px 20px rgba(229, 9, 20, 0.6);
+}
+
+.btn-hero-secondary {
+    background: rgba(109, 109, 110, 0.7);
+    color: white;
+    border: none;
+    backdrop-filter: blur(5px);
+}
+
+.btn-hero-secondary:hover {
+    background: rgba(109, 109, 110, 0.9);
+    transform: scale(1.05);
+    color: white;
+}
+
+@media (max-width: 768px) {
+    .home-title {
+        font-size: 3.5rem;
+    }
+
+    .home-subtitle {
+        font-size: 1.2rem;
+    }
+
+    .home-cta-group {
+        flex-direction: column;
+        padding: 0 20px;
+    }
+
+    .btn-hero {
+        width: 100%;
+    }
 }

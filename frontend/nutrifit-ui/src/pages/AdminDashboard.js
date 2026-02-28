@@ -105,17 +105,17 @@ export default function AdminDashboard() {
   };
 
   return (
-    <div className="container-fluid px-3 py-2 admin-bg">
+    <div className="container-fluid px-3 py-4" style={{ background: "transparent", minHeight: "100vh" }}>
 
-      <h4 className="fw-bold text-primary mb-3">🛡 NutriFit Admin Dashboard</h4>
+      <h4 className="fw-bold mb-4" style={{ color: "#fff", textShadow: "0 2px 10px rgba(0,0,0,0.8)" }}>🛡 NutriFit Admin Dashboard</h4>
 
       <div className="row g-2 align-items-stretch">
 
         {/* USERS */}
         <div className="col-xl-2 col-md-3 d-flex">
-          <div className="card netflix-card admin-card w-100">
-            <div className="card-header admin-header-dark">👥 Users</div>
-            <div className="card-body p-2 user-scroll">
+          <div className="glass-panel w-100 d-flex flex-column h-100 p-2">
+            <div className="fw-bold text-uppercase text-light mb-3 ms-2 pb-2 border-bottom" style={{ letterSpacing: "1px" }}>👥 Users</div>
+            <div className="user-scroll h-100" style={{ overflowY: "auto", overflowX: "hidden" }}>
               {users.map(u => (
                 <div key={u.userId} className="user-tile" onClick={() => loadDetails(u.userId)}>
                   <div className="fw-semibold">{u.name}</div>
@@ -147,39 +147,56 @@ export default function AdminDashboard() {
 
                 {/* PROFILE */}
                 <div className="col-md-3 d-flex">
-                  <div className="card netflix-card admin-card w-100 profile-card">
-                    <div className="profile-top">
-                      <div className="avatar">{data.user?.name?.charAt(0)}</div>
+                  <div className="glass-panel w-100 p-3 neon-blue">
+                    <div className="d-flex align-items-center gap-3 mb-3 pb-3 border-bottom border-secondary">
+                      <div className="bg-primary text-white flex-shrink-0 d-flex justify-content-center align-items-center rounded" style={{ width: "50px", height: "50px", fontSize: "1.5rem", fontWeight: "bold" }}>
+                        {data.user?.name?.charAt(0)}
+                      </div>
                       <div>
-                        <div className="fw-bold">{data.user?.name}</div>
-                        <small>{data.user?.email}</small>
+                        <div className="fw-bold fs-5 text-light">{data.user?.name}</div>
+                        <small className="text-muted">{data.user?.email}</small>
                       </div>
                     </div>
 
-                    <div className="profile-stats">
-                      <div><span>Age</span><b>{data.profile?.age}</b></div>
-                      <div><span>Height</span><b>{data.profile?.height} cm</b></div>
-                      <div><span>Weight</span><b>{data.profile?.weight} kg</b></div>
-                      <div><span>BMI</span><b>{data.profile?.bmi}</b></div>
+                    <div className="d-grid gap-2" style={{ gridTemplateColumns: "1fr 1fr" }}>
+                      <div className="bg-dark p-2 rounded text-center border border-secondary">
+                        <span className="d-block text-muted small text-uppercase">Age</span>
+                        <b className="text-light">{data.profile?.age}</b>
+                      </div>
+                      <div className="bg-dark p-2 rounded text-center border border-secondary">
+                        <span className="d-block text-muted small text-uppercase">Height</span>
+                        <b className="text-light">{data.profile?.height} cm</b>
+                      </div>
+                      <div className="bg-dark p-2 rounded text-center border border-secondary">
+                        <span className="d-block text-muted small text-uppercase">Weight</span>
+                        <b className="text-light">{data.profile?.weight} kg</b>
+                      </div>
+                      <div className="bg-dark p-2 rounded text-center border border-secondary">
+                        <span className="d-block text-muted small text-uppercase">BMI</span>
+                        <b className="text-light">{data.profile?.bmi}</b>
+                      </div>
                     </div>
                   </div>
                 </div>
 
                 {/* HEALTH */}
                 <div className="col-md-3 d-flex">
-                  <div className={`card admin-card w-100 health-card ${noDisease ? "health-ok" : "health-bad"}`}>
-                    <div className="card-header admin-header-danger">❤️ Health Conditions</div>
-                    <div className="card-body text-center">
+                  <div className={`glass-panel w-100 p-3 d-flex flex-column ${noDisease ? "neon-green" : "neon-red"}`}>
+                    <div className="fw-bold text-uppercase mb-3 pb-2 border-bottom border-secondary text-light">
+                      ❤️ Health Conditions
+                    </div>
+                    <div className="flex-grow-1 d-flex justify-content-center align-items-center flex-column text-center">
 
                       {noDisease ? (
-                        <div className="healthy-box-green">
-                          ✅ Healthy <br />
+                        <div className="p-3 w-100 rounded" style={{ background: "rgba(0, 255, 0, 0.1)", border: "1px solid rgba(0, 255, 0, 0.3)", color: "#00ff00" }}>
+                          <div className="fs-1 mb-2">✅</div>
+                          <div className="fw-bold fs-5">Healthy</div>
                           <small>No disease detected</small>
                         </div>
                       ) : (
-                        <div className="disease-grid">
+                        <div className="d-flex flex-wrap justify-content-center gap-2">
                           {data.healthIssues.map((h, i) => (
-                            <div key={i} className="disease-chip-red">
+                            <div key={i} className="px-3 py-2 rounded fw-bold" style={{ background: "rgba(229, 9, 20, 0.2)", border: "1px solid rgba(229, 9, 20, 0.5)", color: "#ff3333" }}>
                               🩺 {h.name}
                             </div>
                           ))}
@@ -192,40 +209,42 @@ export default function AdminDashboard() {
 
                 {/* GOAL */}
                 <div className="col-md-3 d-flex">
-                  <div className="card netflix-card admin-card w-100 goal-card">
-                    <div className="card-header admin-header-success">🎯 Goal & Status</div>
-                    <div className="card-body small">
+                  <div className="glass-panel w-100 p-3 h-100 d-flex flex-column" style={{ borderTop: "3px solid #f59e0b" }}>
+                    <div className="fw-bold text-uppercase mb-3 pb-2 border-bottom border-warning text-warning">
+                      🎯 Goal & Status
+                    </div>
+                    <div className="small flex-grow-1 d-flex flex-column justify-content-between">
 
-                      <div className="mb-2">
-                        <div className="fw-bold mb-1">Current Goal</div>
+                      <div className="mb-3 bg-dark p-2 rounded border border-secondary">
+                        <div className="text-muted text-uppercase fw-bold mb-2 border-bottom pb-1 border-secondary">Current Goal</div>
 
                         {data.activeGoal ? (
-                          <div className="status-grid mb-2">
-                            <div><span>Type</span><b>{data.activeGoal.goalType}</b></div>
-                            <div><span>Target</span><b>{data.activeGoal.targetValue}</b></div>
+                          <div className="d-grid gap-2" style={{ gridTemplateColumns: "1fr 1fr" }}>
+                            <div><span className="text-muted d-block">Type</span><b className="text-light">{data.activeGoal.goalType}</b></div>
+                            <div><span className="text-muted d-block">Target</span><b className="text-light">{data.activeGoal.targetValue}</b></div>
 
-                            <div className="status-center-box">
-                              <span>Status</span>
+                            <div className="col-span-2 mt-2 pt-2 border-top border-secondary text-center">
+                              <span className="text-muted me-2">Status:</span>
                               <b className={
                                 data.activeGoal.status === "completed"
-                                  ? "text-success"
-                                  : "text-warning"
+                                  ? "text-success text-uppercase"
+                                  : "text-warning text-uppercase"
                               }>
                                 {data.activeGoal.status}
                               </b>
                             </div>
                           </div>
-                        ) : <span className="text-light">No goal</span>}
+                        ) : <span className="text-light d-block text-center py-2">No goal</span>}
                       </div>
 
-                      <div>
-                        <div className="fw-bold mb-1">Body Status</div>
+                      <div className="bg-dark p-2 rounded border border-secondary">
+                        <div className="text-muted text-uppercase fw-bold mb-2 border-bottom pb-1 border-secondary">Body Status</div>
                         {latest && (
-                          <div className="status-grid">
-                            <div><span>Weight</span><b>{latest.weight} kg</b></div>
-                            <div><span>BMI</span><b>{latest.bmi}</b></div>
-                            <div><span>Category</span><b>{latest.weightCategory}</b></div>
-                            <div><span>Date</span><b>{latest.date.split("T")[0]}</b></div>
+                          <div className="d-grid gap-2" style={{ gridTemplateColumns: "1fr 1fr" }}>
+                            <div><span className="text-muted d-block">Weight</span><b className="text-light">{latest.weight} kg</b></div>
+                            <div><span className="text-muted d-block">BMI</span><b className="text-light">{latest.bmi}</b></div>
+                            <div><span className="text-muted d-block">Category</span><b className="text-light">{latest.weightCategory}</b></div>
+                            <div><span className="text-muted d-block">Date</span><b className="text-light">{latest.date.split("T")[0]}</b></div>
                           </div>
                         )}
                       </div>
@@ -235,9 +254,11 @@ export default function AdminDashboard() {
 
                 {/* GRAPH */}
                 <div className="col-md-3 d-flex">
-                  <div className="card netflix-card admin-card w-100 progress-animate">
-                    <div className="card-header admin-header-info">📈 Progress</div>
-                    <div className="card-body" style={{ height: 200 }}>
+                  <div className="glass-panel w-100 p-3 progress-animate" style={{ borderTop: "3px solid #00ff00" }}>
+                    <div className="fw-bold text-uppercase mb-3 pb-2 border-bottom" style={{ color: "#00ff00", borderColor: "rgba(0,255,0,0.3)" }}>
+                      📈 Progress
+                    </div>
+                    <div style={{ height: 200, width: "100%" }}>
                       <canvas id="adminProgressChart"></canvas>
                     </div>
                   </div>
@@ -246,10 +267,10 @@ export default function AdminDashboard() {
               </div>
 
               {/* WORKOUT */}
-              <div className="card netflix-card admin-card mb-2">
-                <div className="card-header admin-header-dark">🏋️ Workout Plan</div>
-                <div className="table-responsive corporate-table">
-                  <table className="table table-hover table-bordered table-sm m-0">
+              <div className="glass-panel w-100 mb-3 overflow-hidden">
+                <div className="fw-bold text-uppercase p-3 border-bottom" style={{ background: "rgba(0,0,0,0.5)", letterSpacing: "1px" }}>🏋️ Workout Plan</div>
+                <div className="table-responsive">
+                  <table className="table table-dark table-hover table-sm m-0 border-0" style={{ background: "transparent" }}>
                     <thead>
                       <tr>
                         <th>Day</th>
@@ -275,10 +296,10 @@ export default function AdminDashboard() {
               </div>
 
               {/* DIET */}
-              <div className="card netflix-card admin-card">
-                <div className="card-header admin-header-warning">🥗 Diet Plan</div>
-                <div className="table-responsive corporate-table">
-                  <table className="table table-hover table-bordered table-sm m-0">
+              <div className="glass-panel w-100 overflow-hidden">
+                <div className="fw-bold text-uppercase p-3 border-bottom" style={{ background: "rgba(0,0,0,0.5)", color: "#f59e0b", letterSpacing: "1px" }}>🥗 Diet Plan</div>
+                <div className="table-responsive">
+                  <table className="table table-dark table-hover table-sm m-0 border-0" style={{ background: "transparent" }}>
                     <thead>
                       <tr>
                         <th>Meal</th>
@@ -310,44 +331,37 @@ export default function AdminDashboard() {
       </div>
 
       <style>{`
-        .admin-bg { background:#f4f7fb; min-height:100vh; }
-        .admin-card { border:0; border-radius:16px; box-shadow:0 6px 18px rgba(0,0,0,.08); overflow:hidden; }
-
-        .admin-header-dark { background:#111827; color:white; font-weight:600; }
-        .admin-header-danger { background:linear-gradient(45deg,#dc2626,#ef4444); color:white; font-weight:600; }
-        .admin-header-success { background:linear-gradient(45deg,#059669,#10b981); color:white; font-weight:600; }
-        .admin-header-info { background:linear-gradient(45deg,#0891b2,#06b6d4); color:white; font-weight:600; }
-        .admin-header-warning { background:linear-gradient(45deg,#f59e0b,#fbbf24); color:#111; font-weight:600; }
-
-        .profile-top { display:flex; gap:10px; align-items:center; background:#2563eb; color:white; padding:12px; }
-        .avatar { width:42px; height:42px; border-radius:50%; background:white; color:#2563eb; font-weight:800; display:flex; align-items:center; justify-content:center; }
-
-        .profile-stats { display:grid; grid-template-columns:1fr 1fr; gap:8px; padding:12px; }
-        .profile-stats div { background:#f1f5f9; border-radius:10px; padding:8px; text-align:center; }
-        .profile-stats span { font-size:11px; color:#6b7280; display:block; }
-
-        .healthy-box-green { background:#ecfdf5; border-radius:12px; padding:20px; color:#065f46; font-weight:700; }
-        .disease-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
-        .disease-chip-red { background:#fee2e2; color:#991b1b; border-radius:12px; padding:8px; font-weight:600; text-align:center; }
-
-        .status-grid { display:grid; grid-template-columns:1fr 1fr; gap:6px; }
-        .status-grid div { background:#f1f5f9; border-radius:10px; padding:6px; text-align:center; }
-        .status-grid span { font-size:11px; color:#6b7280; display:block; }
-
-        .status-center-box { display:flex; flex-direction:column; justify-content:center; align-items:center; }
-
-        .progress-animate { animation:fadeUp .6s ease; }
+        .user-scroll::-webkit-scrollbar { width: 4px; }
+        .user-scroll::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 4px; }
+        .progress-animate { animation: fadeUp .6s ease; }
         @keyframes fadeUp {
-          from { opacity:0; transform:translateY(12px); }
-          to { opacity:1; transform:translateY(0); }
+          from { opacity: 0; transform: translateY(12px); }
+          to { opacity: 1; transform: translateY(0); }
         }
-
-        .corporate-table thead th { background:#f1f5f9; position:sticky; top:0; z-index:1; }
-        .corporate-table tbody tr:hover { background:#eef4ff; }
-
-        .user-scroll { max-height:85vh; overflow:auto; }
-        .user-tile { padding:8px; border-radius:10px; border:1px solid #e5e7eb; margin-bottom:6px; cursor:pointer; background:white; }
-        .user-tile:hover { background:#eef4ff; border-left:4px solid #2563eb; }
+        
+        .table-dark {
+          --bs-table-bg: transparent;
+          color: white;
+        }
+        .table-dark th {
+          background: rgba(0, 0, 0, 0.6);
+          color: #b3b3b3;
+          font-weight: 600;
+          text-transform: uppercase;
+          font-size: 0.75rem;
+          letter-spacing: 1px;
+          padding: 12px 16px;
+          border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .table-dark td {
+          padding: 12px 16px;
+          border-bottom: 1px solid rgba(255,255,255,0.05);
+          color: #e5e5e5;
+        }
+        .table-hover>tbody>tr:hover>* {
+          background: rgba(255, 255, 255, 0.05);
+          color: white;
+        }
       `}</style>
 
     </div>
