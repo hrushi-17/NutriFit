@@ -273,12 +273,15 @@ export default function AdminDashboard() {
 
                       <div className="admin-netflix-card admin-netflix-card-sm d-flex flex-column" style={{ background: "linear-gradient(135deg, rgba(20,20,20,0.9), rgba(10,10,10,0.95))", border: "1px solid rgba(229,9,20,0.2)" }}>
                         <div className={`admin-netflix-card-glow ${(data.activeGoal?.status === "completed" ||
-                            (data.activeGoal && latest &&
-                              ((data.activeGoal.goalType === "weight_loss" && parseFloat(latest.weight) <= parseFloat(data.activeGoal.targetValue)) ||
-                                (data.activeGoal.goalType === "muscle_gain" && parseFloat(latest.weight) >= parseFloat(data.activeGoal.targetValue))
-                              ))
-                          ) ? "success" : ""
-                          }`}></div>
+                          (data.activeGoal && latest &&
+                            ((() => {
+                              const gType = (data.activeGoal.goalType || "").toLowerCase().replace(/_/g, " ");
+                              const cW = parseFloat(latest.weight);
+                              const tW = parseFloat(data.activeGoal.targetValue);
+                              return (gType.includes("weight loss") && cW <= tW) || (gType.includes("muscle gain") && cW >= tW);
+                            })())
+                          )
+                        ) ? "success" : ""}`}></div>
 
                         <div className="d-flex justify-content-between align-items-center mb-2" style={{ borderBottom: "1px solid rgba(255,255,255,0.05)", paddingBottom: "6px" }}>
                           <span style={{ color: "#a3a3a3", fontSize: "0.65rem", fontWeight: "700", letterSpacing: "1px", textTransform: "uppercase" }}>Active Target</span>
@@ -288,8 +291,9 @@ export default function AdminDashboard() {
                               if (latest && dynamicStatus !== "completed") {
                                 const cW = parseFloat(latest.weight);
                                 const tW = parseFloat(data.activeGoal.targetValue);
-                                if (data.activeGoal.goalType === "weight_loss" && cW <= tW) dynamicStatus = "completed";
-                                if (data.activeGoal.goalType === "muscle_gain" && cW >= tW) dynamicStatus = "completed";
+                                const gType = (data.activeGoal.goalType || "").toLowerCase().replace(/_/g, " ");
+                                if (gType.includes("weight loss") && cW <= tW) dynamicStatus = "completed";
+                                if (gType.includes("muscle gain") && cW >= tW) dynamicStatus = "completed";
                               }
                               return (
                                 <span className="badge" style={{

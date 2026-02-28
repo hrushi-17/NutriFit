@@ -82,8 +82,11 @@ export default function GoalPage() {
     const currentWeight = parseFloat(latestWeightObj.weight);
     const target = parseFloat(currentGoal.targetValue);
 
-    if (currentGoal.goalType === "weight_loss" && currentWeight <= target) return "completed";
-    if (currentGoal.goalType === "muscle_gain" && currentWeight >= target) return "completed";
+    // Normalize string to handle "Weight Loss" vs "weight_loss" from DB
+    const gType = (currentGoal.goalType || "").toLowerCase().replace(/_/g, " ");
+
+    if (gType.includes("weight loss") && currentWeight <= target) return "completed";
+    if (gType.includes("muscle gain") && currentWeight >= target) return "completed";
 
     return currentGoal.status;
   };
