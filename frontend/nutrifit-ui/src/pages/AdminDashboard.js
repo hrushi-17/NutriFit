@@ -244,7 +244,7 @@ export default function AdminDashboard() {
                     <div className="flex-grow-1 d-flex justify-content-center align-items-center flex-column text-center">
 
                       {noDisease ? (
-                        <div className="admin-netflix-card text-center d-flex flex-column justify-content-center h-100 mb-0">
+                        <div className="admin-info-item text-center d-flex flex-column justify-content-center h-100 mb-0">
                           <div className="fw-bold fs-5 text-white mb-1"><i className="fa-solid fa-heart-circle-check text-success me-2"></i> Healthy</div>
                           <small style={{ color: "#a3a3a3" }}>No conditions recorded</small>
                         </div>
@@ -284,7 +284,7 @@ export default function AdminDashboard() {
 
                         {data.activeGoal ? (
                           <div className="d-flex align-items-center gap-3">
-                            <div style={{ width: "48px", height: "48px", borderRadius: "8px", background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1.2rem", color: "#fff" }}>
+                            <div style={{ width: "48px", height: "48px", borderRadius: "8px", background: "linear-gradient(145deg, rgba(229, 9, 20, 0.25), rgba(150, 0, 0, 0.1))", border: "1px solid rgba(229, 9, 20, 0.5)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1.2rem", color: "#fff", boxShadow: "0 4px 10px rgba(229, 9, 20, 0.2)" }}>
                               {data.activeGoal.goalType.toLowerCase().includes('weight') ? <i className="fa-solid fa-weight-scale"></i> : <i className="fa-solid fa-person-running"></i>}
                             </div>
                             <div>
