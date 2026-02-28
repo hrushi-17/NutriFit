@@ -5,100 +5,157 @@ export default function DietPage() {
   const [list, setList] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const mealOrder = { breakfast: 1, snack: 2, lunch: 3, snack2: 4, dinner: 5 };
+
+  const mealMeta = {
+    breakfast: { icon: "fa-sun", color: "#f59e0b", label: "Breakfast" },
+    snack: { icon: "fa-apple-whole", color: "#22c55e", label: "Snack" },
+    lunch: { icon: "fa-utensils", color: "#e50914", label: "Lunch" },
+    snack2: { icon: "fa-cookie", color: "#a78bfa", label: "Snack 2" },
+    dinner: { icon: "fa-moon", color: "#60a5fa", label: "Dinner" },
+  };
+
   useEffect(() => {
     api.get("/diet/daily-plan")
-      .then(res => {
-        setList(res.data);
-        setLoading(false);
-      })
+      .then(res => { setList(res.data); setLoading(false); })
       .catch(() => setLoading(false));
   }, []);
 
-  const mealOrder = {
-    breakfast: 1,
-    snack: 2,
-    lunch: 3,
-    snack2: 4,
-    dinner: 5
-  };
+  if (loading) return (
+    <div className="text-center fw-bold mt-5 text-light">
+      <i className="fa-solid fa-spinner fa-spin me-2"></i> Loading your diet plan...
+    </div>
+  );
 
-  if (loading) {
-    return (
-      <div className="text-center fw-bold mt-4 text-light">
-        <i className="fa-solid fa-spinner fa-spin me-2"></i> Loading your diet plan...
-      </div>
-    );
-  }
+  const sorted = [...list].sort((a, b) => mealOrder[a.mealType] - mealOrder[b.mealType]);
 
   return (
-    <div className="row justify-content-center mt-3 animate-fade-down">
-      <div className="col-md-10">
+    <div style={{ maxWidth: "900px", margin: "0 auto" }}>
 
-        <div className="glass-panel border-0 p-3">
-          <div className="fw-bold text-center fs-5 text-uppercase border-bottom pb-3 mb-3 text-white" style={{ letterSpacing: "2px", borderColor: "rgba(229,9,20,0.3)" }}>
-            Your Daily Diet Plan
-          </div>
+      {/* ─── SECTION HEADER ─── */}
+      <div style={{ marginBottom: "24px" }}>
+        <p style={{ color: "#a3a3a3", fontSize: "0.7rem", fontWeight: 700, letterSpacing: "3px", textTransform: "uppercase", margin: 0 }}>
+          Daily Nutrition
+        </p>
+        <h2 style={{ color: "#fff", fontWeight: 800, fontSize: "1.6rem", letterSpacing: "2px", textTransform: "uppercase", margin: "4px 0 0" }}>
+          Your <span style={{ color: "#e50914" }}>Diet</span> Plan
+        </h2>
+        <div style={{ width: "48px", height: "3px", background: "#e50914", marginTop: "10px", borderRadius: "2px" }}></div>
+      </div>
 
-          <div className="card-body px-0">
+      {list.length === 0 && (
+        <div style={{ background: "rgba(229,9,20,0.07)", border: "1px solid rgba(229,9,20,0.2)", borderRadius: "8px", padding: "20px", textAlign: "center", color: "#e5e5e5" }}>
+          <i className="fa-solid fa-circle-info me-2"></i>
+          No diet plan found. Please complete your profile and health conditions.
+        </div>
+      )}
 
-            {list.length === 0 && (
-              <div className="p-3 w-100 rounded text-center fw-semibold mb-3" style={{ background: "rgba(229, 9, 20, 0.08)", border: "1px solid rgba(229, 9, 20, 0.2)", color: "#e5e5e5" }}>
-                <i className="fa-solid fa-circle-info me-2"></i> No diet plan matched your profile yet.
-                <br />
-                Please update your profile and health conditions.
-              </div>
-            )}
-
-            {[...list]
-              .sort((a, b) => mealOrder[a.mealType] - mealOrder[b.mealType])
-              .map((d, i) => (
-                <div key={i} className="glass-panel mb-3 shadow-sm" style={{ background: "rgba(0,0,0,0.4)", borderLeft: "3px solid rgba(229,9,20,0.4)" }}>
-                  <div className="card-body">
-                    <div className="d-flex justify-content-between align-items-center mb-2">
-                      <h5 className="fw-bold text-white text-uppercase mb-0">
-                        {d.mealType}
-                      </h5>
-                      <span className="badge bg-dark text-white px-3 py-2" style={{ border: "1px solid rgba(255,255,255,0.2)" }}>
-                        {d.calories} kcal
-                      </span>
+      {/* ─── MEAL CARDS ─── */}
+      <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+        {sorted.map((d, i) => {
+          const meta = mealMeta[d.mealType] || { icon: "fa-bowl-food", color: "#e5e5e5", label: d.mealType };
+          return (
+            <div key={i} style={{
+              background: "rgba(18,18,18,0.95)",
+              border: "1px solid rgba(255,255,255,0.07)",
+              borderLeft: `4px solid ${meta.color}`,
+              borderRadius: "10px",
+              overflow: "hidden",
+              boxShadow: "0 4px 24px rgba(0,0,0,0.4)",
+              transition: "transform 0.2s",
+            }}
+              onMouseEnter={e => e.currentTarget.style.transform = "translateY(-2px)"}
+              onMouseLeave={e => e.currentTarget.style.transform = "translateY(0)"}
+            >
+              {/* Card Header */}
+              <div style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                padding: "14px 20px",
+                background: "rgba(0,0,0,0.4)",
+                borderBottom: "1px solid rgba(255,255,255,0.05)",
+              }}>
+                <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+                  <div style={{
+                    width: "38px", height: "38px",
+                    background: `${meta.color}18`,
+                    border: `1px solid ${meta.color}40`,
+                    borderRadius: "10px",
+                    display: "flex", alignItems: "center", justifyContent: "center",
+                    color: meta.color, fontSize: "1rem",
+                  }}>
+                    <i className={`fa-solid ${meta.icon}`}></i>
+                  </div>
+                  <div>
+                    <div style={{ color: "#a3a3a3", fontSize: "0.62rem", fontWeight: 700, letterSpacing: "2px", textTransform: "uppercase" }}>
+                      {meta.label}
                     </div>
-
-                    <h5 className="fw-bold text-light mb-3">{d.foodName}</h5>
-
-                    <div className="row mt-2 g-2 small">
-                      <div className="col-md-3 col-6">
-                        <div className="bg-dark p-2 rounded border border-secondary text-center text-muted text-uppercase">
-                          Protein <b className="d-block text-white fs-6 mt-1">{d.protein} g</b>
-                        </div>
-                      </div>
-                      <div className="col-md-3 col-6">
-                        <div className="bg-dark p-2 rounded border border-secondary text-center text-muted text-uppercase">
-                          Carbs <b className="d-block text-white fs-6 mt-1">{d.carbs} g</b>
-                        </div>
-                      </div>
-                      <div className="col-md-3 col-6">
-                        <div className="bg-dark p-2 rounded border border-secondary text-center text-muted text-uppercase">
-                          Fat <b className="d-block text-white fs-6 mt-1">{d.fat} g</b>
-                        </div>
-                      </div>
-                      <div className="col-md-3 col-6">
-                        <div className="bg-dark p-2 rounded border border-secondary text-center text-muted text-uppercase">
-                          Sodium <b className="d-block text-white fs-6 mt-1">{d.sodiumContent} mg</b>
-                        </div>
-                      </div>
+                    <div style={{ color: "#fff", fontWeight: 700, fontSize: "1rem" }}>
+                      {d.foodName}
                     </div>
-
-                    <div className="mt-3 small px-3 py-2 rounded text-white fw-semibold" style={{ background: "rgba(255, 255, 255, 0.05)", border: "1px solid rgba(255, 255, 255, 0.1)" }}>
-                      <i className="fa-solid fa-droplet me-2"></i> GI Level: {d.glycemicIndex}
-                    </div>
-
                   </div>
                 </div>
-              ))}
+                <span style={{
+                  background: `${meta.color}15`,
+                  color: meta.color,
+                  border: `1px solid ${meta.color}40`,
+                  borderRadius: "4px",
+                  padding: "5px 14px",
+                  fontSize: "0.75rem",
+                  fontWeight: 700,
+                  letterSpacing: "1px",
+                  whiteSpace: "nowrap",
+                }}>
+                  {d.calories} kcal
+                </span>
+              </div>
 
-          </div>
-        </div>
+              {/* Card Body – Macro Grid */}
+              <div style={{ padding: "16px 20px" }}>
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "10px", marginBottom: "14px" }}>
+                  {[
+                    { label: "Protein", value: `${d.protein} g`, color: "#60a5fa" },
+                    { label: "Carbs", value: `${d.carbs} g`, color: "#f59e0b" },
+                    { label: "Fat", value: `${d.fat} g`, color: "#f87171" },
+                    { label: "Sodium", value: `${d.sodiumContent} mg`, color: "#a78bfa" },
+                  ].map(macro => (
+                    <div key={macro.label} style={{
+                      background: "rgba(0,0,0,0.3)",
+                      border: "1px solid rgba(255,255,255,0.06)",
+                      borderRadius: "8px",
+                      padding: "10px 8px",
+                      textAlign: "center",
+                    }}>
+                      <div style={{ color: "#555", fontSize: "0.6rem", fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", marginBottom: "4px" }}>
+                        {macro.label}
+                      </div>
+                      <div style={{ color: macro.color, fontWeight: 800, fontSize: "0.95rem" }}>
+                        {macro.value}
+                      </div>
+                    </div>
+                  ))}
+                </div>
 
+                {/* GI Note */}
+                <div style={{
+                  background: "rgba(255,255,255,0.04)",
+                  border: "1px solid rgba(255,255,255,0.08)",
+                  borderRadius: "6px",
+                  padding: "9px 14px",
+                  color: "#a3a3a3",
+                  fontSize: "0.78rem",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "8px",
+                }}>
+                  <i className="fa-solid fa-droplet" style={{ color: "#60a5fa" }}></i>
+                  <span><strong style={{ color: "#e5e5e5" }}>Glycemic Index:</strong> {d.glycemicIndex}</span>
+                </div>
+              </div>
+            </div>
+          );
+        })}
       </div>
     </div>
   );

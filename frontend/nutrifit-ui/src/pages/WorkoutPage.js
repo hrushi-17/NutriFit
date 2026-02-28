@@ -7,88 +7,145 @@ export default function WorkoutPage() {
 
   useEffect(() => {
     api.get("/workout/weekly-plan")
-      .then(res => {
-        setList(res.data);
-        setLoading(false);
-      })
+      .then(res => { setList(res.data); setLoading(false); })
       .catch(() => setLoading(false));
   }, []);
 
-  const getBadge = (intensity) => {
-    const i = intensity.toLowerCase();
-    if (i === "low") return "bg-success";
-    if (i === "moderate") return "bg-warning text-white";
-    return "bg-danger";
+  const getIntensityMeta = (intensity) => {
+    const i = intensity?.toLowerCase();
+    if (i === "low") return { color: "#22c55e", bg: "rgba(34,197,94,0.12)", label: "LOW" };
+    if (i === "moderate") return { color: "#f59e0b", bg: "rgba(245,158,11,0.12)", label: "MODERATE" };
+    return { color: "#e50914", bg: "rgba(229,9,20,0.12)", label: "HIGH" };
   };
 
-  if (loading)
-    return (
-      <div className="text-center fw-bold mt-4 text-light">
-        <i className="fa-solid fa-spinner fa-spin me-2"></i> Loading your workout plan...
-      </div>
-    );
+  if (loading) return (
+    <div className="text-center fw-bold mt-5 text-light">
+      <i className="fa-solid fa-spinner fa-spin me-2"></i> Loading your workout plan...
+    </div>
+  );
 
   return (
-    <div className="row justify-content-center animate-fade-down">
-      <div className="col-md-10">
+    <div style={{ maxWidth: "900px", margin: "0 auto" }}>
 
-        <div className="glass-panel border-0 p-3">
-          <div className="fw-bold text-center fs-5 text-uppercase border-bottom pb-3 mb-3 text-white" style={{ letterSpacing: "2px", borderColor: "rgba(229,9,20,0.3)" }}>
-            Your Weekly Workout Plan (Mon – Sat)
-          </div>
+      {/* ─── SECTION HEADER ─── */}
+      <div style={{ marginBottom: "24px" }}>
+        <p style={{ color: "#a3a3a3", fontSize: "0.7rem", fontWeight: 700, letterSpacing: "3px", textTransform: "uppercase", margin: 0 }}>
+          Personalized Plan
+        </p>
+        <h2 style={{ color: "#fff", fontWeight: 800, fontSize: "1.6rem", letterSpacing: "2px", textTransform: "uppercase", margin: "4px 0 0" }}>
+          Weekly <span style={{ color: "#e50914" }}>Workout</span> Plan
+        </h2>
+        <div style={{ width: "48px", height: "3px", background: "#e50914", marginTop: "10px", borderRadius: "2px" }}></div>
+      </div>
 
-          <div className="card-body px-0">
+      {list.length === 0 && (
+        <div style={{ background: "rgba(229,9,20,0.07)", border: "1px solid rgba(229,9,20,0.2)", borderRadius: "8px", padding: "20px", textAlign: "center", color: "#e5e5e5" }}>
+          <i className="fa-solid fa-circle-info me-2"></i>
+          No workout plan found. Please complete your profile and health conditions.
+        </div>
+      )}
 
-            {list.length === 0 && (
-              <div className="p-3 w-100 rounded text-center fw-semibold mb-3" style={{ background: "rgba(0, 136, 255, 0.1)", border: "1px solid rgba(0, 136, 255, 0.3)", color: "#0088ff" }}>
-                <i className="fa-solid fa-circle-info me-2"></i> No workout plan matched your profile yet.
-                <br />
-                Please update your profile and health conditions.
+      {/* ─── WORKOUT CARDS ─── */}
+      <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+        {list.map((w, i) => {
+          const meta = getIntensityMeta(w.intensity);
+          return (
+            <div key={i} style={{
+              background: "rgba(18,18,18,0.95)",
+              border: "1px solid rgba(255,255,255,0.07)",
+              borderLeft: `4px solid ${meta.color}`,
+              borderRadius: "10px",
+              overflow: "hidden",
+              boxShadow: "0 4px 24px rgba(0,0,0,0.4)",
+              transition: "transform 0.2s",
+            }}
+              onMouseEnter={e => e.currentTarget.style.transform = "translateY(-2px)"}
+              onMouseLeave={e => e.currentTarget.style.transform = "translateY(0)"}
+            >
+              {/* Card Header */}
+              <div style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                padding: "14px 20px",
+                background: "rgba(0,0,0,0.4)",
+                borderBottom: "1px solid rgba(255,255,255,0.05)",
+              }}>
+                <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+                  <div style={{
+                    width: "36px", height: "36px",
+                    background: meta.bg,
+                    border: `1px solid ${meta.color}40`,
+                    borderRadius: "8px",
+                    display: "flex", alignItems: "center", justifyContent: "center",
+                    color: meta.color, fontWeight: 800, fontSize: "0.75rem",
+                  }}>
+                    {i + 1}
+                  </div>
+                  <div>
+                    <div style={{ color: "#a3a3a3", fontSize: "0.65rem", fontWeight: 700, letterSpacing: "2px", textTransform: "uppercase" }}>
+                      {w.dayName}
+                    </div>
+                    <div style={{ color: "#fff", fontWeight: 700, fontSize: "1rem" }}>
+                      {w.workoutName}
+                    </div>
+                  </div>
+                </div>
+                <span style={{
+                  background: meta.bg,
+                  color: meta.color,
+                  border: `1px solid ${meta.color}50`,
+                  borderRadius: "4px",
+                  padding: "4px 12px",
+                  fontSize: "0.7rem",
+                  fontWeight: 700,
+                  letterSpacing: "1px",
+                }}>
+                  {meta.label}
+                </span>
               </div>
-            )}
 
-            {list.map((w, i) => (
-              <div key={i} className="glass-panel mb-3 shadow-sm" style={{ background: "rgba(0,0,0,0.4)", borderLeft: "3px solid rgba(229,9,20,0.4)" }}>
-                <div className="card-body">
-
-                  <div className="d-flex justify-content-between align-items-center mb-2">
-                    <h5 className="fw-bold text-white text-uppercase mb-0">{w.dayName}</h5>
-                    <span className={`badge ${getBadge(w.intensity)} px-3 py-2 border`}>
-                      {w.intensity.toUpperCase()}
-                    </span>
-                  </div>
-
-                  <h5 className="fw-bold text-light mb-3">{w.workoutName}</h5>
-
-                  <div className="row mt-2 g-2">
-                    <div className="col-md-4">
-                      <div className="bg-dark p-2 rounded border border-secondary text-center text-muted small text-uppercase">
-                        Run Type <b className="d-block text-white fs-6 mt-1">{w.workoutType}</b>
+              {/* Card Body – Stats Grid */}
+              <div style={{ padding: "16px 20px" }}>
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "12px", marginBottom: "14px" }}>
+                  {[
+                    { label: "Type", value: w.workoutType },
+                    { label: "Duration", value: `${w.durationMinutes} min` },
+                    { label: "Level", value: w.intensity },
+                  ].map(stat => (
+                    <div key={stat.label} style={{
+                      background: "rgba(0,0,0,0.3)",
+                      border: "1px solid rgba(255,255,255,0.06)",
+                      borderRadius: "8px",
+                      padding: "12px",
+                      textAlign: "center",
+                    }}>
+                      <div style={{ color: "#606060", fontSize: "0.62rem", fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", marginBottom: "4px" }}>
+                        {stat.label}
+                      </div>
+                      <div style={{ color: "#fff", fontWeight: 700, fontSize: "0.95rem" }}>
+                        {stat.value}
                       </div>
                     </div>
-                    <div className="col-md-4">
-                      <div className="bg-dark p-2 rounded border border-secondary text-center text-muted small text-uppercase">
-                        Duration <b className="d-block text-white fs-6 mt-1">{w.durationMinutes} min</b>
-                      </div>
-                    </div>
-                    <div className="col-md-4">
-                      <div className="bg-dark p-2 rounded border border-secondary text-center text-muted small text-uppercase">
-                        Level <b className="d-block text-white fs-6 mt-1">{w.intensity}</b>
-                      </div>
-                    </div>
-                  </div>
+                  ))}
+                </div>
 
-                  <div className="mt-3 small px-3 py-2 rounded text-warning" style={{ background: "rgba(245, 158, 11, 0.1)", border: "1px solid rgba(245, 158, 11, 0.2)" }}>
-                    <i className="fa-solid fa-shield-halved me-2"></i> Health note: {w.healthSafe}
-                  </div>
-
+                {/* Health Note */}
+                <div style={{
+                  background: "rgba(245,158,11,0.07)",
+                  border: "1px solid rgba(245,158,11,0.18)",
+                  borderRadius: "6px",
+                  padding: "10px 14px",
+                  color: "#d4a01a",
+                  fontSize: "0.8rem",
+                }}>
+                  <i className="fa-solid fa-shield-halved me-2"></i>
+                  {w.healthSafe}
                 </div>
               </div>
-            ))}
-
-          </div>
-        </div>
-
+            </div>
+          );
+        })}
       </div>
     </div>
   );
