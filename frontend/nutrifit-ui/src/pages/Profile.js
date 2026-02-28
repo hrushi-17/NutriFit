@@ -49,11 +49,7 @@ export default function Profile() {
     }
   };
 
-  const logout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("role");
-    navigate("/login");
-  };
+
 
   return (
     <div
