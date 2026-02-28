@@ -263,28 +263,28 @@ export default function GoalPage() {
             </div>
           )}
 
-        </div>
-      </div>
+          {/* DANGER ZONE */}
+          <div className="glass-panel mt-3 overflow-hidden p-0 animate-fade-up delay-2" style={{ background: "rgba(15,15,15,0.9)", border: "1px solid rgba(229,9,20,0.2)", borderLeft: "4px solid #e50914", boxShadow: "0 8px 32px rgba(0,0,0,0.4)" }}>
+            <div className="d-flex justify-content-between align-items-center p-4">
+              <div>
+                <h6 className="fw-bold text-white mb-1" style={{ letterSpacing: "1.5px", textTransform: "uppercase", fontSize: "0.85rem", display: "flex", alignItems: "center", gap: "8px" }}>
+                  <i className="fa-solid fa-triangle-exclamation text-danger"></i> Danger Zone
+                </h6>
+                <div style={{ color: "#a3a3a3", fontSize: "0.75rem", letterSpacing: "0.5px" }}>
+                  Resetting will permanently remove all your goal and progress history.
+                </div>
+              </div>
 
-      {/* RESET ZONE */}
-      <div className="mt-4 animate-fade-up delay-2">
-        <div className="glass-panel d-flex justify-content-between align-items-center p-4" style={{ background: "rgba(15,15,15,0.9)", border: "1px solid rgba(229,9,20,0.2)", borderLeft: "4px solid #e50914", boxShadow: "0 8px 32px rgba(0,0,0,0.4)" }}>
-          <div>
-            <h6 className="fw-bold text-white mb-1" style={{ letterSpacing: "1.5px", textTransform: "uppercase", fontSize: "0.85rem", display: "flex", alignItems: "center", gap: "8px" }}>
-              <i className="fa-solid fa-triangle-exclamation text-danger"></i> Danger Zone
-            </h6>
-            <div style={{ color: "#a3a3a3", fontSize: "0.75rem", letterSpacing: "0.5px" }}>
-              Resetting will permanently remove all your goal and progress history.
+              <button
+                className="btn btn-netflix fw-bold px-4 py-2"
+                style={{ fontSize: "0.8rem", letterSpacing: "1px", textTransform: "uppercase", boxShadow: "0 4px 15px rgba(229, 9, 20, 0.4)", display: "flex", alignItems: "center", gap: "8px", whiteSpace: "nowrap" }}
+                onClick={resetAllHandler}
+              >
+                <i className="fa-solid fa-trash-can"></i> Reset All Data
+              </button>
             </div>
           </div>
 
-          <button
-            className="btn btn-netflix fw-bold px-4 py-2"
-            style={{ fontSize: "0.8rem", letterSpacing: "1px", textTransform: "uppercase", boxShadow: "0 4px 15px rgba(229, 9, 20, 0.4)", display: "flex", alignItems: "center", gap: "8px" }}
-            onClick={resetAllHandler}
-          >
-            <i className="fa-solid fa-trash-can"></i> Reset All Data
-          </button>
         </div>
       </div>
 
