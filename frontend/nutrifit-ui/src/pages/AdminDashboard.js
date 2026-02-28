@@ -271,44 +271,61 @@ export default function AdminDashboard() {
                     </div>
                     <div className="small flex-grow-1 d-flex flex-column justify-content-between">
 
-                      <div className="admin-netflix-card admin-netflix-card-sm">
+                      <div className="admin-netflix-card admin-netflix-card-sm d-flex flex-column" style={{ background: "linear-gradient(135deg, rgba(20,20,20,0.9), rgba(10,10,10,0.95))", border: "1px solid rgba(229,9,20,0.2)" }}>
                         <div className={`admin-netflix-card-glow ${data.activeGoal?.status === "completed" ? "success" : ""}`}></div>
 
-                        <div className="d-flex justify-content-between align-items-center admin-netflix-card-header mb-2" style={{ borderBottom: "none", paddingBottom: 0 }}>
-                          <span style={{ color: "#fff", fontSize: "0.7rem" }}>Active Target</span>
+                        <div className="d-flex justify-content-between align-items-center mb-2" style={{ borderBottom: "1px solid rgba(255,255,255,0.05)", paddingBottom: "6px" }}>
+                          <span style={{ color: "#a3a3a3", fontSize: "0.65rem", fontWeight: "700", letterSpacing: "1px", textTransform: "uppercase" }}>Active Target</span>
                           {data.activeGoal && (
-                            <span className="badge" style={{ background: data.activeGoal.status === "completed" ? "rgba(34,197,94,0.15)" : "linear-gradient(145deg, rgba(229, 9, 20, 0.3), rgba(130, 0, 0, 0.15))", color: data.activeGoal.status === "completed" ? "#22c55e" : "#fff", border: `1px solid ${data.activeGoal.status === "completed" ? "rgba(34,197,94,0.3)" : "rgba(229,9,20,0.5)"}`, letterSpacing: "1px", textTransform: "uppercase", fontSize: "0.55rem", boxShadow: data.activeGoal.status !== "completed" ? "0 4px 10px rgba(229, 9, 20, 0.2)" : "none" }}>
+                            <span className="badge" style={{ background: data.activeGoal.status === "completed" ? "rgba(34,197,94,0.15)" : "linear-gradient(145deg, rgba(229, 9, 20, 0.3), rgba(130, 0, 0, 0.15))", color: data.activeGoal.status === "completed" ? "#22c55e" : "#fff", border: `1px solid ${data.activeGoal.status === "completed" ? "rgba(34,197,94,0.3)" : "rgba(229,9,20,0.5)"}`, letterSpacing: "1px", textTransform: "uppercase", fontSize: "0.5rem", boxShadow: data.activeGoal.status !== "completed" ? "0 4px 10px rgba(229, 9, 20, 0.2)" : "none" }}>
                               {data.activeGoal.status}
                             </span>
                           )}
                         </div>
 
                         {data.activeGoal ? (
-                          <div className="d-flex align-items-center gap-2 p-2 rounded" style={{ background: "linear-gradient(135deg, rgba(20,20,20,0.8), rgba(0,0,0,0.5))", border: "1px solid rgba(229,9,20,0.3)", borderLeft: "3px solid #e50914", boxShadow: "inset 0 0 10px rgba(0,0,0,0.6)" }}>
-                            <div style={{ width: "36px", height: "36px", borderRadius: "8px", background: "linear-gradient(145deg, rgba(229, 9, 20, 0.25), rgba(150, 0, 0, 0.1))", border: "1px solid rgba(229, 9, 20, 0.5)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1rem", color: "#fff", boxShadow: "0 2px 8px rgba(229, 9, 20, 0.2)" }}>
+                          <div className="d-flex align-items-center gap-2 flex-grow-1">
+                            <div style={{ width: "36px", height: "36px", borderRadius: "8px", background: "linear-gradient(145deg, rgba(229, 9, 20, 0.25), rgba(150, 0, 0, 0.1))", border: "1px solid rgba(229, 9, 20, 0.5)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1rem", color: "#e50914", boxShadow: "0 2px 8px rgba(229, 9, 20, 0.2)" }}>
                               {data.activeGoal.goalType.toLowerCase().includes('weight') ? <i className="fa-solid fa-weight-scale"></i> : <i className="fa-solid fa-person-running"></i>}
                             </div>
-                            <div>
-                              <div className="text-white fw-bold fs-6 lh-1 mb-1" style={{ textTransform: "capitalize" }}>{data.activeGoal.goalType}</div>
-                              <div style={{ color: "#a3a3a3", fontSize: "0.65rem", fontWeight: "600", letterSpacing: "0.5px" }}>TARGET: <span className="text-white" style={{ fontSize: "0.8rem" }}>{data.activeGoal.targetValue}</span></div>
+                            <div className="d-flex flex-column justify-content-center">
+                              <div className="text-white fw-bold lh-1 mb-1" style={{ fontSize: "0.85rem", textTransform: "capitalize" }}>{data.activeGoal.goalType}</div>
+                              <div style={{ color: "#a3a3a3", fontSize: "0.6rem", fontWeight: "600", letterSpacing: "0.5px" }}>TARGET: <span style={{ color: "#e50914", fontWeight: "800", fontSize: "0.75rem" }}>{data.activeGoal.targetValue}</span></div>
                             </div>
                           </div>
                         ) : (
-                          <div className="text-center py-2 rounded" style={{ background: "rgba(255,255,255,0.02)", border: "1px dashed rgba(255,255,255,0.1)" }}>
+                          <div className="text-center py-2 rounded flex-grow-1 d-flex flex-column justify-content-center align-items-center" style={{ background: "rgba(255,255,255,0.02)", border: "1px dashed rgba(255,255,255,0.1)" }}>
                             <i className="fa-solid fa-circle-exclamation mb-1" style={{ fontSize: "1.2rem", color: "rgba(255,255,255,0.2)" }}></i>
-                            <span className="text-white d-block" style={{ fontSize: "0.75rem", color: "#888", fontWeight: "500" }}>No active goal set</span>
+                            <span className="text-white d-block" style={{ fontSize: "0.75rem", color: "#888", fontWeight: "500" }}>No target set</span>
                           </div>
                         )}
                       </div>
 
-                      <div className="admin-netflix-card admin-netflix-card-sm mb-0">
-                        <div className="admin-netflix-card-header mb-2" style={{ fontSize: "0.65rem", paddingBottom: "4px" }}>Body Status</div>
-                        {latest && (
-                          <div className="admin-info-grid" style={{ gap: "4px" }}>
-                            <div className="admin-info-item"><span className="admin-info-label">WEIGHT</span><b className="admin-info-value">{latest.weight} kg</b></div>
-                            <div className="admin-info-item"><span className="admin-info-label">BMI</span><b className="admin-info-value">{latest.bmi}</b></div>
-                            <div className="admin-info-item"><span className="admin-info-label">CATEGORY</span><b className="admin-info-value">{latest.weightCategory}</b></div>
-                            <div className="admin-info-item"><span className="admin-info-label">DATE</span><b className="admin-info-value">{latest.date.split("T")[0]}</b></div>
+                      <div className="admin-netflix-card admin-netflix-card-sm mb-0 d-flex flex-column" style={{ background: "linear-gradient(135deg, rgba(20,20,20,0.9), rgba(10,10,10,0.95))", border: "1px solid rgba(229,9,20,0.2)" }}>
+                        <div className="admin-netflix-card-glow"></div>
+                        <div className="d-flex justify-content-between align-items-center mb-2" style={{ borderBottom: "1px solid rgba(255,255,255,0.05)", paddingBottom: "6px" }}>
+                          <span style={{ color: "#a3a3a3", fontSize: "0.65rem", fontWeight: "700", letterSpacing: "1px", textTransform: "uppercase" }}>Body Status</span>
+                        </div>
+
+                        {latest ? (
+                          <div className="d-flex align-items-center gap-2 flex-grow-1">
+                            <div style={{ width: "36px", height: "36px", borderRadius: "8px", background: "linear-gradient(145deg, rgba(229, 9, 20, 0.25), rgba(150, 0, 0, 0.1))", border: "1px solid rgba(229, 9, 20, 0.5)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1rem", color: "#e50914", boxShadow: "0 2px 8px rgba(229, 9, 20, 0.2)" }}>
+                              <i className="fa-solid fa-child-reaching"></i>
+                            </div>
+                            <div className="d-flex flex-column justify-content-center w-100">
+                              <div className="d-flex justify-content-between align-items-center w-100 mb-1">
+                                <span style={{ color: "#a3a3a3", fontSize: "0.6rem", fontWeight: "600", letterSpacing: "0.5px" }}>WEIGHT</span>
+                                <span style={{ color: "#fff", fontWeight: "800", fontSize: "0.75rem" }}>{latest.weight} <span style={{ fontSize: "0.55rem", color: "#888" }}>kg</span></span>
+                              </div>
+                              <div className="d-flex justify-content-between align-items-center w-100">
+                                <span style={{ color: "#a3a3a3", fontSize: "0.6rem", fontWeight: "600", letterSpacing: "0.5px" }}>BMI</span>
+                                <span style={{ color: "#e50914", fontWeight: "800", fontSize: "0.75rem" }}>{latest.bmi}</span>
+                              </div>
+                            </div>
+                          </div>
+                        ) : (
+                          <div className="text-center py-2 rounded flex-grow-1 d-flex flex-column justify-content-center align-items-center" style={{ background: "rgba(255,255,255,0.02)", border: "1px dashed rgba(255,255,255,0.1)" }}>
+                            <span className="text-white d-block" style={{ fontSize: "0.75rem", color: "#888", fontWeight: "500" }}>No status data</span>
                           </div>
                         )}
                       </div>
