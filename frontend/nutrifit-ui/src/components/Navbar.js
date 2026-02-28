@@ -17,9 +17,9 @@ export default function Navbar() {
       <div className="container-fluid">
 
         {/* Brand Logo */}
-        <Link className="navbar-brand d-flex align-items-center" to="/" style={{ transition: "transform 0.3s" }} onMouseEnter={e => e.currentTarget.style.transform = "scale(1.05)"} onMouseLeave={e => e.currentTarget.style.transform = "none"}>
-          <i className="fa-solid fa-heart-pulse fs-3 me-2" style={{ color: "var(--accent-red)" }}></i>
-          <span className="fw-bolder fs-4 text-white" style={{ letterSpacing: "1px" }}>
+        <Link className="navbar-brand d-flex align-items-center text-decoration-none" to="/" style={{ transition: "transform 0.3s" }} onMouseEnter={e => e.currentTarget.style.transform = "scale(1.05)"} onMouseLeave={e => e.currentTarget.style.transform = "none"}>
+          <img src="/favicon.ico" alt="NutriFit Logo" style={{ width: "32px", height: "32px", objectFit: "contain" }} className="me-2" />
+          <span style={{ fontFamily: "'Bebas Neue', 'Roboto', sans-serif", fontSize: "1.8rem", letterSpacing: "1.5px", fontWeight: "900", color: "#fff", textTransform: "uppercase" }}>
             <span style={{ color: "var(--accent-red)" }}>NUTRI</span>FIT
           </span>
         </Link>
