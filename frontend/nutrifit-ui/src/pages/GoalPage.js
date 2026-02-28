@@ -71,6 +71,22 @@ export default function GoalPage() {
     return { bg: "linear-gradient(145deg, rgba(229, 9, 20, 0.3), rgba(130, 0, 0, 0.15))", color: "#fff", border: "rgba(229,9,20,0.5)" }; // Obese default red gradient
   };
 
+  const getDynamicGoalStatus = (currentGoal, currentLatest) => {
+    if (!currentGoal) return "in_progress";
+    if (currentGoal.status === "completed") return "completed";
+    if (!currentLatest || !currentLatest.weight) return currentGoal.status;
+
+    const currentWeight = parseFloat(currentLatest.weight);
+    const target = parseFloat(currentGoal.targetValue);
+
+    if (currentGoal.goalType === "weight_loss" && currentWeight <= target) return "completed";
+    if (currentGoal.goalType === "muscle_gain" && currentWeight >= target) return "completed";
+
+    return currentGoal.status;
+  };
+
+  const dynamicStatus = getDynamicGoalStatus(goal, latest);
+
   return (
     <div className="container py-3">
 
@@ -170,13 +186,13 @@ export default function GoalPage() {
                       <span style={{ color: "#a3a3a3", fontSize: "0.7rem", fontWeight: "700", letterSpacing: "2px", textTransform: "uppercase", marginBottom: "12px" }}>Status</span>
                       <h5 className="mb-0">
                         <span style={{
-                          background: goal.status === "completed" ? "rgba(34,197,94,0.15)" : "linear-gradient(145deg, rgba(229, 9, 20, 0.3), rgba(130, 0, 0, 0.15))",
-                          color: goal.status === "completed" ? "#22c55e" : "#fff",
-                          border: `1px solid ${goal.status === "completed" ? "rgba(34,197,94,0.3)" : "rgba(229,9,20,0.5)"}`,
+                          background: dynamicStatus === "completed" ? "rgba(34,197,94,0.15)" : "linear-gradient(145deg, rgba(229, 9, 20, 0.3), rgba(130, 0, 0, 0.15))",
+                          color: dynamicStatus === "completed" ? "#22c55e" : "#fff",
+                          border: `1px solid ${dynamicStatus === "completed" ? "rgba(34,197,94,0.3)" : "rgba(229,9,20,0.5)"}`,
                           letterSpacing: "1.5px", textTransform: "uppercase", fontSize: "0.75rem", fontWeight: "700", padding: "6px 16px", borderRadius: "6px",
-                          boxShadow: goal.status !== "completed" ? "0 4px 10px rgba(229, 9, 20, 0.2)" : "none"
+                          boxShadow: dynamicStatus !== "completed" ? "0 4px 10px rgba(229, 9, 20, 0.2)" : "none"
                         }}>
-                          {goal.status}
+                          {dynamicStatus}
                         </span>
                       </h5>
                     </div>

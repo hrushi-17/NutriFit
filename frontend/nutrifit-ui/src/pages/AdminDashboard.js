@@ -272,14 +272,37 @@ export default function AdminDashboard() {
                     <div className="small flex-grow-1 d-flex flex-column justify-content-between">
 
                       <div className="admin-netflix-card admin-netflix-card-sm d-flex flex-column" style={{ background: "linear-gradient(135deg, rgba(20,20,20,0.9), rgba(10,10,10,0.95))", border: "1px solid rgba(229,9,20,0.2)" }}>
-                        <div className={`admin-netflix-card-glow ${data.activeGoal?.status === "completed" ? "success" : ""}`}></div>
+                        <div className={`admin-netflix-card-glow ${(data.activeGoal?.status === "completed" ||
+                            (data.activeGoal && latest &&
+                              ((data.activeGoal.goalType === "weight_loss" && parseFloat(latest.weight) <= parseFloat(data.activeGoal.targetValue)) ||
+                                (data.activeGoal.goalType === "muscle_gain" && parseFloat(latest.weight) >= parseFloat(data.activeGoal.targetValue))
+                              ))
+                          ) ? "success" : ""
+                          }`}></div>
 
                         <div className="d-flex justify-content-between align-items-center mb-2" style={{ borderBottom: "1px solid rgba(255,255,255,0.05)", paddingBottom: "6px" }}>
                           <span style={{ color: "#a3a3a3", fontSize: "0.65rem", fontWeight: "700", letterSpacing: "1px", textTransform: "uppercase" }}>Active Target</span>
                           {data.activeGoal && (
-                            <span className="badge" style={{ background: data.activeGoal.status === "completed" ? "rgba(34,197,94,0.15)" : "linear-gradient(145deg, rgba(229, 9, 20, 0.3), rgba(130, 0, 0, 0.15))", color: data.activeGoal.status === "completed" ? "#22c55e" : "#fff", border: `1px solid ${data.activeGoal.status === "completed" ? "rgba(34,197,94,0.3)" : "rgba(229,9,20,0.5)"}`, letterSpacing: "1px", textTransform: "uppercase", fontSize: "0.5rem", boxShadow: data.activeGoal.status !== "completed" ? "0 4px 10px rgba(229, 9, 20, 0.2)" : "none" }}>
-                              {data.activeGoal.status}
-                            </span>
+                            (() => {
+                              let dynamicStatus = data.activeGoal.status;
+                              if (latest && dynamicStatus !== "completed") {
+                                const cW = parseFloat(latest.weight);
+                                const tW = parseFloat(data.activeGoal.targetValue);
+                                if (data.activeGoal.goalType === "weight_loss" && cW <= tW) dynamicStatus = "completed";
+                                if (data.activeGoal.goalType === "muscle_gain" && cW >= tW) dynamicStatus = "completed";
+                              }
+                              return (
+                                <span className="badge" style={{
+                                  background: dynamicStatus === "completed" ? "rgba(34,197,94,0.15)" : "linear-gradient(145deg, rgba(229, 9, 20, 0.3), rgba(130, 0, 0, 0.15))",
+                                  color: dynamicStatus === "completed" ? "#22c55e" : "#fff",
+                                  border: `1px solid ${dynamicStatus === "completed" ? "rgba(34,197,94,0.3)" : "rgba(229,9,20,0.5)"}`,
+                                  letterSpacing: "1px", textTransform: "uppercase", fontSize: "0.5rem",
+                                  boxShadow: dynamicStatus !== "completed" ? "0 4px 10px rgba(229, 9, 20, 0.2)" : "none"
+                                }}>
+                                  {dynamicStatus}
+                                </span>
+                              );
+                            })()
                           )}
                         </div>
 
