@@ -74,9 +74,12 @@ export default function GoalPage() {
   const getDynamicGoalStatus = (currentGoal, currentLatest) => {
     if (!currentGoal) return "in_progress";
     if (currentGoal.status === "completed") return "completed";
-    if (!currentLatest || !currentLatest.weight) return currentGoal.status;
 
-    const currentWeight = parseFloat(currentLatest.weight);
+    // Safely extract the latest weight depending on if the API returned an array or object
+    let latestWeightObj = Array.isArray(currentLatest) ? currentLatest[0] : currentLatest;
+    if (!latestWeightObj || !latestWeightObj.weight) return currentGoal.status;
+
+    const currentWeight = parseFloat(latestWeightObj.weight);
     const target = parseFloat(currentGoal.targetValue);
 
     if (currentGoal.goalType === "weight_loss" && currentWeight <= target) return "completed";
