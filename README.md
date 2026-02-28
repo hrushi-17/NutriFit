@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=e50914&height=200&section=header&text=NutriFit&fontSize=80&fontColor=ffffff&fontAlignY=38&desc=Premium%20Full-Stack%20Fitness%20%26%20Nutrition%20Tracker&descAlignY=60&descColor=ffffff&animation=fadeIn" width="100%"/>
+
 
 # 🔥 NutriFit
 ### *A Premium Full-Stack Fitness & Nutrition Tracker*
@@ -342,7 +342,7 @@ Feel free to fork and build on top of it!
 
 <div align="center">
 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=e50914&height=120&section=footer&animation=fadeIn" width="100%"/>
+
 
 **Made with ❤️ using React + .NET + MySQL**
 
