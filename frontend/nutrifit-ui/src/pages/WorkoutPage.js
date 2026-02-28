@@ -13,8 +13,8 @@ export default function WorkoutPage() {
 
   const getIntensityMeta = (intensity) => {
     const i = intensity?.toLowerCase();
-    if (i === "low") return { color: "#e50914", bg: "rgba(229,9,20,0.12)", label: "LOW" };
-    if (i === "moderate") return { color: "#e50914", bg: "rgba(229,9,20,0.12)", label: "MODERATE" };
+    if (i === "low") return { color: "#22c55e", bg: "rgba(34,197,94,0.12)", label: "LOW" };
+    if (i === "moderate") return { color: "#f59e0b", bg: "rgba(245,158,11,0.12)", label: "MODERATE" };
     return { color: "#e50914", bg: "rgba(229,9,20,0.12)", label: "HIGH" };
   };
 
@@ -53,7 +53,7 @@ export default function WorkoutPage() {
             <div key={i} style={{
               background: "rgba(18,18,18,0.95)",
               border: "1px solid rgba(255,255,255,0.07)",
-              borderLeft: `4px solid ${meta.color}`,
+              borderLeft: "4px solid #e50914",
               borderRadius: "10px",
               overflow: "hidden",
               boxShadow: "0 4px 24px rgba(0,0,0,0.4)",
