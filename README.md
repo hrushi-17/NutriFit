@@ -5,6 +5,8 @@
 # 🔥 NutriFit
 ### *A Premium Full-Stack Fitness & Nutrition Tracker*
 
+[![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&size=22&pause=1000&color=E50914&center=true&width=650&lines=Track+Your+Fitness+%F0%9F%8F%8B%EF%B8%8F;Hit+Your+Goals+%F0%9F%8E%AF;Monitor+Your+Progress+%F0%9F%93%88;Stay+Healthy+%F0%9F%A5%97)](https://git.io/typing-svg)
+
 <br/>
 
 [![React](https://img.shields.io/badge/React-18-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev/)
