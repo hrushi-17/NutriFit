@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "../styles/pages/BMI.css";
 
 export default function BmiPage() {
   const [height, setHeight] = useState("");

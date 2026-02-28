@@ -58,14 +58,14 @@
     margin: 0;
 }
 
-.metric-value.neon-green {
-    color: #10b981;
-    text-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
+.metric-value.neon-pink {
+    color: #ff3366;
+    text-shadow: 0 0 15px rgba(255, 51, 102, 0.8), 0 0 30px rgba(255, 51, 102, 0.6);
 }
 
-.metric-value.neon-blue {
-    color: #3b82f6;
-    text-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+.metric-value.neon-sky-blue {
+    color: #00ffff;
+    text-shadow: 0 0 15px rgba(0, 255, 255, 0.8), 0 0 30px rgba(0, 255, 255, 0.6);
 }
 
 /* Add Progress Form */

@@ -1,5 +1,6 @@
 import { Link, Outlet, useNavigate, useLocation } from "react-router-dom";
 import { useEffect } from "react";
+import "../styles/pages/Dashboard.css";
 
 export default function Dashboard() {
   const navigate = useNavigate();

@@ -2,7 +2,7 @@ import { useEffect, useState, useCallback, useRef } from "react";
 import api from "../api/axios";
 import $ from "jquery";
 import Chart from "chart.js/auto";
-import "./Progress.css";
+import "../styles/pages/Progress.css";
 
 export default function ProgressPage() {
   const [weight, setWeight] = useState("");
@@ -51,30 +51,30 @@ export default function ProgressPage() {
             data: weights,
             tension: 0.4,
             borderWidth: 3,
-            borderColor: "#3b82f6", // Neon Blue
-            backgroundColor: "rgba(59, 130, 246, 0.1)",
+            borderColor: "#00ffff", // Neon Sky Blue
+            backgroundColor: "rgba(0, 255, 255, 0.1)",
             fill: true,
-            pointBackgroundColor: "#3b82f6",
+            pointBackgroundColor: "#00ffff",
             pointBorderColor: "#fff",
             pointHoverBackgroundColor: "#fff",
-            pointHoverBorderColor: "#3b82f6",
-            pointRadius: 4,
-            pointHoverRadius: 6
+            pointHoverBorderColor: "#00ffff",
+            pointRadius: 6,
+            pointHoverRadius: 8
           },
           {
             label: "BMI",
             data: bmis,
             tension: 0.4,
             borderDash: [6, 6],
-            borderWidth: 2,
-            borderColor: "#10b981", // Neon Green
+            borderWidth: 3,
+            borderColor: "#ff3366", // Reddish Pink
             backgroundColor: "transparent",
-            pointBackgroundColor: "#10b981",
+            pointBackgroundColor: "#ff3366",
             pointBorderColor: "#fff",
             pointHoverBackgroundColor: "#fff",
-            pointHoverBorderColor: "#10b981",
-            pointRadius: 4,
-            pointHoverRadius: 6
+            pointHoverBorderColor: "#ff3366",
+            pointRadius: 6,
+            pointHoverRadius: 8
           }
         ]
       },
@@ -140,12 +140,12 @@ export default function ProgressPage() {
               <div className="metric-grid">
                 <div className="metric-card">
                   <span className="metric-label">Weight</span>
-                  <h4 className="metric-value neon-blue">{latest.weight} kg</h4>
+                  <h4 className="metric-value neon-sky-blue">{latest.weight} kg</h4>
                 </div>
 
                 <div className="metric-card">
                   <span className="metric-label">BMI</span>
-                  <h4 className="metric-value neon-green">{latest.bmi}</h4>
+                  <h4 className="metric-value neon-pink">{latest.bmi}</h4>
                 </div>
 
                 <div className="metric-card">

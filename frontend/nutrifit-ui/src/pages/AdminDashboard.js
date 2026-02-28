@@ -2,7 +2,7 @@ import { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../api/axios";
 import Chart from "chart.js/auto";
-import "./Admin.css";
+import "../styles/pages/Admin.css";
 
 export default function AdminDashboard() {
   const navigate = useNavigate();
@@ -57,32 +57,32 @@ export default function AdminDashboard() {
           {
             label: "Weight (kg)",
             data: weights,
-            borderColor: "#3b82f6", // Neon Blue
-            backgroundColor: "rgba(59, 130, 246, 0.1)",
+            borderColor: "#00ffff", // Neon Sky Blue
+            backgroundColor: "rgba(0, 255, 255, 0.1)",
             tension: 0.4,
             borderWidth: 3,
             fill: true,
-            pointBackgroundColor: "#3b82f6",
+            pointBackgroundColor: "#00ffff",
             pointBorderColor: "#fff",
             pointHoverBackgroundColor: "#fff",
-            pointHoverBorderColor: "#3b82f6",
-            pointRadius: 4,
-            pointHoverRadius: 6
+            pointHoverBorderColor: "#00ffff",
+            pointRadius: 6,
+            pointHoverRadius: 8
           },
           {
             label: "BMI",
             data: bmis,
-            borderColor: "#10b981", // Neon Green
+            borderColor: "#ff3366", // Reddish Pink
             backgroundColor: "transparent",
             tension: 0.4,
             borderDash: [6, 6],
-            borderWidth: 2,
-            pointBackgroundColor: "#10b981",
+            borderWidth: 3,
+            pointBackgroundColor: "#ff3366",
             pointBorderColor: "#fff",
             pointHoverBackgroundColor: "#fff",
-            pointHoverBorderColor: "#10b981",
-            pointRadius: 4,
-            pointHoverRadius: 6
+            pointHoverBorderColor: "#ff3366",
+            pointRadius: 6,
+            pointHoverRadius: 8
           }
         ]
       },

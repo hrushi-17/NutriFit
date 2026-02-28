@@ -1,0 +1,94 @@
+/* Workout.css - Physical Protocol */
+.workout-container {
+    min-height: calc(100vh - 76px);
+    background: var(--bg-dark);
+    color: white;
+    padding: 40px 20px;
+}
+
+.workout-header {
+    font-size: 1.8rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    margin-bottom: 24px;
+    color: white;
+}
+
+.workout-header span {
+    color: var(--accent-red);
+}
+
+.workout-table-wrapper {
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid var(--border-light);
+    border-radius: 12px;
+    padding: 24px;
+    overflow-x: auto;
+}
+
+.workout-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.workout-table th {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-muted);
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+    padding: 16px;
+    text-align: left;
+    border-bottom: 2px solid var(--border-light);
+}
+
+.workout-table td {
+    padding: 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    vertical-align: middle;
+}
+
+.workout-table tr:hover td {
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.workout-day {
+    font-weight: 800;
+    color: var(--text-light);
+}
+
+.workout-name {
+    font-weight: 600;
+    font-size: 1.1rem;
+    margin-bottom: 4px;
+}
+
+.workout-type {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.workout-intensity {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.intensity-low {
+    color: #10b981;
+    background: rgba(16, 185, 129, 0.1);
+}
+
+.intensity-med {
+    color: #f59e0b;
+    background: rgba(245, 158, 11, 0.1);
+}
+
+.intensity-high {
+    color: #ef4444;
+    background: rgba(239, 68, 68, 0.1);
+}

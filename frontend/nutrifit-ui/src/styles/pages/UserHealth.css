@@ -1,0 +1,68 @@
+/* UserHealth.css - Health Profile */
+.user-health-container {
+    min-height: calc(100vh - 76px);
+    background: var(--bg-dark);
+    color: white;
+    padding: 40px 20px;
+}
+
+.user-health-header {
+    font-size: 1.8rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    margin-bottom: 24px;
+    color: white;
+}
+
+.user-health-header span {
+    color: var(--accent-red);
+}
+
+.health-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+.health-card {
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid var(--border-light);
+    border-radius: 12px;
+    padding: 24px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.health-card-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-light);
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-bottom: 1px solid var(--border-light);
+    padding-bottom: 10px;
+}
+
+.health-issue-item {
+    background: rgba(255, 255, 255, 0.03);
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid transparent;
+    transition: all 0.2s ease;
+}
+
+.health-issue-item:hover {
+    background: rgba(229, 9, 20, 0.05);
+    border-color: rgba(229, 9, 20, 0.3);
+}
+
+.issue-name {
+    font-weight: 600;
+    font-size: 0.95rem;
+}

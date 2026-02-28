@@ -1,0 +1,67 @@
+/* Diet.css - Nutrition Protocol */
+.diet-container {
+    min-height: calc(100vh - 76px);
+    background: var(--bg-dark);
+    color: white;
+    padding: 40px 20px;
+}
+
+.diet-header {
+    font-size: 1.8rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    margin-bottom: 24px;
+    color: white;
+}
+
+.diet-header span {
+    color: var(--accent-red);
+}
+
+.meal-card {
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid var(--border-light);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 16px;
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.meal-card:hover {
+    transform: translateY(-2px);
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.meal-type {
+    font-size: 0.85rem;
+    color: var(--accent-red);
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+}
+
+.meal-food {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 12px;
+}
+
+.meal-macros {
+    display: flex;
+    gap: 16px;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.meal-macros span {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-weight: 600;
+}
+
+.meal-macros .cal {
+    color: #10b981;
+}

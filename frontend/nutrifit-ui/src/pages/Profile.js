@@ -1,7 +1,7 @@
 import api from "../api/axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./Profile.css";
+import "../styles/pages/Profile.css";
 
 export default function Profile() {
   const [p, setP] = useState({

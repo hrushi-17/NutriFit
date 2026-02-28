@@ -1,5 +1,6 @@
 import api from "../api/axios";
 import { useEffect, useState } from "react";
+import "../styles/pages/AdminHealth.css";
 
 export default function AdminHealth() {
   const [list, setList] = useState([]);

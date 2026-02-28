@@ -1,0 +1,55 @@
+/* BMI.css */
+.bmi-container {
+    min-height: calc(100vh - 76px);
+    background: var(--bg-dark);
+    color: white;
+    padding: 40px 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.bmi-card {
+    background: rgba(10, 10, 10, 0.8);
+    border: 1px solid var(--border-light);
+    border-radius: 16px;
+    padding: 40px 30px;
+    max-width: 500px;
+    width: 100%;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+}
+
+.bmi-header {
+    font-size: 1.8rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    color: white;
+    margin-bottom: 24px;
+    text-align: center;
+}
+
+.bmi-header span {
+    color: var(--accent-red);
+}
+
+.bmi-result-box {
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid var(--border-light);
+    border-radius: 8px;
+    padding: 24px;
+    text-align: center;
+    margin-top: 24px;
+}
+
+.bmi-value {
+    font-size: 3rem;
+    font-weight: 900;
+    margin: 10px 0;
+}
+
+.bmi-category {
+    font-size: 1.2rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}

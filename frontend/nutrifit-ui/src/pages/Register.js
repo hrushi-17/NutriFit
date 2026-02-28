@@ -1,5 +1,5 @@
 import { useNavigate, Link } from "react-router-dom";
-import "./Auth.css";
+import "../styles/pages/Auth.css";
 
 export default function Register() {
   const navigate = useNavigate();

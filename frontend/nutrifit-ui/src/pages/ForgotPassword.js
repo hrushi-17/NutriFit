@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import api from "../api/axios";
-import "./Auth.css";
+import "../styles/pages/Auth.css";
 
 export default function ForgotPassword() {
   const [email, setEmail] = useState("");
@@ -32,7 +32,7 @@ export default function ForgotPassword() {
     }
 
     try {
-      const res = await api.post("/auth/send-otp", { email });
+      await api.post("/auth/send-otp", { email });
       setMsg("OTP sent to your email.");
       setOtpSent(true);
       setResendTimer(60);
@@ -48,11 +48,11 @@ export default function ForgotPassword() {
     }
 
     try {
-      const res = await api.post("/auth/verify-otp", { email, otp });
+      const resVerify = await api.post("/auth/verify-otp", { email, otp });
       setMsg("OTP verified! Redirecting to reset password...");
 
       setTimeout(() => {
-        navigate(`/reset-password?token=${encodeURIComponent(res.data.verificationToken)}`);
+        navigate(`/reset-password?token=${encodeURIComponent(resVerify.data.verificationToken)}`);
       }, 1500);
     } catch (err) {
       setMsg(err.response?.data || "Invalid or expired OTP");

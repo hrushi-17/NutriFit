@@ -1,7 +1,7 @@
 import api from "../api/axios";
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import "./Auth.css";
+import "../styles/pages/Auth.css";
 
 export default function RegisterUser() {
   const [data, setData] = useState({ name: "", email: "", password: "", confirmPassword: "" });

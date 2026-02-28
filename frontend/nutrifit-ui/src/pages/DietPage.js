@@ -1,5 +1,6 @@
 import api from "../api/axios";
 import { useEffect, useState } from "react";
+import "../styles/pages/Diet.css";
 
 export default function DietPage() {
   const [list, setList] = useState([]);

@@ -1,5 +1,6 @@
 import api from "../api/axios";
 import { useEffect, useState } from "react";
+import "../styles/pages/Workout.css";
 
 export default function WorkoutPage() {
   const [list, setList] = useState([]);

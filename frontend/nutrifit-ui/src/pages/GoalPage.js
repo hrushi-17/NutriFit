@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import api from "../api/axios";
+import "../styles/pages/Goal.css";
 
 export default function GoalPage() {
   const [goalType, setGoalType] = useState("weight_loss");
