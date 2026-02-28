@@ -2,16 +2,16 @@
 
 # 🔥 NutriFit
 
-### *A Premium AI-Powered Fitness & Nutrition Tracker*
+### *A Premium Fitness & Nutrition Tracker*
 
 [![React](https://img.shields.io/badge/React-18-61DAFB?style=for-the-badge&logo=react&logoColor=white)](https://react.dev/)
 [![.NET](https://img.shields.io/badge/.NET-8.0-512BD4?style=for-the-badge&logo=dotnet&logoColor=white)](https://dotnet.microsoft.com/)
-[![MongoDB](https://img.shields.io/badge/MongoDB-Atlas-47A248?style=for-the-badge&logo=mongodb&logoColor=white)](https://www.mongodb.com/)
+[![MySQL](https://img.shields.io/badge/MySQL-Railway-4479A1?style=for-the-badge&logo=mysql&logoColor=white)](https://railway.app/)
 [![Vercel](https://img.shields.io/badge/Frontend-Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://vercel.com/)
 [![Render](https://img.shields.io/badge/Backend-Render-46E3B7?style=for-the-badge&logo=render&logoColor=white)](https://render.com/)
 [![Railway](https://img.shields.io/badge/Database-Railway-0B0D0E?style=for-the-badge&logo=railway&logoColor=white)](https://railway.app/)
 
-**NutriFit** is a full-stack intelligent fitness and nutrition web application built with a premium Netflix-inspired dark UI. It provides personalized workout plans, AI-generated diet recommendations, BMI tracking, goal management, and real-time body progress analytics — all in one streamlined dashboard.
+**NutriFit** is a full-stack fitness and nutrition web application built with a premium Netflix-inspired dark UI. It provides personalized workout plans, diet recommendations, BMI tracking, goal management, and real-time body progress analytics — all in one streamlined dashboard.
 
 [🌐 Live Demo](https://your-vercel-url.vercel.app) · [🐛 Report Bug](https://github.com/hrushi-17/NutriFit/issues) · [✨ Request Feature](https://github.com/hrushi-17/NutriFit/issues)
 
@@ -35,7 +35,7 @@
 - 🔐 **JWT Authentication** — Secure login, registration, forgot/reset password
 - 📊 **Personal Dashboard** — BMI, Workouts, Diet, Goals, Progress all in one view
 - 🏋️ **Workout Planner** — Personalized routines with intensity color-coding
-- 🥗 **Diet Planner** — AI-generated meal plans by type (Breakfast, Lunch, Dinner, Snack)
+- 🥗 **Diet Planner** — Personalized meal plans by type (Breakfast, Lunch, Dinner, Snack)
 - 🎯 **Goal Tracker** — Set, track and dynamically complete Weight Loss / Muscle Gain goals
 - 📈 **Progress Graph** — Real-time weight + BMI chart with Chart.js
 - 🩺 **BMI Report** — Animated BMI circle with dynamic health tier coloring
@@ -56,11 +56,10 @@
 |-------|-----------|
 | **Frontend** | React 18, React Router DOM, Bootstrap 5, Chart.js, jQuery |
 | **Backend** | ASP.NET Core 8 Web API (C#) |
-| **Database** | MongoDB (hosted on Railway) |
+| **Database** | MySQL (hosted on Railway) |
 | **Authentication** | JWT Bearer Tokens |
-| **AI/Recommendations** | Custom rule-based AI engine for diet & workout |
 | **Styling** | Vanilla CSS — Netflix dark glassmorphism, gradients, animations |
-| **Deployment** | Vercel (frontend) + Render (backend) + Railway (MongoDB) |
+| **Deployment** | Vercel (frontend) + Render (backend) + Railway (MySQL) |
 
 ---
 
@@ -80,7 +79,7 @@ NutriFit/
 │           │   ├── ProgressController.cs
 │           │   ├── AdminController.cs
 │           │   └── UserHealthController.cs
-│           ├── Models/             # MongoDB data models
+│           ├── Models/             # Entity / DB models
 │           ├── DTOs/               # Data Transfer Objects
 │           ├── Data/               # DB context / connection
 │           ├── Program.cs          # App entry point + DI
@@ -135,7 +134,7 @@ NutriFit/
 | Method | Endpoint | Description |
 |--------|----------|-------------|
 | `GET` | `/api/workout/my` | Get personalized workout plan |
-| `GET` | `/api/diet/my` | Get AI-generated meal plan |
+| `GET` | `/api/diet/my` | Get personalized meal plan |
 
 ### 🎯 Goals & Progress
 | Method | Endpoint | Description |
@@ -157,12 +156,12 @@ NutriFit/
 
 ## 🚀 Deployment Guide
 
-### 1. 🗄️ Database — Railway (MongoDB)
+### 1. 🗄️ Database — Railway (MySQL)
 
 1. Go to [railway.app](https://railway.app/) and create a new project
-2. Add a **MongoDB** service
-3. Copy the **MongoDB connection string** from the Variables tab
-4. Format: `mongodb://user:password@host:port/database`
+2. Add a **MySQL** service
+3. Copy the **MySQL connection string** from the Variables tab
+4. Format: `Server=host;Port=port;Database=NutriFit;User=user;Password=password;`
 
 ---
 
@@ -175,7 +174,7 @@ NutriFit/
 5. Add the following **Environment Variables**:
 
 ```env
-MONGODB_URI=mongodb+srv://<user>:<password>@cluster.mongodb.net/NutriFit
+DEFAULT_CONNECTION=Server=host;Port=3306;Database=NutriFit;User=root;Password=yourpassword;
 JWT_SECRET=your_super_secret_jwt_key_here
 FRONTEND_URL=https://your-vercel-app.vercel.app
 ```
@@ -215,7 +214,7 @@ const api = axios.create({
 ### Prerequisites
 - Node.js 18+
 - .NET SDK 8.0+
-- MongoDB (local or Atlas)
+- MySQL Server (local or Railway)
 
 ### Backend
 ```bash
@@ -238,9 +237,8 @@ npm start
 Create `appsettings.Development.json` in the backend:
 ```json
 {
-  "MongoDb": {
-    "ConnectionString": "mongodb://localhost:27017",
-    "DatabaseName": "NutriFit"
+  "ConnectionStrings": {
+    "DefaultConnection": "Server=localhost;Port=3306;Database=NutriFit;User=root;Password=yourpassword;"
   },
   "JwtSettings": {
     "Secret": "your_local_secret_key"
@@ -269,7 +267,7 @@ This project is for educational purposes. Feel free to fork and build upon it.
 
 <div align="center">
 
-Made with ❤️ using **React** + **.NET** + **MongoDB**
+Made with ❤️ using **React** + **.NET** + **MySQL**
 
 ⭐ **Star this repo** if you found it helpful!
 
