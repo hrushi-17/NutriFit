@@ -99,17 +99,3 @@
     outline: none;
     box-shadow: none;
 }
-
-/* Fix: Offcanvas must always cover full viewport height */
-#netflixOffcanvas {
-    height: 100vh !important;
-    max-height: 100vh !important;
-    overflow-y: auto !important;
-    top: 0 !important;
-}
-
-#netflixOffcanvas .offcanvas-body {
-    flex: 1 1 auto;
-    overflow-y: auto;
-    padding-bottom: 2rem;
-}
