@@ -26,10 +26,10 @@ export default function Footer() {
                 {/* Animated top glow line */}
                 <div className="nf-glow-line" />
 
-                {/* ══════════════════════════════════════
-            DESKTOP: single row — 3 columns
-            [NUTRIFIT]  [Copyright center]  [Pills]
-            ══════════════════════════════════════ */}
+                {/* ══════════════════════════════════════════════════════════
+            DESKTOP ( > 992px ): single row — 3 columns
+            [NUTRIFIT]        [Copyright center]        [Pills]
+            ══════════════════════════════════════════════════════════ */}
                 <div className="nf-desktop-row">
 
                     {/* LEFT — brand */}
@@ -40,9 +40,9 @@ export default function Footer() {
 
                     {/* CENTER — copyright */}
                     <div className="nf-copy">
-                        <span className="nf-copy-year">&copy; Copyright 2026</span>
-                        <span className="nf-dot">&#9679;</span>
-                        <span className="nf-copy-label">Designed and Developed by</span>
+                        <span className="nf-copy-year" style={{ color: "#606060" }}>&copy; Copyright 2026</span>
+                        <span style={{ color: "rgba(229,9,20,0.5)", fontSize: "0.45rem" }}>&#9679;</span>
+                        <span style={{ color: "#909090" }}>Designed and Developed by</span>
                         <span className="nf-copy-author">Hrushikesh Chothe</span>
                     </div>
 
@@ -50,18 +50,18 @@ export default function Footer() {
                     <div className="nf-pills">
                         {PILLS.map(({ icon, label }) => (
                             <span key={label} className="nf-pill">
-                                <i className={`fa-solid ${icon} nf-pill-icon`} />
-                                <span className="nf-pill-label">{label}</span>
+                                <i className={`fa-solid ${icon} nf-pill-icon`} style={{ color: "rgba(229,9,20,0.7)" }} />
+                                <span>{label}</span>
                             </span>
                         ))}
                     </div>
                 </div>
 
-                {/* ══════════════════════════════════════
-            MOBILE / TABLET: two rows
-            Row 1: [NUTRIFIT]          [Pills]
-            Row 2:    [Copyright — centered]
-            ══════════════════════════════════════ */}
+                {/* ══════════════════════════════════════════════════════════
+            MOBILE / TABLET ( ≤ 992px ): two rows
+            Row 1: [NUTRIFIT]                        [Pills] (space-between)
+            Row 2:         [Copyright — centered]
+            ══════════════════════════════════════════════════════════ */}
                 <div className="nf-mobile-wrap">
 
                     {/* Row 1 */}
@@ -73,8 +73,8 @@ export default function Footer() {
                         <div className="nf-pills nm">
                             {PILLS.map(({ icon, label }) => (
                                 <span key={label} className="nf-pill nm">
-                                    <i className={`fa-solid ${icon} nf-pill-icon`} />
-                                    <span className="nf-pill-label">{label}</span>
+                                    <i className={`fa-solid ${icon} nf-pill-icon-nm`} style={{ color: "rgba(229,9,20,0.7)" }} />
+                                    <span>{label}</span>
                                 </span>
                             ))}
                         </div>
@@ -86,9 +86,9 @@ export default function Footer() {
                     {/* Row 2 */}
                     <div className="nf-mobile-row2">
                         <div className="nf-copy nm">
-                            <span className="nf-copy-year">&copy; Copyright 2026</span>
-                            <span className="nf-dot">&#9679;</span>
-                            <span className="nf-copy-label">Designed and Developed by</span>
+                            <span style={{ color: "#606060" }}>&copy; Copyright 2026</span>
+                            <span style={{ color: "rgba(229,9,20,0.5)", fontSize: "0.4rem" }}>&#9679;</span>
+                            <span style={{ color: "#909090" }}>Designed and Developed by</span>
                             <span className="nf-copy-author">Hrushikesh Chothe</span>
                         </div>
                     </div>
@@ -112,7 +112,21 @@ export default function Footer() {
           50%      { opacity:1;   width:62%; }
         }
 
-        /* ═══════════════ DESKTOP ROW ═══════════════ */
+        /* ── GLOBALS ── */
+        .nf-brand-nutri {
+          color: #e50914;
+          text-shadow: 0 0 18px rgba(229,9,20,0.9), 0 0 44px rgba(229,9,20,0.3);
+        }
+        .nf-brand-fit {
+          color: #ffffff;
+        }
+        .nf-copy-author {
+          color: #e50914;
+          font-weight: 700;
+          text-shadow: 0 0 12px rgba(229,9,20,0.4);
+        }
+
+        /* ═══════════════ DESKTOP STYLES (> 992px) ═══════════════ */
         .nf-desktop-row {
           display: flex;
           flex-wrap: nowrap;
@@ -121,139 +135,131 @@ export default function Footer() {
           min-height: 68px;
           max-width: 1300px;
           margin: 0 auto;
-          padding: 0 28px;
-          gap: 12px;
+          /* Fluid padding so it shrinks before breaking */
+          padding: 0 clamp(10px, 2vw, 28px);
+          gap: clamp(8px, 1.5vw, 16px);
           box-sizing: border-box;
         }
         .nf-mobile-wrap { display: none; }
 
-        /* ═══════════════ SHARED STYLES ═══════════════ */
         .nf-brand {
-          flex-shrink: 0;
           font-family: 'Bebas Neue', 'Roboto', sans-serif;
-          font-size: 1.55rem;
-          font-weight: 900;
-          letter-spacing: 5px;
+          /* Fluid size between 1.2rem and 1.55rem */
+          font-size: clamp(1.2rem, 1.8vw, 1.55rem);
+          letter-spacing: clamp(3px, 0.4vw, 5px);
+          flex-shrink: 0;
           line-height: 1;
           user-select: none;
           white-space: nowrap;
         }
-        .nf-brand-nutri {
-          color: #e50914;
-          text-shadow: 0 0 18px rgba(229,9,20,0.9), 0 0 44px rgba(229,9,20,0.3);
-        }
-        .nf-brand-fit { color: #ffffff; }
 
         .nf-copy {
           flex: 1;
           display: flex;
           align-items: center;
           justify-content: center;
-          flex-wrap: wrap;
-          gap: 5px;
+          flex-wrap: nowrap;
+          /* Fluid size and gap */
+          font-size: clamp(0.6rem, 1vw, 0.76rem);
+          gap: clamp(3px, 0.5vw, 6px);
           text-align: center;
           font-family: 'Roboto', sans-serif;
-          font-size: 0.76rem;
           line-height: 1.5;
-        }
-        .nf-copy-year  { color: #606060; white-space: nowrap; }
-        .nf-dot        { color: rgba(229,9,20,0.5); font-size: 0.42rem; }
-        .nf-copy-label { color: #909090; white-space: nowrap; }
-        .nf-copy-author {
-          color: #e50914;
-          font-weight: 700;
-          letter-spacing: 0.7px;
           white-space: nowrap;
-          text-shadow: 0 0 12px rgba(229,9,20,0.4);
+        }
+        /* Make internal items shrink nicely */
+        .nf-copy-author {
+          letter-spacing: clamp(0.3px, 0.1vw, 0.7px);
         }
 
         .nf-pills {
           flex-shrink: 0;
           display: flex;
           align-items: center;
-          gap: 6px;
+          gap: clamp(3px, 0.6vw, 6px);
           flex-wrap: nowrap;
         }
         .nf-pill {
           display: inline-flex;
           align-items: center;
-          gap: 5px;
-          padding: 5px 11px;
+          gap: clamp(3px, 0.5vw, 5px);
+          padding: clamp(3px, 0.5vw, 5px) clamp(5px, 0.8vw, 11px);
           background: rgba(229,9,20,0.07);
           border: 1px solid rgba(229,9,20,0.22);
           border-radius: 20px;
-          font-size: 0.59rem;
+          font-size: clamp(0.48rem, 0.8vw, 0.59rem);
           font-weight: 700;
-          letter-spacing: 1px;
+          letter-spacing: clamp(0.5px, 0.1vw, 1px);
           text-transform: uppercase;
           color: #777;
           white-space: nowrap;
-          transition: background 0.2s, border-color 0.2s;
         }
-        .nf-pill:hover {
-          background: rgba(229,9,20,0.15);
-          border-color: rgba(229,9,20,0.5);
-          color: #ccc;
+        .nf-pill-icon {
+          font-size: clamp(0.5rem, 0.9vw, 0.62rem);
         }
-        .nf-pill-icon  { color: rgba(229,9,20,0.7); font-size: 0.62rem; }
-        .nf-pill-label { display: inline; }
 
-        /* ═══════════════ TABLET & MOBILE (≤ 768px) ═══════════════ */
-        @media (max-width: 768px) {
-          /* Hide desktop row, show mobile layout */
+        /* ═══════════════ TABLET & MOBILE (≤ 992px) ═══════════════ */
+        @media (max-width: 992px) {
           .nf-desktop-row { display: none; }
           .nf-mobile-wrap { display: block; }
-
-          /* Row 1: brand left + pills right — 68px */
-          .nf-mobile-row1 {
+          
+          /* Two rows, each exactly 68px */
+          .nf-mobile-row1, .nf-mobile-row2 {
             display: flex;
             align-items: center;
-            justify-content: space-between;
             height: 68px;
-            padding: 0 20px;
+            padding: 0 clamp(8px, 3vw, 24px);
             box-sizing: border-box;
           }
+          
+          .nf-mobile-row1 {
+            justify-content: space-between; /* Brand Left, Pills Right */
+          }
+          
+          .nf-mobile-row2 {
+            justify-content: center; /* Copyright Center */
+          }
 
-          /* Divider */
+          /* Subtle divider */
           .nf-row-divider {
             height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05) 30%, rgba(255,255,255,0.05) 70%, transparent);
-            margin: 0 20px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05) 50%, transparent);
+            margin: 0 10%;
           }
 
-          /* Row 2: copyright centered — 68px */
-          .nf-mobile-row2 {
+          /* ── Mobile Scale (Fluid typography using viewport width) ── */
+          .nf-brand.nm {
+            font-size: clamp(1.2rem, 4vw, 1.55rem);
+            letter-spacing: clamp(2px, 0.8vw, 5px);
+          }
+          
+          .nf-pills.nm {
+            gap: clamp(2px, 1vw, 6px);
+          }
+          
+          .nf-pill.nm {
+            padding: clamp(3px, 1vw, 5px) clamp(4px, 1.5vw, 10px);
+            font-size: clamp(0.45rem, 1.5vw, 0.59rem);
+            gap: clamp(2px, 0.8vw, 4px);
+            letter-spacing: clamp(0.3px, 0.1vw, 1px);
+          }
+          .nf-pill-icon-nm {
+            font-size: clamp(0.45rem, 1.5vw, 0.62rem);
+          }
+          
+          .nf-copy.nm {
+            flex: unset;
+            width: 100%;
             display: flex;
-            align-items: center;
             justify-content: center;
-            height: 68px;
-            padding: 0 16px;
-            box-sizing: border-box;
+            align-items: center;
+            gap: clamp(2px, 1.5vw, 6px);
+            font-size: clamp(0.6rem, 2vw, 0.78rem);
+            white-space: nowrap; /* Keep it single line */
           }
-
-          /* Scale mobile elements */
-          .nf-brand.nm      { font-size: 1.15rem; letter-spacing: 3.5px; }
-          .nf-pills.nm      { gap: 5px; }
-          .nf-pill.nm       { padding: 4px 9px; font-size: 0.54rem; letter-spacing: 0.8px; gap: 4px; }
-          .nf-copy.nm       { font-size: 0.72rem; gap: 5px; flex: unset; }
-          .nf-copy.nm .nf-copy-author { font-size: 0.76rem; }
-        }
-
-        /* ── SMALL MOBILE (≤ 480px) ── */
-        @media (max-width: 480px) {
-          .nf-mobile-row1, .nf-mobile-row2 { padding: 0 14px; }
-          .nf-brand.nm      { font-size: 1rem; letter-spacing: 2.5px; }
-          .nf-pill.nm       { padding: 3px 7px; font-size: 0.49rem; }
-          .nf-copy.nm       { font-size: 0.65rem; gap: 4px; }
-        }
-
-        /* ── VERY SMALL (≤ 360px) ── */
-        @media (max-width: 360px) {
-          .nf-mobile-row1, .nf-mobile-row2 { padding: 0 10px; }
-          .nf-brand.nm      { font-size: 0.85rem; letter-spacing: 2px; }
-          .nf-pill.nm       { padding: 3px 6px; font-size: 0.44rem; gap: 3px; }
-          .nf-pills.nm      { gap: 3px; }
-          .nf-copy.nm       { font-size: 0.58rem; gap: 3px; }
+          .nf-copy.nm .nf-copy-author {
+            letter-spacing: clamp(0.2px, 0.1vw, 0.7px);
+          }
         }
       `}</style>
         </>
