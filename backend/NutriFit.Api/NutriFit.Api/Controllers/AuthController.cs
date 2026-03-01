@@ -217,23 +217,62 @@ public class AuthController : ControllerBase
             string targetEmail = user?.Email ?? admin!.Email!;
             string targetName = user?.Name ?? admin!.Name!;
             
-            string subject = "Your Password Reset OTP";
+            string subject = "🔒 Your NutriFit Access Code";
             string body = $@"
-                <div style='font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e0e0e0; border-radius: 10px;'>
-                    <h2 style='color: #0d6efd; text-align: center;'>NutriFit Password Reset</h2>
-                    <p style='font-size: 16px; color: #333;'>Hi <strong>{targetName}</strong>,</p>
-                    <p style='font-size: 16px; color: #333;'>You requested to reset your password. Use the OTP below to proceed:</p>
-                    
-                    <div style='text-align: center; margin: 20px 0;'>
-                        <span style='font-size: 24px; font-weight: bold; color: #333; letter-spacing: 5px; background: #f8f9fa; padding: 10px 20px; border-radius: 5px; border: 1px solid #ddd;'>{otp}</span>
-                    </div>
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <meta charset='UTF-8'>
+                    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+                    <link href='https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@400;700&display=swap' rel='stylesheet'>
+                </head>
+                <body style='margin: 0; padding: 0; background-color: #000000; font-family: ""Roboto"", sans-serif;'>
+                    <div style='max-width: 600px; margin: 0 auto; background: linear-gradient(180deg, #141414 0%, #000000 100%); border: 1px solid rgba(229, 9, 20, 0.2); border-top: 4px solid #e50914; box-shadow: 0 20px 50px rgba(0,0,0,0.8);'>
+                        
+                        <!-- Header / Branded Logo Area -->
+                        <div style='padding: 50px 20px 30px; text-align: center;'>
+                             <div style='font-family: ""Bebas Neue"", sans-serif; font-size: 52px; font-weight: 900; letter-spacing: 5px; text-transform: uppercase; line-height: 1;'>
+                                <span style='color: #e50914; text-shadow: 0 0 15px rgba(229, 9, 20, 0.5);'>NUTRI</span><span style='color: #ffffff;'>FIT</span>
+                            </div>
+                            <div style='height: 3px; width: 80px; background: linear-gradient(90deg, transparent, #e50914, transparent); margin: 20px auto 0;'></div>
+                        </div>
 
-                    <p style='font-size: 14px; color: #666; text-align: center;'>This OTP is valid for <strong>1 minute</strong>.</p>
-                    <p style='font-size: 14px; color: #999; text-align: center; margin-top: 20px;'>If you did not request this, please ignore this email.</p>
-                    
-                    <hr style='border: none; border-top: 1px solid #eee; margin: 20px 0;'>
-                    <p style='font-size: 12px; color: #aaa; text-align: center;'>&copy; {DateTime.Now.Year} NutriFit. All rights reserved.</p>
-                </div>";
+                        <!-- Cinematic Main Content -->
+                        <div style='padding: 0 50px 50px; text-align: center;'>
+                            <h2 style='color: #ffffff; font-size: 28px; margin-bottom: 15px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;'>Verification Required</h2>
+                            <p style='color: #b3b3b3; font-size: 16px; line-height: 1.8; margin-bottom: 40px;'>
+                                Hello {targetName},<br>
+                                Secure your account with the cinematic access code below. This code is unique to your session.
+                            </p>
+
+                            <!-- Hero OTP Display -->
+                            <div style='background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); padding: 40px; border-radius: 15px; margin-bottom: 40px; box-shadow: inset 0 0 20px rgba(229, 9, 20, 0.1), 0 15px 35px rgba(0,0,0,0.6);'>
+                                <div style='font-family: ""Bebas Neue"", sans-serif; font-size: 72px; font-weight: 900; color: #ffffff; letter-spacing: 18px; margin: 0; text-shadow: 0 0 25px rgba(229, 9, 20, 0.6);'>
+                                    {otp}
+                                </div>
+                                <div style='height: 1px; width: 100%; background: rgba(255,255,255,0.1); margin: 20px 0;'></div>
+                                <p style='color: #e50914; font-size: 13px; font-weight: 700; text-transform: uppercase; margin: 0; letter-spacing: 3px;'>Valid for 60 seconds</p>
+                            </div>
+
+                            <p style='color: #666666; font-size: 14px; font-style: italic;'>
+                                If you did not request this code, please ignore this email. Your NutriFit account remains protected.
+                            </p>
+                        </div>
+
+                        <!-- Branded Footer Matching Website -->
+                        <div style='padding: 40px; background-color: rgba(10, 10, 10, 0.8); border-top: 1px solid rgba(255, 255, 255, 0.05); text-align: center;'>
+                            <div style='margin-bottom: 20px;'>
+                                <span style='color: #e50914; font-weight: 700; font-size: 14px;'>NUTRI</span><span style='color: #ffffff; font-weight: 700; font-size: 14px;'>FIT</span>
+                            </div>
+                            <p style='color: #888888; font-size: 12px; line-height: 1.6; margin: 0;'>
+                                &copy; {DateTime.Now.Year} NutriFit Premium. All rights reserved.<br>
+                                <span style='color: #555555;'>Designed & Developed by</span> <span style='color: #e50914; font-weight: 700;'>Hrushikesh Chothe</span><br>
+                                <span style='color: #444444;'>Pune, Maharashtra, India</span>
+                            </p>
+                        </div>
+                    </div>
+                </body>
+                </html>";
 
             await _emailService.SendEmailAsync(targetEmail, subject, body);
 
