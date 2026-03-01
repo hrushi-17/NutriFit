@@ -7,6 +7,7 @@ using System.Security.Cryptography;
 using System.Net;
 using System.Net.Mail;
 using Microsoft.AspNetCore.Cors;
+using NutriFit.Api.Services;
 
 
 [ApiController]
@@ -17,12 +18,14 @@ public class AuthController : ControllerBase
     private readonly AppDbContext _db;
     private readonly IConfiguration _config;
     private readonly ILogger<AuthController> _logger;
+    private readonly IEmailService _emailService;
 
-    public AuthController(AppDbContext db, IConfiguration config, ILogger<AuthController> logger)
+    public AuthController(AppDbContext db, IConfiguration config, ILogger<AuthController> logger, IEmailService emailService)
     {
         _db = db;
         _config = config;
         _logger = logger;
+        _emailService = emailService;
     }
 
     // =========================
@@ -210,48 +213,29 @@ public class AuthController : ControllerBase
             
             await _db.SaveChangesAsync();
 
-            // Send OTP via email
+            // Send OTP via email using MailKit Service
             string targetEmail = user?.Email ?? admin!.Email!;
             string targetName = user?.Name ?? admin!.Name!;
-
-            var smtpHost = _config["SMTP:Host"];
-            var smtpPort = int.Parse(_config["SMTP:Port"] ?? "587");
-            var smtpUser = _config["SMTP:Username"];
-            var smtpPass = _config["SMTP:Password"];
-
-            using (var client = new SmtpClient(smtpHost, smtpPort))
-            {
-                client.EnableSsl = true;
-                client.UseDefaultCredentials = false;
-                client.Credentials = new NetworkCredential(smtpUser!, smtpPass!);
-
-                using (var mail = new MailMessage())
-                {
-                    mail.From = new MailAddress(smtpUser!, "NutriFit");
-                    mail.To.Add(targetEmail);
-
-                    mail.Subject = "Your Password Reset OTP";
-                    mail.IsBodyHtml = true;
-                    mail.Body = $@"
-                        <div style='font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e0e0e0; border-radius: 10px;'>
-                            <h2 style='color: #0d6efd; text-align: center;'>NutriFit Password Reset</h2>
-                            <p style='font-size: 16px; color: #333;'>Hi <strong>{targetName}</strong>,</p>
-                            <p style='font-size: 16px; color: #333;'>You requested to reset your password. Use the OTP below to proceed:</p>
-                            
-                            <div style='text-align: center; margin: 20px 0;'>
-                                <span style='font-size: 24px; font-weight: bold; color: #333; letter-spacing: 5px; background: #f8f9fa; padding: 10px 20px; border-radius: 5px; border: 1px solid #ddd;'>{otp}</span>
-                            </div>
-
-                            <p style='font-size: 14px; color: #666; text-align: center;'>This OTP is valid for <strong>1 minute</strong>.</p>
-                            <p style='font-size: 14px; color: #999; text-align: center; margin-top: 20px;'>If you did not request this, please ignore this email.</p>
-                            
-                            <hr style='border: none; border-top: 1px solid #eee; margin: 20px 0;'>
-                            <p style='font-size: 12px; color: #aaa; text-align: center;'>&copy; {DateTime.Now.Year} NutriFit. All rights reserved.</p>
-                        </div>";
+            
+            string subject = "Your Password Reset OTP";
+            string body = $@"
+                <div style='font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e0e0e0; border-radius: 10px;'>
+                    <h2 style='color: #0d6efd; text-align: center;'>NutriFit Password Reset</h2>
+                    <p style='font-size: 16px; color: #333;'>Hi <strong>{targetName}</strong>,</p>
+                    <p style='font-size: 16px; color: #333;'>You requested to reset your password. Use the OTP below to proceed:</p>
                     
-                    await client.SendMailAsync(mail);
-                }
-            }
+                    <div style='text-align: center; margin: 20px 0;'>
+                        <span style='font-size: 24px; font-weight: bold; color: #333; letter-spacing: 5px; background: #f8f9fa; padding: 10px 20px; border-radius: 5px; border: 1px solid #ddd;'>{otp}</span>
+                    </div>
+
+                    <p style='font-size: 14px; color: #666; text-align: center;'>This OTP is valid for <strong>1 minute</strong>.</p>
+                    <p style='font-size: 14px; color: #999; text-align: center; margin-top: 20px;'>If you did not request this, please ignore this email.</p>
+                    
+                    <hr style='border: none; border-top: 1px solid #eee; margin: 20px 0;'>
+                    <p style='font-size: 12px; color: #aaa; text-align: center;'>&copy; {DateTime.Now.Year} NutriFit. All rights reserved.</p>
+                </div>";
+
+            await _emailService.SendEmailAsync(targetEmail, subject, body);
 
             return Ok("OTP sent to your email successfully.");
         }
@@ -348,37 +332,17 @@ public class AuthController : ControllerBase
             user.ResetTokenExpiry = DateTime.Now.AddHours(1);
             await _db.SaveChangesAsync();
 
-            // Send email
+            // Send email using MailKit
             if (string.IsNullOrEmpty(user.Email))
                 return BadRequest("User email is not set.");
 
-            var smtpHost = _config["SMTP:Host"];
-            var smtpPort = int.Parse(_config["SMTP:Port"] ?? "587");
-            var smtpUser = _config["SMTP:Username"];
-            var smtpPass = _config["SMTP:Password"];
             var frontendUrl = _config["FrontendUrl"];
-
-            // Encode token for safe URL
             var resetLink = $"{frontendUrl}/reset-password?token={Uri.EscapeDataString(token)}";
+            
+            string subject = "Reset Your Password";
+            string body = $"Hi {user.Name},\n\nClick this link to reset your password:\n{resetLink}\n\nThis link expires in 1 hour.";
 
-            using (var client = new SmtpClient(smtpHost, smtpPort))
-            {
-                client.EnableSsl = true;
-                client.UseDefaultCredentials = false;
-                client.Credentials = new NetworkCredential(smtpUser!, smtpPass!);
-
-                using (var mail = new MailMessage())
-                {
-                    mail.From = new MailAddress(smtpUser!, "NutriFit");
-
-                    if (!string.IsNullOrEmpty(user.Email))
-                        mail.To.Add(user.Email);
-
-                    mail.Subject = "Reset Your Password";
-                    mail.Body = $"Hi {user.Name},\n\nClick this link to reset your password:\n{resetLink}\n\nThis link expires in 1 hour.";
-                    await client.SendMailAsync(mail);
-                }
-            }
+            await _emailService.SendEmailAsync(user.Email, subject, body, false);
 
             return Ok("Reset password link sent to your email.");
         }

@@ -6,6 +6,8 @@ using System.Text;
 using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.DataProtection;
 
+using NutriFit.Api.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // ======================
@@ -16,6 +18,8 @@ builder.Services.AddControllers()
     {
         options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
     });
+
+builder.Services.AddScoped<IEmailService, EmailService>();
 
 // ======================
 // ? DATA PROTECTION (Fix Render Warnings)
