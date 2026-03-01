@@ -234,22 +234,22 @@ export default function Footer() {
 
           /* ── Mobile Scale (Fluid typography using viewport width) ── */
           .nf-brand.nm {
-            font-size: clamp(1.2rem, 4vw, 1.55rem);
-            letter-spacing: clamp(2px, 0.8vw, 5px);
+            font-size: clamp(0.9rem, 4vw, 1.55rem);
+            letter-spacing: clamp(1px, 0.8vw, 5px);
           }
           
           .nf-pills.nm {
-            gap: clamp(2px, 1vw, 6px);
+            gap: clamp(1px, 1vw, 6px);
           }
           
           .nf-pill.nm {
-            padding: clamp(3px, 1vw, 5px) clamp(4px, 1.5vw, 10px);
-            font-size: clamp(0.45rem, 1.5vw, 0.59rem);
-            gap: clamp(2px, 0.8vw, 4px);
-            letter-spacing: clamp(0.3px, 0.1vw, 1px);
+            padding: clamp(2px, 1vw, 5px) clamp(3px, 1.5vw, 10px);
+            font-size: clamp(0.4rem, 1.5vw, 0.59rem);
+            gap: clamp(1px, 0.8vw, 4px);
+            letter-spacing: clamp(0px, 0.1vw, 1px);
           }
           .nf-pill-icon-nm {
-            font-size: clamp(0.45rem, 1.5vw, 0.62rem);
+            font-size: clamp(0.4rem, 1.5vw, 0.62rem);
           }
           
           .nf-copy.nm {
@@ -258,10 +258,11 @@ export default function Footer() {
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: clamp(4px, 1.5vw, 10px);
-            /* Increased mobile text size */
-            font-size: clamp(0.75rem, 2.5vw, 0.95rem);
-            white-space: nowrap; /* Keep it single line */
+            flex-wrap: wrap; /* Allow wrapping on very small screens instead of overflowing */
+            text-align: center;
+            gap: clamp(2px, 1.5vw, 10px);
+            font-size: clamp(0.5rem, 2.5vw, 0.95rem); /* Minimum size lowered significantly */
+            line-height: 1.4;
           }
           .nf-copy.nm .nf-copy-author {
             letter-spacing: clamp(0.3px, 0.1vw, 0.7px);
