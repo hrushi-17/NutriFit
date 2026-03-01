@@ -1,5 +1,6 @@
 import { useNavigate, Link } from "react-router-dom";
 import "../styles/pages/Auth.css";
+import Footer from "../components/Footer";
 
 export default function Register() {
   const navigate = useNavigate();
@@ -39,6 +40,7 @@ export default function Register() {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import api from "../api/axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Footer from "../components/Footer";
 
 export default function RegisterUser() {
   const [data, setData] = useState({ name: "", email: "", password: "", confirmPassword: "" });
@@ -146,6 +147,7 @@ export default function RegisterUser() {
           </p>
         </div>
       </div>
+      <Footer />
     </div>
   );
 }

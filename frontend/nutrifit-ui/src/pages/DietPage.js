@@ -1,5 +1,6 @@
 import api from "../api/axios";
 import { useEffect, useState } from "react";
+import Footer from "../components/Footer";
 
 export default function DietPage() {
   const [list, setList] = useState([]);
@@ -157,6 +158,7 @@ export default function DietPage() {
           );
         })}
       </div>
+      <Footer />
     </div>
   );
 }

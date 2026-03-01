@@ -1,5 +1,6 @@
 import api from "../api/axios";
 import { useEffect, useState } from "react";
+import Footer from "../components/Footer";
 
 export default function BmiPage() {
   const [p, setP] = useState(null);
@@ -202,6 +203,7 @@ export default function BmiPage() {
           color:#ffffff;
         }
       `}</style>
+      <Footer />
     </div>
   );
 }

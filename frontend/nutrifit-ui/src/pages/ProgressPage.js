@@ -2,6 +2,7 @@ import { useEffect, useState, useCallback, useRef } from "react";
 import api from "../api/axios";
 import $ from "jquery";
 import Chart from "chart.js/auto";
+import Footer from "../components/Footer";
 
 export default function ProgressPage() {
   const [weight, setWeight] = useState("");
@@ -253,6 +254,7 @@ export default function ProgressPage() {
           100% { transform:scale(1); box-shadow: 0 0 0 rgba(255,255,255,0) }
         }
       `}</style>
+      <Footer />
     </div>
   );
 }

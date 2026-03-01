@@ -1,5 +1,6 @@
 import api from "../api/axios";
 import { useEffect, useState } from "react";
+import Footer from "../components/Footer";
 
 export default function WorkoutPage() {
   const [list, setList] = useState([]);
@@ -147,6 +148,7 @@ export default function WorkoutPage() {
           );
         })}
       </div>
+      <Footer />
     </div>
   );
 }

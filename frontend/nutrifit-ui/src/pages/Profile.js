@@ -1,6 +1,7 @@
 import api from "../api/axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Footer from "../components/Footer";
 
 export default function Profile() {
   const [p, setP] = useState({
@@ -166,6 +167,7 @@ export default function Profile() {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 }

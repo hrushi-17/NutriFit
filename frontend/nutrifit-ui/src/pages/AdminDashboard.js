@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import api from "../api/axios";
 import Chart from "chart.js/auto";
 import "../styles/pages/Admin.css";
+import Footer from "../components/Footer";
 
 export default function AdminDashboard() {
   const navigate = useNavigate();
@@ -485,8 +486,7 @@ export default function AdminDashboard() {
         }
       `}</style>
 
+      <Footer />
     </div>
   );
 }
-
-
