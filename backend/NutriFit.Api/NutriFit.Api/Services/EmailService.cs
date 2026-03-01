@@ -20,75 +20,61 @@ namespace NutriFit.Api.Services
 
         public async Task SendEmailAsync(string toEmail, string subject, string body, bool isHtml = true)
         {
-            try
+            var smtpHost = _config["SMTP:Host"] ?? "smtp.gmail.com";
+            var smtpUser = _config["SMTP:Username"];
+            var smtpPass = _config["SMTP:Password"];
+            var configPort = int.Parse(_config["SMTP:Port"] ?? "465");
+
+            // List of ports to try in sequence
+            var portsToTry = new List<(int Port, SecureSocketOptions Options)>
             {
-                var smtpHost = _config["SMTP:Host"];
-                var smtpPort = int.Parse(_config["SMTP:Port"] ?? "587");
-                var smtpUser = _config["SMTP:Username"];
-                var smtpPass = _config["SMTP:Password"];
+                (configPort, configPort == 465 ? SecureSocketOptions.SslOnConnect : SecureSocketOptions.StartTls),
+                (465, SecureSocketOptions.SslOnConnect),
+                (587, SecureSocketOptions.StartTls),
+                (2525, SecureSocketOptions.StartTls) // Common fallback port
+            };
 
-                _logger.LogInformation("Attempting to send email to {ToEmail} via {Host}:{Port}", toEmail, smtpHost, smtpPort);
+            // Remove duplicates and the configured port (if it's already in the list)
+            portsToTry = portsToTry.GroupBy(x => x.Port).Select(g => g.First()).ToList();
 
-                var email = new MimeMessage();
-                email.From.Add(new MailboxAddress("NutriFit", smtpUser));
-                email.To.Add(MailboxAddress.Parse(toEmail));
-                email.Subject = subject;
-                email.Body = new TextPart(isHtml ? TextFormat.Html : TextFormat.Plain) { Text = body };
+            Exception? lastException = null;
 
-                using var smtp = new SmtpClient();
-                
-                // Connection timeout setting
-                smtp.Timeout = 30000; // 30 seconds
-
-                // Force IPv4 for better reliability in cloud environments like Render
-                // Many cloud environments have issues with IPv6 and SMTP
-                smtp.LocalDomain = "localhost";
-
-                // Use SecureSocketOptions.SslOnConnect for port 465 (Implicit SSL)
-                // Use SecureSocketOptions.StartTls for port 587 (Explicit TLS)
-                var secureOptions = smtpPort == 465 ? SecureSocketOptions.SslOnConnect : SecureSocketOptions.StartTls;
-                
-                _logger.LogInformation("Connecting to SMTP server {Host}:{Port} with {Options} (Forcing IPv4)...", smtpHost, smtpPort, secureOptions);
-                
-                try 
+            foreach (var (port, options) in portsToTry)
+            {
+                try
                 {
-                    // Forcing IPv4 address resolution for the host
-                    var addresses = await Dns.GetHostAddressesAsync(smtpHost!);
-                    var ipv4Address = addresses.FirstOrDefault(a => a.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork);
+                    _logger.LogInformation("Attempting SMTP: {Host}:{Port} with {Options}", smtpHost, port, options);
+
+                    using var smtp = new SmtpClient();
                     
-                    if (ipv4Address != null)
-                    {
-                        _logger.LogInformation("Resolved {Host} to IPv4: {IP}", smtpHost, ipv4Address);
-                        await smtp.ConnectAsync(ipv4Address.ToString(), smtpPort, secureOptions);
-                    }
-                    else
-                    {
-                        _logger.LogWarning("Could not resolve {Host} to an IPv4 address. Falling back to default resolve.", smtpHost);
-                        await smtp.ConnectAsync(smtpHost, smtpPort, secureOptions);
-                    }
+                    // DIAGNOSTIC: Accept all certificates to bypass handshake stalls
+                    smtp.ServerCertificateValidationCallback = (s, c, h, e) => true;
+                    smtp.Timeout = 15000; // 15s per attempt
+
+                    var email = new MimeMessage();
+                    email.From.Add(new MailboxAddress("NutriFit", smtpUser));
+                    email.To.Add(MailboxAddress.Parse(toEmail));
+                    email.Subject = subject;
+                    email.Body = new TextPart(isHtml ? TextFormat.Html : TextFormat.Plain) { Text = body };
+
+                    await smtp.ConnectAsync(smtpHost, port, options);
+                    await smtp.AuthenticateAsync(smtpUser, smtpPass);
+                    await smtp.SendAsync(email);
+                    await smtp.DisconnectAsync(true);
+
+                    _logger.LogInformation("Email sent successfully via port {Port}", port);
+                    return; // Success!
                 }
                 catch (Exception ex)
                 {
-                    _logger.LogWarning(ex, "IPv4 connection failed, trying default connection for {Host}.", smtpHost);
-                    await smtp.ConnectAsync(smtpHost, smtpPort, secureOptions);
+                    lastException = ex;
+                    _logger.LogWarning("Failed to send via port {Port}: {Msg}", port, ex.Message);
+                    // Continue to next port
                 }
-                
-                _logger.LogInformation("Authenticating as {User}...", smtpUser);
-                await smtp.AuthenticateAsync(smtpUser, smtpPass);
-                
-                _logger.LogInformation("Sending email to {To}...", toEmail);
-                await smtp.SendAsync(email);
-                
-                _logger.LogInformation("Disconnecting...");
-                await smtp.DisconnectAsync(true);
-                
-                _logger.LogInformation("Email sent successfully to {ToEmail}", toEmail);
             }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Failed to send email to {ToEmail} via MailKit", toEmail);
-                throw; // Re-throw to handle in controller
-            }
+
+            _logger.LogError(lastException, "All SMTP delivery attempts failed for {To}", toEmail);
+            throw new Exception("All SMTP delivery attempts failed. Check logs for details.", lastException);
         }
     }
 }
