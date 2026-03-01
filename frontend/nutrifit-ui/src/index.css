@@ -212,15 +212,17 @@ a {
   font-weight: 700;
   border-radius: 50px !important;
   /* pill shape */
-  padding: 10px 24px;
-  font-size: 1rem;
-  letter-spacing: 1px;
+  padding: 8px 18px;
+  /* Slightly tighter padding to fit all buttons in navbar row */
+  font-size: 0.95rem;
+  /* Very slightly smaller font */
+  letter-spacing: 0.5px;
   text-transform: uppercase;
   transition: all 0.3s ease;
   display: inline-flex !important;
   align-items: center !important;
   justify-content: center;
-  gap: 8px;
+  gap: 6px;
   line-height: 1.2;
   white-space: nowrap;
 }
