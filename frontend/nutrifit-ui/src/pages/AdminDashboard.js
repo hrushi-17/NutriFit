@@ -212,17 +212,19 @@ export default function AdminDashboard() {
           {data && (
             <>
               {/* ================= DELETE USER BUTTON ================= */}
-              <button
-                className="btn btn-netflix shadow-lg px-4 fw-bold"
-                onClick={() => deleteUser(data.user.userId)}
-                disabled={loading}
-              >
-                {loading ? (
-                  <><span className="spinner-border spinner-border-sm me-2"></span>Deleting...</>
-                ) : (
-                  <><i className="fa-solid fa-trash me-2"></i> Delete User</>
-                )}
-              </button>
+              <div className="mb-3 text-end">
+                <button
+                  className="btn btn-netflix shadow-lg px-4 fw-bold"
+                  onClick={() => deleteUser(data.user.userId)}
+                  disabled={loading}
+                >
+                  {loading ? (
+                    <><span className="spinner-border spinner-border-sm me-2"></span>Deleting...</>
+                  ) : (
+                    <><i className="fa-solid fa-trash me-2"></i> Delete User</>
+                  )}
+                </button>
+              </div>
 
               <div className="row g-2 mb-2 align-items-stretch">
 
