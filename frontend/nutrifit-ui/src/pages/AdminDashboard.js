@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../api/axios";
 import Chart from "chart.js/auto";
@@ -8,7 +8,7 @@ export default function AdminDashboard() {
   const navigate = useNavigate();
   const [users, setUsers] = useState([]);
   const [data, setData] = useState(null);
-  const [chart, setChart] = useState(null);
+  const chartRef = useRef(null);
 
   const loadUsers = useCallback(async () => {
     const res = await api.get("/admin/users");
@@ -42,10 +42,18 @@ export default function AdminDashboard() {
     const weights = history.map(x => x.weight);
     const bmis = history.map(x => x.bmi);
 
-    if (chart) chart.destroy();
+    // Destroy existing chart instance using ref (avoids stale closure bug)
+    if (chartRef.current) {
+      chartRef.current.destroy();
+      chartRef.current = null;
+    }
 
     const ctx = document.getElementById("adminProgressChart");
     if (!ctx) return;
+
+    // Fallback: destroy any orphaned chart on this canvas
+    const existing = Chart.getChart(ctx);
+    if (existing) existing.destroy();
 
     const newChart = new Chart(ctx, {
       type: "line",
@@ -89,7 +97,7 @@ export default function AdminDashboard() {
       options: { responsive: true, maintainAspectRatio: false }
     });
 
-    setChart(newChart);
+    chartRef.current = newChart;
   };
 
   const latest = data?.progressHistory?.length
