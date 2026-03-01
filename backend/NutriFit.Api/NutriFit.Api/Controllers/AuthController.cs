@@ -169,7 +169,7 @@ public class AuthController : ControllerBase
     // ? SEND OTP (NEW FLOW)
     // =========================
     [HttpPost("send-otp")]
-    public IActionResult SendOtp(ForgotPasswordDto dto)
+    public async Task<IActionResult> SendOtp(ForgotPasswordDto dto)
     {
         try
         {
@@ -208,7 +208,7 @@ public class AuthController : ControllerBase
                 admin.OtpVerified = false;
             }
             
-            _db.SaveChanges();
+            await _db.SaveChangesAsync();
 
             // Send OTP via email
             string targetEmail = user?.Email ?? admin!.Email!;
@@ -248,7 +248,7 @@ public class AuthController : ControllerBase
                             <p style='font-size: 12px; color: #aaa; text-align: center;'>&copy; {DateTime.Now.Year} NutriFit. All rights reserved.</p>
                         </div>";
                     
-                    client.Send(mail);
+                    await client.SendMailAsync(mail);
                 }
             }
 
@@ -327,7 +327,7 @@ public class AuthController : ControllerBase
     // ? FORGOT PASSWORD (SMTP EMAIL)
     // =========================
     [HttpPost("forgot-password")]
-    public IActionResult ForgotPassword(ForgotPasswordDto dto)
+    public async Task<IActionResult> ForgotPassword(ForgotPasswordDto dto)
     {
         try
         {
@@ -345,7 +345,7 @@ public class AuthController : ControllerBase
             // Save token and expiry in DB
             user.ResetToken = token;
             user.ResetTokenExpiry = DateTime.Now.AddHours(1);
-            _db.SaveChanges();
+            await _db.SaveChangesAsync();
 
             // Send email
             if (string.IsNullOrEmpty(user.Email))
@@ -374,7 +374,7 @@ public class AuthController : ControllerBase
 
                     mail.Subject = "Reset Your Password";
                     mail.Body = $"Hi {user.Name},\n\nClick this link to reset your password:\n{resetLink}\n\nThis link expires in 1 hour.";
-                    client.Send(mail);
+                    await client.SendMailAsync(mail);
                 }
             }
 
