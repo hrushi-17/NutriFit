@@ -36,7 +36,7 @@ export default function ForgotPassword() {
 
     try {
       setLoading(true);
-      setMsg("⏳ Sending OTP... Please wait (may take up to 60s on first request)");
+      setMsg("⏳ Sending OTP... Please wait");
       const res = await api.post("/auth/send-otp", { email });
       setMsg("✅ " + res.data);
       setOtpSent(true);
