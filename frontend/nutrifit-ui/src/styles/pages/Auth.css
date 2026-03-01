@@ -104,6 +104,47 @@
     text-decoration: underline;
 }
 
+/* Auth Alerts - Premium Netflix Glass UI */
+.auth-alert {
+    padding: 12px 20px;
+    margin-bottom: 24px;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    animation: authSlideDown 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+.auth-alert-error {
+    background: rgba(229, 9, 20, 0.15);
+    border-left: 4px solid #e50914;
+    color: #ffb3b3;
+}
+
+.auth-alert-success {
+    background: rgba(46, 213, 115, 0.15);
+    border-left: 4px solid #2ed573;
+    color: #b3ffcc;
+}
+
+@keyframes authSlideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 /* Mobile Responsiveness */
 @media (max-width: 768px) {
     .auth-horizontal-card {

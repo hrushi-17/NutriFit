@@ -62,10 +62,8 @@ export default function ResetPassword() {
 
           {/* Display message */}
           {msg && (
-            <div
-              className={`alert ${msg.startsWith("✅") ? "alert-success border-0 bg-success text-white" : "alert-danger border-0 bg-danger text-white"} py-2 mb-3 rounded`}
-              style={{ fontSize: "0.9rem" }}
-            >
+            <div className={`auth-alert ${msg.startsWith("✅") ? "auth-alert-success" : "auth-alert-error"}`}>
+              <i className={`fa-solid ${msg.startsWith("✅") ? "fa-circle-check" : "fa-circle-exclamation"}`}></i>
               {msg}
             </div>
           )}

@@ -42,7 +42,8 @@ export default function Login() {
 
           {/* Error Message */}
           {msg && (
-            <div className="alert alert-danger py-2 px-3 border-0 bg-danger text-white rounded">
+            <div className="auth-alert auth-alert-error">
+              <i className="fa-solid fa-circle-exclamation"></i>
               {msg}
             </div>
           )}

@@ -4,8 +4,10 @@ import { useNavigate } from "react-router-dom";
 
 export default function RegisterAdmin() {
   const [data, setData] = useState({ name: "", email: "", password: "", confirmPassword: "", secretKey: "" });
+  const [msg, setMsg] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   // Password validation regex: min 8 chars, 1 uppercase, 1 lowercase, 1 number, 1 special char
@@ -15,24 +17,31 @@ export default function RegisterAdmin() {
     // ✅ Email validation regex
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(data.email)) {
-      alert("❌ Please enter a valid email address!");
+      setMsg("❌ Please enter a valid email address!");
       return;
     }
 
     // ✅ Password strength validation
     if (!passwordRegex.test(data.password)) {
-      alert("❌ Password does not meet the required criteria. Please check the requirements below the password field.");
+      setMsg("❌ Password must be at least 8 characters and include uppercase, lowercase, number, and special character.");
       return;
     }
 
     if (data.password !== data.confirmPassword) {
-      alert("❌ Password and Confirm Password do not match!");
+      setMsg("❌ Passwords do not match!");
       return;
     }
 
-    await api.post("/auth/register-admin", data);
-    alert("Admin registered successfully. Please login.");
-    navigate("/login");
+    try {
+      setLoading(true);
+      await api.post("/auth/register-admin", data);
+      setMsg("✅ Admin registered successfully! Redirecting...");
+      setTimeout(() => navigate("/login"), 1500);
+    } catch (err) {
+      setMsg("❌ " + (err.response?.data || "Registration failed."));
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -49,6 +58,14 @@ export default function RegisterAdmin() {
         {/* Right Form Side */}
         <div className="auth-form-side">
           <h3 className="auth-title mb-4 text-center">Admin Registration</h3>
+
+          {/* Message Display */}
+          {msg && (
+            <div className={`auth-alert ${msg.startsWith("✅") ? "auth-alert-success" : "auth-alert-error"}`}>
+              <i className={`fa-solid ${msg.startsWith("✅") ? "fa-circle-check" : "fa-circle-exclamation"}`}></i>
+              {msg}
+            </div>
+          )}
 
           <div className="row g-3">
             {/* Name Field */}
@@ -144,8 +161,11 @@ export default function RegisterAdmin() {
           <button
             className="btn btn-netflix w-100 mt-4 py-3 fw-bold fs-5"
             onClick={register}
+            disabled={loading}
           >
-            Create Admin Account
+            {loading ? (
+              <><span className="spinner-border spinner-border-sm me-2"></span>Creating...</>
+            ) : "Create Admin Account"}
           </button>
 
           <p className="auth-footer-text text-center mt-4">
