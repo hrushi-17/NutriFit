@@ -23,7 +23,7 @@
 
 <br/>
 
-[![Live Demo](https://img.shields.io/badge/🌐_Live_Demo-Visit_Now-e50914?style=for-the-badge)](https://your-vercel-url.vercel.app)
+[![Live Demo](https://img.shields.io/badge/🌐_Live_Demo-Visit_Now-e50914?style=for-the-badge)](https://nutrifit-topaz.vercel.app/)
 [![Report Bug](https://img.shields.io/badge/🐛_Bug_Report-Open_Issue-orange?style=for-the-badge)](https://github.com/hrushi-17/NutriFit/issues)
 [![Request Feature](https://img.shields.io/badge/✨_Feature_Request-Open_Issue-blueviolet?style=for-the-badge)](https://github.com/hrushi-17/NutriFit/issues)
 
@@ -240,7 +240,7 @@ NutriFit/
 ```env
 MYSQL_CONNECTION_STRING=Server=host;Port=3306;Database=nutrifit;User=root;Password=yourpassword;
 JWT_SECRET=your_super_secret_jwt_key_here
-FRONTEND_URL=https://your-vercel-app.vercel.app
+FRONTEND_URL=https://nutrifit-topaz.vercel.app/
 ```
 
 ---
