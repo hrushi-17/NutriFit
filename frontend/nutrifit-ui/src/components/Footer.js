@@ -40,9 +40,9 @@ export default function Footer() {
 
                     {/* CENTER — copyright */}
                     <div className="nf-copy">
-                        <span className="nf-copy-year" style={{ color: "#606060" }}>&copy; Copyright 2026</span>
-                        <span style={{ color: "rgba(229,9,20,0.5)", fontSize: "0.45rem" }}>&#9679;</span>
-                        <span style={{ color: "#909090" }}>Designed and Developed by</span>
+                        <span className="nf-copy-year" style={{ color: "#a3a3a3", textShadow: "0 0 5px rgba(255,255,255,0.1)" }}>&copy; Copyright 2026</span>
+                        <span style={{ color: "rgba(229,9,20,0.8)", fontSize: "0.55rem", textShadow: "0 0 8px rgba(229,9,20,0.9)" }}>&#9679;</span>
+                        <span style={{ color: "#c0c0c0", textShadow: "0 0 5px rgba(255,255,255,0.1)" }}>Designed and Developed by</span>
                         <span className="nf-copy-author">Hrushikesh Chothe</span>
                     </div>
 
@@ -86,9 +86,9 @@ export default function Footer() {
                     {/* Row 2 */}
                     <div className="nf-mobile-row2">
                         <div className="nf-copy nm">
-                            <span style={{ color: "#606060" }}>&copy; Copyright 2026</span>
-                            <span style={{ color: "rgba(229,9,20,0.5)", fontSize: "0.4rem" }}>&#9679;</span>
-                            <span style={{ color: "#909090" }}>Designed and Developed by</span>
+                            <span style={{ color: "#a3a3a3", textShadow: "0 0 5px rgba(255,255,255,0.1)" }}>&copy; Copyright 2026</span>
+                            <span style={{ color: "rgba(229,9,20,0.8)", fontSize: "0.55rem", textShadow: "0 0 8px rgba(229,9,20,0.9)" }}>&#9679;</span>
+                            <span style={{ color: "#c0c0c0", textShadow: "0 0 5px rgba(255,255,255,0.1)" }}>Designed and Developed by</span>
                             <span className="nf-copy-author">Hrushikesh Chothe</span>
                         </div>
                     </div>
@@ -159,16 +159,21 @@ export default function Footer() {
           align-items: center;
           justify-content: center;
           flex-wrap: nowrap;
-          /* Fluid size and gap */
-          font-size: clamp(0.6rem, 1vw, 0.76rem);
-          gap: clamp(3px, 0.5vw, 6px);
+          /* Increased font sizes for all screens (was 0.6rem -> 0.76rem) */
+          font-size: clamp(0.75rem, 1.2vw, 0.95rem);
+          gap: clamp(4px, 0.7vw, 10px);
           text-align: center;
           font-family: 'Roboto', sans-serif;
           line-height: 1.5;
           white-space: nowrap;
         }
-        /* Make internal items shrink nicely */
+        /* Gradient and glowing text effect */
         .nf-copy-author {
+          font-weight: 700;
+          background: linear-gradient(90deg, #ff4b4b, #e50914);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          text-shadow: 0 0 15px rgba(229,9,20,0.3);
           letter-spacing: clamp(0.3px, 0.1vw, 0.7px);
         }
 
@@ -253,12 +258,13 @@ export default function Footer() {
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: clamp(2px, 1.5vw, 6px);
-            font-size: clamp(0.6rem, 2vw, 0.78rem);
+            gap: clamp(4px, 1.5vw, 10px);
+            /* Increased mobile text size */
+            font-size: clamp(0.75rem, 2.5vw, 0.95rem);
             white-space: nowrap; /* Keep it single line */
           }
           .nf-copy.nm .nf-copy-author {
-            letter-spacing: clamp(0.2px, 0.1vw, 0.7px);
+            letter-spacing: clamp(0.3px, 0.1vw, 0.7px);
           }
         }
       `}</style>
