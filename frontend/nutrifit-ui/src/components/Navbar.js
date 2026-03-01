@@ -53,35 +53,36 @@ export default function Navbar() {
               {/* Optional Links can go here */}
             </ul>
 
-            <div className="d-flex flex-column flex-lg-row align-items-stretch align-items-lg-center gap-3 mt-4 mt-lg-0 mb-4 mb-lg-0">
+            <div className="d-flex flex-wrap flex-column flex-lg-row align-items-stretch align-items-lg-center gap-2 mt-4 mt-lg-0 mb-4 mb-lg-0 w-100 justify-content-lg-end">
               {!token ? (
                 <>
                   <Link className="text-white text-decoration-none fw-semibold text-center py-2 py-lg-0" to="/login" style={{ transition: "color 0.2s" }} onMouseEnter={e => e.currentTarget.style.color = "var(--accent-red)"} onMouseLeave={e => e.currentTarget.style.color = "white"}>
                     Sign In
                   </Link>
-                  <Link className="btn-netflix px-4 py-2 text-center" to="/register">
+                  <Link className="btn-netflix py-2 px-3 text-center" style={{ fontSize: "0.85rem" }} to="/register">
                     Get Started
                   </Link>
                 </>
               ) : (
                 <>
                   {role === "admin" && (
-                    <Link className="btn-outline-glass px-4 py-2 text-center" to="/admin">
-                      <i className="fa-solid fa-user-shield me-2"></i> Admin Panel
+                    <Link className="btn-outline-glass py-2 px-3 text-center" style={{ fontSize: "0.85rem" }} to="/admin">
+                      <i className="fa-solid fa-user-shield me-1"></i> Admin
                     </Link>
                   )}
 
                   {role === "user" && (
-                    <Link className="btn-outline-glass px-4 py-2 text-center" to="/profile">
-                      <i className="fa-solid fa-user me-2"></i> Profile
+                    <Link className="btn-outline-glass py-2 px-3 text-center" style={{ fontSize: "0.85rem" }} to="/profile">
+                      <i className="fa-solid fa-user me-1"></i> Profile
                     </Link>
                   )}
 
                   <button
-                    className="btn btn-netflix px-4 py-2 text-center"
+                    className="btn btn-netflix py-2 px-3 text-center"
+                    style={{ fontSize: "0.85rem" }}
                     onClick={logout}
                   >
-                    <i className="fa-solid fa-right-from-bracket me-2"></i> Logout
+                    <i className="fa-solid fa-right-from-bracket me-1"></i> Logout
                   </button>
                 </>
               )}
