@@ -36,7 +36,7 @@ export default function ForgotPassword() {
 
     try {
       setLoading(true);
-      setMsg("⏳ Sending OTP... Please wait");
+      setMsg("⏳ Sending OTP...");
       const res = await api.post("/auth/send-otp", { email });
       setMsg("✅ " + res.data);
       setOtpSent(true);
@@ -64,7 +64,7 @@ export default function ForgotPassword() {
       // Redirect to reset password with verification token
       setTimeout(() => {
         navigate(`/reset-password?token=${encodeURIComponent(res.data.verificationToken)}`);
-      }, 1500);
+      }, 500);
     } catch (err) {
       setMsg("❌ " + (err.response?.data || "Invalid or expired OTP"));
     } finally {
