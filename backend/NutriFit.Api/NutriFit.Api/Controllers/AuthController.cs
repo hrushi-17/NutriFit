@@ -222,6 +222,7 @@ public class AuthController : ControllerBase
             using (var client = new SmtpClient(smtpHost, smtpPort))
             {
                 client.EnableSsl = true;
+                client.UseDefaultCredentials = false;
                 client.Credentials = new NetworkCredential(smtpUser!, smtpPass!);
 
                 using (var mail = new MailMessage())
@@ -363,6 +364,7 @@ public class AuthController : ControllerBase
             using (var client = new SmtpClient(smtpHost, smtpPort))
             {
                 client.EnableSsl = true;
+                client.UseDefaultCredentials = false;
                 client.Credentials = new NetworkCredential(smtpUser!, smtpPass!);
 
                 using (var mail = new MailMessage())
