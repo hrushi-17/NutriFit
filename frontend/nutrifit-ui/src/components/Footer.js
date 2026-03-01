@@ -1,4 +1,11 @@
 export default function Footer() {
+    const PILLS = [
+        { icon: "fa-dumbbell", label: "Fitness" },
+        { icon: "fa-utensils", label: "Nutrition" },
+        { icon: "fa-heart-pulse", label: "Health" },
+        { icon: "fa-chart-line", label: "Progress" },
+    ];
+
     return (
         <>
             <footer style={{
@@ -19,10 +26,13 @@ export default function Footer() {
                 {/* Animated top glow line */}
                 <div className="nf-glow-line" />
 
-                {/* ── SINGLE ROW — always space-between, always centered ── */}
-                <div className="nf-footer-row">
+                {/* ══════════════════════════════════════
+            DESKTOP: single row — 3 columns
+            [NUTRIFIT]  [Copyright center]  [Pills]
+            ══════════════════════════════════════ */}
+                <div className="nf-desktop-row">
 
-                    {/* LEFT — NUTRIFIT brand */}
+                    {/* LEFT — brand */}
                     <div className="nf-brand">
                         <span className="nf-brand-nutri">NUTRI</span>
                         <span className="nf-brand-fit">FIT</span>
@@ -36,29 +46,60 @@ export default function Footer() {
                         <span className="nf-copy-author">Hrushikesh Chothe</span>
                     </div>
 
-                    {/* RIGHT — pill badges */}
+                    {/* RIGHT — pills */}
                     <div className="nf-pills">
-                        {[
-                            { icon: "fa-dumbbell", label: "Fitness" },
-                            { icon: "fa-utensils", label: "Nutrition" },
-                            { icon: "fa-heart-pulse", label: "Health" },
-                            { icon: "fa-chart-line", label: "Progress" },
-                        ].map(({ icon, label }) => (
+                        {PILLS.map(({ icon, label }) => (
                             <span key={label} className="nf-pill">
                                 <i className={`fa-solid ${icon} nf-pill-icon`} />
                                 <span className="nf-pill-label">{label}</span>
                             </span>
                         ))}
                     </div>
-
                 </div>
+
+                {/* ══════════════════════════════════════
+            MOBILE / TABLET: two rows
+            Row 1: [NUTRIFIT]          [Pills]
+            Row 2:    [Copyright — centered]
+            ══════════════════════════════════════ */}
+                <div className="nf-mobile-wrap">
+
+                    {/* Row 1 */}
+                    <div className="nf-mobile-row1">
+                        <div className="nf-brand nm">
+                            <span className="nf-brand-nutri">NUTRI</span>
+                            <span className="nf-brand-fit">FIT</span>
+                        </div>
+                        <div className="nf-pills nm">
+                            {PILLS.map(({ icon, label }) => (
+                                <span key={label} className="nf-pill nm">
+                                    <i className={`fa-solid ${icon} nf-pill-icon`} />
+                                    <span className="nf-pill-label">{label}</span>
+                                </span>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* Thin divider between rows */}
+                    <div className="nf-row-divider" />
+
+                    {/* Row 2 */}
+                    <div className="nf-mobile-row2">
+                        <div className="nf-copy nm">
+                            <span className="nf-copy-year">&copy; Copyright 2026</span>
+                            <span className="nf-dot">&#9679;</span>
+                            <span className="nf-copy-label">Designed and Developed by</span>
+                            <span className="nf-copy-author">Hrushikesh Chothe</span>
+                        </div>
+                    </div>
+                </div>
+
             </footer>
 
             <style>{`
         /* ── GLOW LINE ── */
         .nf-glow-line {
-          position: absolute;
-          top: 0; left: 50%;
+          position: absolute; top: 0; left: 50%;
           transform: translateX(-50%);
           height: 2px; border-radius: 999px;
           background: linear-gradient(90deg, transparent, rgba(229,9,20,0.6) 30%, #e50914 50%, rgba(229,9,20,0.6) 70%, transparent);
@@ -67,25 +108,26 @@ export default function Footer() {
           animation: nfGlowAnim 3s ease-in-out infinite;
         }
         @keyframes nfGlowAnim {
-          0%, 100% { opacity: 0.55; width: 44%; }
-          50%       { opacity: 1;   width: 62%; }
+          0%,100% { opacity:0.55; width:44%; }
+          50%      { opacity:1;   width:62%; }
         }
 
-        /* ── ROW — same height as navbar (~68px), always space-between+center ── */
-        .nf-footer-row {
+        /* ═══════════════ DESKTOP ROW ═══════════════ */
+        .nf-desktop-row {
           display: flex;
-          flex-wrap: nowrap;               /* never wrap — always single row */
-          align-items: center;             /* vertically centered always */
-          justify-content: space-between;  /* left | center | right always */
-          min-height: 68px;                /* match navbar height */
+          flex-wrap: nowrap;
+          align-items: center;
+          justify-content: space-between;
+          min-height: 68px;
           max-width: 1300px;
           margin: 0 auto;
           padding: 0 28px;
           gap: 12px;
           box-sizing: border-box;
         }
+        .nf-mobile-wrap { display: none; }
 
-        /* ── BRAND (left) ── */
+        /* ═══════════════ SHARED STYLES ═══════════════ */
         .nf-brand {
           flex-shrink: 0;
           font-family: 'Bebas Neue', 'Roboto', sans-serif;
@@ -102,7 +144,6 @@ export default function Footer() {
         }
         .nf-brand-fit { color: #ffffff; }
 
-        /* ── COPYRIGHT (center) ── */
         .nf-copy {
           flex: 1;
           display: flex;
@@ -115,9 +156,9 @@ export default function Footer() {
           font-size: 0.76rem;
           line-height: 1.5;
         }
-        .nf-copy-year   { color: #606060; white-space: nowrap; }
-        .nf-dot         { color: rgba(229,9,20,0.5); font-size: 0.42rem; }
-        .nf-copy-label  { color: #909090; white-space: nowrap; }
+        .nf-copy-year  { color: #606060; white-space: nowrap; }
+        .nf-dot        { color: rgba(229,9,20,0.5); font-size: 0.42rem; }
+        .nf-copy-label { color: #909090; white-space: nowrap; }
         .nf-copy-author {
           color: #e50914;
           font-weight: 700;
@@ -126,7 +167,6 @@ export default function Footer() {
           text-shadow: 0 0 12px rgba(229,9,20,0.4);
         }
 
-        /* ── PILLS (right) ── */
         .nf-pills {
           flex-shrink: 0;
           display: flex;
@@ -151,49 +191,69 @@ export default function Footer() {
           transition: background 0.2s, border-color 0.2s;
         }
         .nf-pill:hover {
-          background: rgba(229,9,20,0.14);
-          border-color: rgba(229,9,20,0.45);
+          background: rgba(229,9,20,0.15);
+          border-color: rgba(229,9,20,0.5);
           color: #ccc;
         }
         .nf-pill-icon  { color: rgba(229,9,20,0.7); font-size: 0.62rem; }
         .nf-pill-label { display: inline; }
 
-        /* ════════════ RESPONSIVE — ONLY scale, NEVER hide ════════════ */
-
-        /* ── TABLET (≤ 960px) ── */
-        @media (max-width: 960px) {
-          .nf-brand          { font-size: 1.25rem; letter-spacing: 4px; }
-          .nf-copy           { font-size: 0.68rem; gap: 4px; }
-          .nf-pill           { padding: 4px 9px;  font-size: 0.55rem; }
-          .nf-pills          { gap: 5px; }
-          .nf-footer-row     { padding: 0 20px; gap: 10px; }
-        }
-
-        /* ── SMALL TABLET (≤ 768px) ── */
+        /* ═══════════════ TABLET & MOBILE (≤ 768px) ═══════════════ */
         @media (max-width: 768px) {
-          .nf-brand          { font-size: 1.05rem; letter-spacing: 3px; }
-          .nf-copy           { font-size: 0.62rem; gap: 3px; }
-          .nf-pill           { padding: 3px 8px;  font-size: 0.51rem; letter-spacing: 0.7px; }
-          .nf-pills          { gap: 4px; }
-          .nf-footer-row     { padding: 0 14px; gap: 8px; }
+          /* Hide desktop row, show mobile layout */
+          .nf-desktop-row { display: none; }
+          .nf-mobile-wrap { display: block; }
+
+          /* Row 1: brand left + pills right — 68px */
+          .nf-mobile-row1 {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 68px;
+            padding: 0 20px;
+            box-sizing: border-box;
+          }
+
+          /* Divider */
+          .nf-row-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05) 30%, rgba(255,255,255,0.05) 70%, transparent);
+            margin: 0 20px;
+          }
+
+          /* Row 2: copyright centered — 68px */
+          .nf-mobile-row2 {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 68px;
+            padding: 0 16px;
+            box-sizing: border-box;
+          }
+
+          /* Scale mobile elements */
+          .nf-brand.nm      { font-size: 1.15rem; letter-spacing: 3.5px; }
+          .nf-pills.nm      { gap: 5px; }
+          .nf-pill.nm       { padding: 4px 9px; font-size: 0.54rem; letter-spacing: 0.8px; gap: 4px; }
+          .nf-copy.nm       { font-size: 0.72rem; gap: 5px; flex: unset; }
+          .nf-copy.nm .nf-copy-author { font-size: 0.76rem; }
         }
 
-        /* ── MOBILE (≤ 580px) ── */
-        @media (max-width: 580px) {
-          .nf-footer-row     { padding: 0 10px; gap: 6px; min-height: 56px; }
-          .nf-brand          { font-size: 0.88rem; letter-spacing: 2px; }
-          .nf-copy           { font-size: 0.56rem; gap: 3px; }
-          .nf-pill           { padding: 3px 6px;  font-size: 0.47rem; letter-spacing: 0.4px; gap: 3px; }
-          .nf-pills          { gap: 3px; }
-          .nf-pill-icon      { font-size: 0.55rem; }
+        /* ── SMALL MOBILE (≤ 480px) ── */
+        @media (max-width: 480px) {
+          .nf-mobile-row1, .nf-mobile-row2 { padding: 0 14px; }
+          .nf-brand.nm      { font-size: 1rem; letter-spacing: 2.5px; }
+          .nf-pill.nm       { padding: 3px 7px; font-size: 0.49rem; }
+          .nf-copy.nm       { font-size: 0.65rem; gap: 4px; }
         }
 
-        /* ── VERY SMALL (≤ 380px) ── */
-        @media (max-width: 380px) {
-          .nf-footer-row     { padding: 0 8px; gap: 4px; }
-          .nf-brand          { font-size: 0.75rem; letter-spacing: 1.5px; }
-          .nf-copy           { font-size: 0.5rem; }
-          .nf-pill           { padding: 2px 5px; font-size: 0.43rem; }
+        /* ── VERY SMALL (≤ 360px) ── */
+        @media (max-width: 360px) {
+          .nf-mobile-row1, .nf-mobile-row2 { padding: 0 10px; }
+          .nf-brand.nm      { font-size: 0.85rem; letter-spacing: 2px; }
+          .nf-pill.nm       { padding: 3px 6px; font-size: 0.44rem; gap: 3px; }
+          .nf-pills.nm      { gap: 3px; }
+          .nf-copy.nm       { font-size: 0.58rem; gap: 3px; }
         }
       `}</style>
         </>
