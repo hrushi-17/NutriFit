@@ -35,16 +35,20 @@ namespace NutriFit.Api.Services
 
                 using var smtp = new SmtpClient();
                 
-                // Use SecureSocketOptions.StartTls for port 587
+                // Connection timeout setting
+                smtp.Timeout = 15000; // 15 seconds
+
+                // Use SecureSocketOptions.SslOnConnect for port 465 (Implicit SSL)
+                // Use SecureSocketOptions.StartTls for port 587 (Explicit TLS)
                 var secureOptions = smtpPort == 465 ? SecureSocketOptions.SslOnConnect : SecureSocketOptions.StartTls;
                 
-                _logger.LogInformation("Connecting to SMTP server...");
+                _logger.LogInformation("Connecting to SMTP server {Host}:{Port} with {Options}...", smtpHost, smtpPort, secureOptions);
                 await smtp.ConnectAsync(smtpHost, smtpPort, secureOptions);
                 
-                _logger.LogInformation("Authenticating...");
+                _logger.LogInformation("Authenticating as {User}...", smtpUser);
                 await smtp.AuthenticateAsync(smtpUser, smtpPass);
                 
-                _logger.LogInformation("Sending email...");
+                _logger.LogInformation("Sending email to {To}...", toEmail);
                 await smtp.SendAsync(email);
                 
                 _logger.LogInformation("Disconnecting...");
