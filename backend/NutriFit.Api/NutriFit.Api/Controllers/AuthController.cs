@@ -217,7 +217,7 @@ public class AuthController : ControllerBase
             string targetEmail = user?.Email ?? admin!.Email!;
             string targetName = user?.Name ?? admin!.Name!;
             
-            string subject = "🔒 Your NutriFit Access Code";
+            string subject = "Your NutriFit Access Code";
             string body = $@"
                 <!DOCTYPE html>
                 <html>
@@ -226,47 +226,45 @@ public class AuthController : ControllerBase
                     <meta name='viewport' content='width=device-width, initial-scale=1.0'>
                 </head>
                 <body style='margin: 0; padding: 0; background-color: #0a0a0a; font-family: ""Roboto"", Helvetica, Arial, sans-serif; color: #ffffff;'>
-                    <div style='max-width: 600px; margin: 40px auto; background-color: #141414; background-image: radial-gradient(circle at top left, rgba(229, 9, 20, 0.15) 0%, transparent 60%); border: 1px solid rgba(255, 255, 255, 0.05); border-top: 4px solid #e50914; border-radius: 4px; overflow: hidden; box-shadow: 0 30px 60px rgba(0,0,0,0.8);'>
+                    <div style='max-width: 420px; margin: 20px auto; background-color: #141414; background-image: radial-gradient(circle at top left, rgba(229, 9, 20, 0.1) 0%, transparent 60%); border: 1px solid rgba(255, 255, 255, 0.05); border-top: 3px solid #e50914; border-radius: 6px; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.8);'>
                         
                         <!-- Header / Branded Logo Area -->
-                        <div style='padding: 60px 20px 40px; text-align: center;'>
-                             <div style='font-family: ""Bebas Neue"", ""Impact"", sans-serif; font-size: 64px; font-weight: 900; letter-spacing: 6px; line-height: 1;'>
-                                <span style='color: #e50914; text-shadow: 0 0 20px rgba(229, 9, 20, 0.4);'>NUTRI</span><span style='color: #ffffff;'>FIT</span>
+                        <div style='padding: 30px 20px 20px; text-align: center;'>
+                             <div style='font-family: ""Bebas Neue"", ""Impact"", sans-serif; font-size: 36px; font-weight: 900; letter-spacing: 3px; line-height: 1;'>
+                                <span style='color: #e50914; text-shadow: 0 0 10px rgba(229, 9, 20, 0.3);'>NUTRI</span><span style='color: #ffffff;'>FIT</span>
                             </div>
-                            <div style='height: 2px; width: 80px; background: linear-gradient(90deg, transparent, #e50914, transparent); margin: 25px auto 0;'></div>
+                            <div style='height: 2px; width: 40px; background: linear-gradient(90deg, transparent, #e50914, transparent); margin: 15px auto 0;'></div>
                         </div>
 
                         <!-- Cinematic Main Content -->
-                        <div style='padding: 0 60px 60px; text-align: center;'>
-                            <h2 style='color: #ffffff; font-size: 32px; margin-bottom: 20px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;'>Security Code</h2>
-                            <p style='color: #b3b3b3; font-size: 16px; line-height: 1.8; margin-bottom: 45px;'>
+                        <div style='padding: 0 30px 30px; text-align: center;'>
+                            <h2 style='color: #ffffff; font-size: 20px; margin-bottom: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;'>Verification</h2>
+                            <p style='color: #b3b3b3; font-size: 14px; line-height: 1.5; margin-bottom: 25px;'>
                                 Hello <strong>{targetName}</strong>,<br>
-                                Use the following access code to secure your session. This code is unique and expires shortly.
+                                Use this unique code to secure your session.
                             </p>
 
                             <!-- Hero OTP Display -->
-                            <div style='background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); padding: 50px 20px; border-radius: 12px; margin-bottom: 45px; box-shadow: inset 0 0 30px rgba(229, 9, 20, 0.05);'>
-                                <div style='font-family: ""Bebas Neue"", ""Impact"", sans-serif; font-size: 80px; font-weight: 900; color: #ffffff; letter-spacing: 20px; margin: 0; text-shadow: 0 0 30px rgba(229, 9, 20, 0.6);'>
+                            <div style='background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.08); padding: 25px 15px; border-radius: 8px; margin-bottom: 25px;'>
+                                <div style='font-family: ""Bebas Neue"", ""Impact"", sans-serif; font-size: 42px; font-weight: 900; color: #ffffff; letter-spacing: 10px; margin: 0; text-shadow: 0 0 15px rgba(229, 9, 20, 0.5);'>
                                     {otp}
                                 </div>
-                                <div style='height: 1px; width: 100%; background: rgba(255,255,255,0.08); margin: 25px 0;'></div>
-                                <p style='color: #e50914; font-size: 13px; font-weight: 900; text-transform: uppercase; margin: 0; letter-spacing: 4px;'>Expires in 60 seconds</p>
+                                <p style='color: #e50914; font-size: 11px; font-weight: 900; text-transform: uppercase; margin-top: 15px; letter-spacing: 2px;'>Expires in 60s</p>
                             </div>
 
-                            <p style='color: #444; font-size: 13px; font-style: italic; margin-top: 40px;'>
-                                If you did not request this, please disregard this message. Your account security is our priority.
+                            <p style='color: #444; font-size: 11px; font-style: italic; margin-top: 20px;'>
+                                Ignore if you didn't request this.
                             </p>
                         </div>
 
                         <!-- Branded Footer Matching Website -->
-                        <div style='padding: 40px; background-color: #0d0d0d; border-top: 1px solid rgba(255, 255, 255, 0.03); text-align: center;'>
-                            <div style='margin-bottom: 25px; font-family: ""Bebas Neue"", ""Impact"", sans-serif; font-size: 20px; letter-spacing: 2px;'>
+                        <div style='padding: 20px; background-color: #0d0d0d; border-top: 1px solid rgba(255, 255, 255, 0.03); text-align: center;'>
+                            <div style='margin-bottom: 15px; font-family: ""Bebas Neue"", ""Impact"", sans-serif; font-size: 16px; letter-spacing: 1px;'>
                                 <span style='color: #e50914; font-weight: 700;'>NUTRI</span><span style='color: #ffffff; font-weight: 700;'>FIT</span>
                             </div>
-                            <p style='color: #666; font-size: 12px; line-height: 2; margin: 0;'>
-                                &copy; {DateTime.Now.Year} NUTRIFIT PREMIUM. ALL RIGHTS RESERVED.<br>
-                                <span style='color: #444;'>DESIGNED BY</span> <span style='color: #e50914; font-weight: 700;'>HRUSHIKESH CHOTHE</span><br>
-                                PUNE, MAHARASHTRA, INDIA
+                            <p style='color: #555; font-size: 10px; line-height: 1.6; margin: 0;'>
+                                &copy; {DateTime.Now.Year} NUTRIFIT PREMIUM.<br>
+                                DESIGNED BY HRUSHIKESH CHOTHE
                             </p>
                         </div>
                     </div>
