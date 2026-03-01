@@ -20,7 +20,6 @@ import GoalPage from "./pages/GoalPage";
 import ProgressPage from "./pages/ProgressPage";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
-import Footer from "./components/Footer";
 function App() {
   return (
     <BrowserRouter>
@@ -57,7 +56,6 @@ function App() {
         </Route>
 
       </Routes>
-      <Footer />
     </BrowserRouter>
   );
 }
