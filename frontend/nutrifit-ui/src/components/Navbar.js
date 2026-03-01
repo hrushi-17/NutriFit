@@ -56,7 +56,7 @@ export default function Navbar() {
             <div className="d-flex flex-wrap flex-column flex-lg-row align-items-stretch align-items-lg-center gap-2 mt-4 mt-lg-0 mb-4 mb-lg-0 w-100 justify-content-lg-end">
               {!token ? (
                 <>
-                  <Link className="text-white text-decoration-none fw-semibold text-center py-2 py-lg-0" to="/login" style={{ transition: "color 0.2s" }} onMouseEnter={e => e.currentTarget.style.color = "var(--accent-red)"} onMouseLeave={e => e.currentTarget.style.color = "white"}>
+                  <Link className="btn-outline-glass py-2 px-3 text-center" style={{ fontSize: "0.85rem" }} to="/login">
                     Sign In
                   </Link>
                   <Link className="btn-netflix py-2 px-3 text-center" style={{ fontSize: "0.85rem" }} to="/register">
