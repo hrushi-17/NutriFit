@@ -4,6 +4,8 @@ using MimeKit;
 using MimeKit.Text;
 using System.Net;
 using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Json;
 
 namespace NutriFit.Api.Services
 {
@@ -11,45 +13,92 @@ namespace NutriFit.Api.Services
     {
         private readonly IConfiguration _config;
         private readonly ILogger<EmailService> _logger;
+        private readonly IHttpClientFactory _httpClientFactory;
 
-        public EmailService(IConfiguration config, ILogger<EmailService> logger)
+        public EmailService(IConfiguration config, ILogger<EmailService> logger, IHttpClientFactory httpClientFactory)
         {
             _config = config;
             _logger = logger;
+            _httpClientFactory = httpClientFactory;
         }
 
         public async Task SendEmailAsync(string toEmail, string subject, string body, bool isHtml = true)
+        {
+            var brevoKey = _config["Brevo:ApiKey"];
+
+            if (!string.IsNullOrEmpty(brevoKey))
+            {
+                await SendViaBrevoApi(toEmail, subject, body, brevoKey, isHtml);
+            }
+            else
+            {
+                _logger.LogWarning("Brevo:ApiKey is missing. Falling back to (likely blocked) SMTP...");
+                await SendViaSmtpFallback(toEmail, subject, body, isHtml);
+            }
+        }
+
+        private async Task SendViaBrevoApi(string toEmail, string subject, string body, string apiKey, bool isHtml)
+        {
+            try
+            {
+                _logger.LogInformation("Attempting to send email to {To} via Brevo HTTP API...", toEmail);
+
+                var client = _httpClientFactory.CreateClient();
+                client.DefaultRequestHeaders.Add("api-key", apiKey);
+
+                var payload = new
+                {
+                    sender = new { name = "NutriFit", email = _config["SMTP:Username"] ?? "noreply@nutrifit.com" },
+                    to = new[] { new { email = toEmail } },
+                    subject = subject,
+                    htmlContent = isHtml ? body : null,
+                    textContent = isHtml ? null : body
+                };
+
+                var response = await client.PostAsJsonAsync("https://api.brevo.com/v3/smtp/email", payload);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    _logger.LogInformation("Email sent successfully via Brevo API to {To}", toEmail);
+                }
+                else
+                {
+                    var error = await response.Content.ReadAsStringAsync();
+                    _logger.LogError("Brevo API failed: {Status} - {Error}", response.StatusCode, error);
+                    throw new Exception($"Email API failed: {response.StatusCode}");
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "HTTP Email delivery failed for {To}", toEmail);
+                throw;
+            }
+        }
+
+        private async Task SendViaSmtpFallback(string toEmail, string subject, string body, bool isHtml)
         {
             var smtpHost = _config["SMTP:Host"] ?? "smtp.gmail.com";
             var smtpUser = _config["SMTP:Username"];
             var smtpPass = _config["SMTP:Password"];
             var configPort = int.Parse(_config["SMTP:Port"] ?? "465");
 
-            // List of ports to try in sequence
             var portsToTry = new List<(int Port, SecureSocketOptions Options)>
             {
                 (configPort, configPort == 465 ? SecureSocketOptions.SslOnConnect : SecureSocketOptions.StartTls),
                 (465, SecureSocketOptions.SslOnConnect),
-                (587, SecureSocketOptions.StartTls),
-                (2525, SecureSocketOptions.StartTls) // Common fallback port
+                (587, SecureSocketOptions.StartTls)
             };
 
-            // Remove duplicates and the configured port (if it's already in the list)
             portsToTry = portsToTry.GroupBy(x => x.Port).Select(g => g.First()).ToList();
-
             Exception? lastException = null;
 
             foreach (var (port, options) in portsToTry)
             {
                 try
                 {
-                    _logger.LogInformation("Attempting SMTP: {Host}:{Port} with {Options}", smtpHost, port, options);
-
                     using var smtp = new SmtpClient();
-                    
-                    // DIAGNOSTIC: Accept all certificates to bypass handshake stalls
                     smtp.ServerCertificateValidationCallback = (s, c, h, e) => true;
-                    smtp.Timeout = 15000; // 15s per attempt
+                    smtp.Timeout = 10000;
 
                     var email = new MimeMessage();
                     email.From.Add(new MailboxAddress("NutriFit", smtpUser));
@@ -62,19 +111,17 @@ namespace NutriFit.Api.Services
                     await smtp.SendAsync(email);
                     await smtp.DisconnectAsync(true);
 
-                    _logger.LogInformation("Email sent successfully via port {Port}", port);
-                    return; // Success!
+                    _logger.LogInformation("Email sent successfully via SMTP fallback (Port {Port})", port);
+                    return;
                 }
                 catch (Exception ex)
                 {
                     lastException = ex;
-                    _logger.LogWarning("Failed to send via port {Port}: {Msg}", port, ex.Message);
-                    // Continue to next port
+                    _logger.LogWarning("SMTP Fallback failed on port {Port}: {Msg}", port, ex.Message);
                 }
             }
 
-            _logger.LogError(lastException, "All SMTP delivery attempts failed for {To}", toEmail);
-            throw new Exception("All SMTP delivery attempts failed. Check logs for details.", lastException);
+            throw new Exception("All email delivery methods failed.", lastException);
         }
     }
 }

@@ -20,6 +20,7 @@ builder.Services.AddControllers()
     });
 
 builder.Services.AddScoped<IEmailService, EmailService>();
+builder.Services.AddHttpClient();
 
 // ======================
 // ? DATA PROTECTION (Fix Render Warnings)
