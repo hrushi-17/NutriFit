@@ -245,8 +245,8 @@ public class AuthController : ControllerBase
                             </p>
 
                             <!-- Hero OTP Display -->
-                            <div style='background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.08); padding: 25px 15px; border-radius: 8px; margin-bottom: 25px;'>
-                                <div style='font-family: ""Bebas Neue"", ""Impact"", sans-serif; font-size: 42px; font-weight: 900; color: #ffffff; letter-spacing: 10px; margin: 0; text-shadow: 0 0 15px rgba(229, 9, 20, 0.5);'>
+                            <div style='background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.08); padding: 25px 15px; border-radius: 8px; margin-bottom: 25px; white-space: nowrap;'>
+                                <div style='font-family: ""Bebas Neue"", ""Impact"", sans-serif; font-size: 32px; font-weight: 900; color: #ffffff; letter-spacing: 6px; margin: 0; text-shadow: 0 0 10px rgba(229, 9, 20, 0.4);'>
                                     {otp}
                                 </div>
                                 <p style='color: #e50914; font-size: 11px; font-weight: 900; text-transform: uppercase; margin-top: 15px; letter-spacing: 2px;'>Expires in 60s</p>
