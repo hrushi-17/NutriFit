@@ -108,40 +108,31 @@
 NutriFit/
 ├── 📂 backend/
 │   └── NutriFit.Api/
+│       ├── Dockerfile             # Container config for Render
 │       └── NutriFit.Api/
-│           ├── 📂 Controllers/
-│           │   ├── AuthController.cs
-│           │   ├── ProfileController.cs
-│           │   ├── WorkoutController.cs
-│           │   ├── DietController.cs
-│           │   ├── GoalsController.cs
-│           │   ├── ProgressController.cs
-│           │   ├── AdminController.cs
-│           │   └── UserHealthController.cs
-│           ├── 📂 Models/             # MySQL data models
-│           ├── 📂 DTOs/               # Data Transfer Objects
-│           ├── 📂 Data/               # DB context / connection
-│           ├── Program.cs             # App entry point + DI
-│           ├── appsettings.json       # Configuration
-│           └── Dockerfile             # Docker config for Render
+│           ├── 📂 Controllers/    # API logic (Auth, Profile, Goals, etc.)
+│           ├── 📂 Models/         # Database entities
+│           ├── 📂 DTOs/           # Data Transfer Objects
+│           ├── 📂 Data/           # DB Context & Connections
+│           ├── 📂 Migrations/     # Entity Framework DB history
+│           ├── 📂 Services/       # Business logic & Email services
+│           ├── MasterSeed_MySQL.sql # Initial DB setup script
+│           ├── Program.cs         # App entry point
+│           └── appsettings.json   # Configuration & JWT keys
 │
 └── 📂 frontend/
     └── nutrifit-ui/
         ├── 📂 public/
-        │   └── images/                # Logo and static assets
+        │   └── images/            # Logo & cinematic brand assets
         └── 📂 src/
-            ├── 📂 api/
-            │   └── axios.js           # Axios base config + interceptors
-            ├── 📂 components/
-            │   └── Navbar.js          # Responsive Netflix navbar
-            ├── 📂 pages/
-            │   ├── Home.js · Login.js · Register.js
+            ├── 📂 api/            # Axios instance + backend config
+            ├── 📂 components/     # Reusable UI (Navbar, etc.)
+            ├── 📂 pages/          # All cinematic view components
+            │   ├── Home.js · Login.js · RegisterUser.js
             │   ├── ForgotPassword.js · ResetPassword.js
-            │   ├── Dashboard.js       # User dashboard shell
-            │   ├── BmiPage.js · WorkoutPage.js · DietPage.js
-            │   ├── GoalPage.js · ProgressPage.js · Profile.js
-            │   ├── UserHealth.js · AdminDashboard.js · AdminHealth.js
-            └── 📂 styles/             # Component and page CSS files
+            │   ├── Dashboard.js · BmiPage.js · GoalPage.js
+            │   └── ProgressPage.js · AdminDashboard.js · etc.
+            └── 📂 styles/         # Page-specific glassmorphism CSS
 ```
 
 <br/>
