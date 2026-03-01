@@ -1,0 +1,236 @@
+/* ================================================================
+   NutriFit  —  Fixed Corporate Footer  |  Netflix-Level UI
+   © 2026 Designed & Developed by Hrushikesh Chothe
+   ================================================================ */
+
+/* ── SHELL: fixed to bottom, exact same height as Navbar (72px) ── */
+.nf-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1040;
+    height: 72px;
+
+    /* Glassmorphism dark base */
+    background: linear-gradient(180deg,
+            rgba(8, 8, 8, 0.88) 0%,
+            rgba(0, 0, 0, 0.98) 100%);
+    backdrop-filter: blur(20px) saturate(1.5);
+    -webkit-backdrop-filter: blur(20px) saturate(1.5);
+
+    /* Top border — subtle red accent */
+    border-top: 1px solid rgba(229, 9, 20, 0.25);
+
+    /* Side padding */
+    padding: 0 28px;
+    box-sizing: border-box;
+
+    /* Smooth entrance */
+    animation: footerSlideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes footerSlideUp {
+    from {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* ── RED GLOW LINE (top edge) ─────────────────────────────────── */
+.nf-footer__glow {
+    position: absolute;
+    top: -1px;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 2px;
+    width: 55%;
+    background: linear-gradient(90deg,
+            transparent 0%,
+            rgba(229, 9, 20, 0.55) 25%,
+            #e50914 50%,
+            rgba(229, 9, 20, 0.55) 75%,
+            transparent 100%);
+    box-shadow:
+        0 0 16px rgba(229, 9, 20, 0.5),
+        0 0 40px rgba(229, 9, 20, 0.2);
+    animation: glowPulse 3s ease-in-out infinite;
+    pointer-events: none;
+    border-radius: 999px;
+}
+
+@keyframes glowPulse {
+
+    0%,
+    100% {
+        opacity: 0.6;
+        width: 45%;
+    }
+
+    50% {
+        opacity: 1;
+        width: 62%;
+    }
+}
+
+/* ── INNER 3-COLUMN FLEX ROW ──────────────────────────────────── */
+.nf-footer__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    gap: 16px;
+}
+
+/* ── LEFT: NUTRIFIT Brand Logotype ───────────────────────────── */
+.nf-footer__brand {
+    font-family: 'Bebas Neue', 'Roboto', 'Helvetica Neue', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 900;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: #ffffff;
+    white-space: nowrap;
+    user-select: none;
+    flex-shrink: 0;
+    line-height: 1;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.nf-footer__brand-red {
+    color: #e50914;
+    text-shadow:
+        0 0 14px rgba(229, 9, 20, 0.7),
+        0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* ── CENTER: Copyright Text ──────────────────────────────────── */
+.nf-footer__copy {
+    flex: 1;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 400;
+    color: #5a5a5a;
+    letter-spacing: 0.4px;
+    line-height: 1.5;
+    min-width: 0;
+    /* allow shrink */
+}
+
+.nf-footer__copy-label {
+    color: #888888;
+    font-weight: 400;
+}
+
+.nf-footer__copy-author {
+    font-weight: 700;
+    color: #e50914;
+    letter-spacing: 0.6px;
+    cursor: default;
+    transition: color 0.2s ease, text-shadow 0.2s ease;
+}
+
+.nf-footer__copy-author:hover {
+    color: #ff3333;
+    text-shadow: 0 0 10px rgba(229, 9, 20, 0.6);
+}
+
+/* ── RIGHT: Tag / Shield ─────────────────────────────────────── */
+.nf-footer__tag {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+    color: #2e2e2e;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.nf-footer__tag i {
+    color: rgba(229, 9, 20, 0.45);
+    font-size: 0.7rem;
+}
+
+/* ── DIVIDERS (desktop only) ─────────────────────────────────── */
+.nf-footer__divider {
+    width: 1px;
+    height: 24px;
+    background: rgba(229, 9, 20, 0.18);
+    flex-shrink: 0;
+}
+
+
+/* ==============================================================
+   RESPONSIVE BREAKPOINTS
+   ============================================================== */
+
+/* ── TABLET  (≤ 900px): hide tagline, keep brand + copyright ── */
+@media (max-width: 900px) {
+
+    .nf-footer__tag,
+    .nf-footer__divider:last-of-type {
+        display: none;
+    }
+
+    .nf-footer__copy {
+        text-align: right;
+    }
+}
+
+/* ── MOBILE LANDSCAPE  (≤ 640px): compact, still both visible ── */
+@media (max-width: 640px) {
+    .nf-footer {
+        height: 72px;
+        /* keep same height */
+        padding: 0 16px;
+    }
+
+    .nf-footer__brand {
+        font-size: 1.1rem;
+        letter-spacing: 3px;
+    }
+
+    .nf-footer__copy {
+        font-size: 0.65rem;
+        text-align: right;
+        letter-spacing: 0.2px;
+    }
+
+    .nf-footer__divider {
+        display: none;
+    }
+}
+
+/* ── MOBILE PORTRAIT  (≤ 420px): stack vertically in 72px ──── */
+@media (max-width: 420px) {
+    .nf-footer__inner {
+        flex-direction: column;
+        justify-content: center;
+        gap: 2px;
+    }
+
+    .nf-footer__brand {
+        font-size: 0.95rem;
+        letter-spacing: 3px;
+    }
+
+    .nf-footer__copy {
+        font-size: 0.6rem;
+        text-align: center;
+        white-space: normal;
+        line-height: 1.3;
+    }
+}
