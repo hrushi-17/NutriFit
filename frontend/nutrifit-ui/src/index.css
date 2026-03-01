@@ -39,8 +39,8 @@ body {
   background-attachment: fixed;
   min-height: 100vh;
   overflow-x: hidden;
-  padding-bottom: 56px;
-  /* matches fixed footer height */
+  padding-bottom: 72px;
+  /* space for fixed footer (same height as navbar) */
 }
 
 code {
