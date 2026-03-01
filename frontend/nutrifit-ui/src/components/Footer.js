@@ -9,7 +9,7 @@ export default function Footer() {
                 overflow: "hidden",
             }}>
 
-                {/* Subtle radial glow behind */}
+                {/* Radial background glow */}
                 <div style={{
                     position: "absolute", inset: 0,
                     background: "radial-gradient(ellipse at 50% 0%, rgba(229,9,20,0.07) 0%, transparent 65%)",
@@ -27,67 +27,63 @@ export default function Footer() {
                 }} />
 
                 {/* ── Single Row ── */}
-                <div style={{
+                <div className="nf-footer-row" style={{
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "space-between",
-                    gap: "12px",
+                    gap: "8px",
                     maxWidth: "1300px",
                     margin: "0 auto",
-                    padding: "14px 28px",
+                    padding: "13px 20px",
                 }}>
 
                     {/* LEFT — NUTRIFIT brand */}
-                    <div className="nf-footer-brand" style={{ flexShrink: 0 }}>
+                    <div className="nf-brand" style={{ flexShrink: 0 }}>
                         <span style={{
                             fontFamily: "'Bebas Neue', 'Roboto', sans-serif",
-                            fontSize: "1.5rem",
-                            fontWeight: 900,
-                            letterSpacing: "5px",
+                            letterSpacing: "4px",
                             lineHeight: 1,
                             userSelect: "none",
+                            whiteSpace: "nowrap",
                         }}>
                             <span style={{
                                 color: "#e50914",
-                                textShadow: "0 0 18px rgba(229,9,20,0.9), 0 0 45px rgba(229,9,20,0.3)",
+                                textShadow: "0 0 18px rgba(229,9,20,0.9), 0 0 40px rgba(229,9,20,0.3)",
                             }}>NUTRI</span>
                             <span style={{ color: "#ffffff" }}>FIT</span>
                         </span>
                     </div>
 
                     {/* CENTER — copyright */}
-                    <div className="nf-footer-copy" style={{
+                    <div className="nf-copy" style={{
                         flex: 1,
                         textAlign: "center",
-                        fontSize: "0.74rem",
-                        lineHeight: 1.5,
-                        color: "#a3a3a3",
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
                         flexWrap: "wrap",
-                        gap: "6px",
+                        gap: "4px",
+                        color: "#a3a3a3",
                     }}>
-                        <span style={{ color: "#555" }}>&copy; Copyright 2026</span>
-                        <span style={{ color: "rgba(229,9,20,0.5)", fontSize: "0.5rem", lineHeight: 1 }}>&#9679;</span>
-                        <span style={{ color: "#888" }}>Designed and Developed by</span>
-                        <span style={{
+                        <span className="nf-copy-year" style={{ color: "#555" }}>&copy; 2026</span>
+                        <span style={{ color: "rgba(229,9,20,0.45)", fontSize: "0.45rem" }}>&#9679;</span>
+                        <span className="nf-copy-label" style={{ color: "#888", whiteSpace: "nowrap" }}>Designed &amp; Developed by</span>
+                        <span className="nf-copy-author" style={{
                             color: "#e50914",
                             fontWeight: 700,
-                            fontSize: "0.78rem",
                             letterSpacing: "0.6px",
                             textShadow: "0 0 12px rgba(229,9,20,0.4)",
+                            whiteSpace: "nowrap",
                         }}>Hrushikesh Chothe</span>
                     </div>
 
-                    {/* RIGHT — pill badges */}
-                    <div className="nf-footer-pills" style={{
+                    {/* RIGHT — pill badges (always visible, scale on mobile) */}
+                    <div className="nf-pills" style={{
                         display: "flex",
                         alignItems: "center",
-                        gap: "6px",
+                        gap: "5px",
                         flexShrink: 0,
-                        flexWrap: "wrap",
-                        justifyContent: "flex-end",
+                        flexWrap: "nowrap",
                     }}>
                         {[
                             { icon: "fa-dumbbell", label: "Fitness" },
@@ -95,23 +91,19 @@ export default function Footer() {
                             { icon: "fa-heart-pulse", label: "Health" },
                             { icon: "fa-chart-line", label: "Progress" },
                         ].map(({ icon, label }) => (
-                            <span key={label} style={{
+                            <span key={label} className="nf-pill" style={{
                                 display: "inline-flex",
                                 alignItems: "center",
-                                gap: "5px",
-                                padding: "4px 10px",
+                                gap: "4px",
                                 background: "rgba(229,9,20,0.07)",
-                                border: "1px solid rgba(229,9,20,0.18)",
+                                border: "1px solid rgba(229,9,20,0.2)",
                                 borderRadius: "20px",
-                                fontSize: "0.58rem",
-                                fontWeight: 700,
-                                letterSpacing: "1px",
-                                textTransform: "uppercase",
-                                color: "#666",
+                                color: "#777",
                                 whiteSpace: "nowrap",
+                                lineHeight: 1,
                             }}>
-                                <i className={`fa-solid ${icon}`} style={{ color: "rgba(229,9,20,0.6)", fontSize: "0.6rem" }} />
-                                {label}
+                                <i className={`fa-solid ${icon}`} style={{ color: "rgba(229,9,20,0.7)" }} />
+                                <span className="nf-pill-label">{label}</span>
                             </span>
                         ))}
                     </div>
@@ -130,22 +122,41 @@ export default function Footer() {
           50%       { opacity: 1;   width: 62%; }
         }
 
-        /* TABLET (≤ 900px): hide pills, stack pills in 2 columns */
+        /* ── DESKTOP (default) ── */
+        .nf-brand span        { font-size: 1.5rem; }
+        .nf-copy              { font-size: 0.75rem; }
+        .nf-copy-label        { display: inline; }
+        .nf-pill              { padding: 4px 10px; font-size: 0.58rem; letter-spacing: 1px; font-weight: 700; text-transform: uppercase; }
+        .nf-pill i            { font-size: 0.6rem; }
+        .nf-pill-label        { display: inline; }
+
+        /* ── TABLET (≤ 900px) ── */
         @media (max-width: 900px) {
-          .nf-footer-pills span { font-size: 0.52rem !important; padding: 3px 8px !important; }
+          .nf-brand span       { font-size: 1.15rem; letter-spacing: 3px; }
+          .nf-copy             { font-size: 0.65rem; }
+          .nf-copy-label       { display: none; }
+          .nf-pill             { padding: 3px 7px; font-size: 0.52rem; }
+          .nf-pill-label       { display: none; }
+          .nf-pill i           { font-size: 0.7rem; }
         }
 
-        /* MOBILE LANDSCAPE (≤ 680px): hide pills, shrink brand */
-        @media (max-width: 680px) {
-          .nf-footer-pills { display: none !important; }
-          .nf-footer-brand span { font-size: 1.15rem !important; letter-spacing: 3px !important; }
-          .nf-footer-copy  { font-size: 0.65rem !important; }
+        /* ── MOBILE (≤ 560px) ── */
+        @media (max-width: 560px) {
+          .nf-footer-row       { padding: 10px 12px; gap: 6px; }
+          .nf-brand span       { font-size: 0.95rem; letter-spacing: 2px; }
+          .nf-copy             { font-size: 0.58rem; gap: 3px; }
+          .nf-copy-year        { display: none; }
+          .nf-pill             { padding: 3px 6px; }
+          .nf-pill i           { font-size: 0.65rem; }
+          .nf-pills            { gap: 3px; }
         }
 
-        /* MOBILE PORTRAIT (≤ 420px): stack brand + copy vertically */
-        @media (max-width: 420px) {
-          .nf-footer-brand { display: none !important; }
-          .nf-footer-copy  { font-size: 0.62rem !important; text-align: center !important; }
+        /* ── VERY SMALL (≤ 380px) ── */
+        @media (max-width: 380px) {
+          .nf-brand span       { font-size: 0.8rem; letter-spacing: 1.5px; }
+          .nf-copy             { font-size: 0.52rem; }
+          .nf-pill             { padding: 2px 5px; }
+          .nf-pill i           { font-size: 0.6rem; }
         }
       `}</style>
         </>
