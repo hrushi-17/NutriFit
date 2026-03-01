@@ -3,81 +3,91 @@ export default function Footer() {
         <>
             <footer style={{
                 width: "100%",
-                background: "linear-gradient(180deg, #0a0a0a 0%, #111111 60%, #0d0d0d 100%)",
+                background: "linear-gradient(90deg, #0a0a0a 0%, #111111 50%, #0a0a0a 100%)",
                 borderTop: "1px solid rgba(229, 9, 20, 0.25)",
                 position: "relative",
                 overflow: "hidden",
             }}>
 
-                {/* ── Background subtle red radial glow ── */}
+                {/* Subtle radial glow behind */}
                 <div style={{
-                    position: "absolute",
-                    top: 0, left: "50%",
-                    transform: "translateX(-50%)",
-                    width: "600px", height: "120px",
-                    background: "radial-gradient(ellipse at 50% 0%, rgba(229,9,20,0.08) 0%, transparent 70%)",
+                    position: "absolute", inset: 0,
+                    background: "radial-gradient(ellipse at 50% 0%, rgba(229,9,20,0.07) 0%, transparent 65%)",
                     pointerEvents: "none",
                 }} />
 
-                {/* ── Animated glow line ── */}
-                <div style={{
-                    position: "absolute",
-                    top: 0, left: "50%",
+                {/* Animated top glow line */}
+                <div className="nf-glow-line" style={{
+                    position: "absolute", top: 0, left: "50%",
                     transform: "translateX(-50%)",
-                    width: "55%", height: "2px",
+                    height: "2px", borderRadius: "999px",
                     background: "linear-gradient(90deg, transparent, rgba(229,9,20,0.6) 30%, #e50914 50%, rgba(229,9,20,0.6) 70%, transparent)",
-                    boxShadow: "0 0 24px rgba(229,9,20,0.55)",
-                    borderRadius: "999px",
-                    animation: "nfGlow 3s ease-in-out infinite",
+                    boxShadow: "0 0 20px rgba(229,9,20,0.5)",
                     pointerEvents: "none",
                 }} />
 
-                {/* ══════════ TOP SECTION ══════════ */}
+                {/* ── Single Row ── */}
                 <div style={{
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "space-between",
-                    flexWrap: "wrap",
-                    gap: "20px",
+                    gap: "12px",
                     maxWidth: "1300px",
                     margin: "0 auto",
-                    padding: "28px 32px 20px",
+                    padding: "14px 28px",
                 }}>
 
-                    {/* LEFT — Brand block */}
-                    <div>
-                        <div style={{
+                    {/* LEFT — NUTRIFIT brand */}
+                    <div className="nf-footer-brand" style={{ flexShrink: 0 }}>
+                        <span style={{
                             fontFamily: "'Bebas Neue', 'Roboto', sans-serif",
-                            fontSize: "1.9rem",
+                            fontSize: "1.5rem",
                             fontWeight: 900,
-                            letterSpacing: "6px",
+                            letterSpacing: "5px",
                             lineHeight: 1,
                             userSelect: "none",
-                            marginBottom: "6px",
                         }}>
                             <span style={{
                                 color: "#e50914",
-                                textShadow: "0 0 20px rgba(229,9,20,0.9), 0 0 50px rgba(229,9,20,0.3)",
+                                textShadow: "0 0 18px rgba(229,9,20,0.9), 0 0 45px rgba(229,9,20,0.3)",
                             }}>NUTRI</span>
                             <span style={{ color: "#ffffff" }}>FIT</span>
-                        </div>
-                        <div style={{
-                            fontSize: "0.62rem",
-                            fontWeight: 600,
-                            letterSpacing: "2.5px",
-                            textTransform: "uppercase",
-                            color: "#444",
-                        }}>
-                            Premium Health Platform
-                        </div>
+                        </span>
                     </div>
 
-                    {/* RIGHT — tagline badges */}
-                    <div style={{
+                    {/* CENTER — copyright */}
+                    <div className="nf-footer-copy" style={{
+                        flex: 1,
+                        textAlign: "center",
+                        fontSize: "0.74rem",
+                        lineHeight: 1.5,
+                        color: "#a3a3a3",
                         display: "flex",
                         alignItems: "center",
-                        gap: "10px",
+                        justifyContent: "center",
                         flexWrap: "wrap",
+                        gap: "6px",
+                    }}>
+                        <span style={{ color: "#555" }}>&copy; Copyright 2026</span>
+                        <span style={{ color: "rgba(229,9,20,0.5)", fontSize: "0.5rem", lineHeight: 1 }}>&#9679;</span>
+                        <span style={{ color: "#888" }}>Designed and Developed by</span>
+                        <span style={{
+                            color: "#e50914",
+                            fontWeight: 700,
+                            fontSize: "0.78rem",
+                            letterSpacing: "0.6px",
+                            textShadow: "0 0 12px rgba(229,9,20,0.4)",
+                        }}>Hrushikesh Chothe</span>
+                    </div>
+
+                    {/* RIGHT — pill badges */}
+                    <div className="nf-footer-pills" style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "6px",
+                        flexShrink: 0,
+                        flexWrap: "wrap",
+                        justifyContent: "flex-end",
                     }}>
                         {[
                             { icon: "fa-dumbbell", label: "Fitness" },
@@ -85,96 +95,57 @@ export default function Footer() {
                             { icon: "fa-heart-pulse", label: "Health" },
                             { icon: "fa-chart-line", label: "Progress" },
                         ].map(({ icon, label }) => (
-                            <div key={label} style={{
-                                display: "flex",
+                            <span key={label} style={{
+                                display: "inline-flex",
                                 alignItems: "center",
-                                gap: "6px",
-                                padding: "5px 12px",
-                                background: "rgba(255,255,255,0.03)",
-                                border: "1px solid rgba(255,255,255,0.07)",
+                                gap: "5px",
+                                padding: "4px 10px",
+                                background: "rgba(229,9,20,0.07)",
+                                border: "1px solid rgba(229,9,20,0.18)",
                                 borderRadius: "20px",
-                                fontSize: "0.62rem",
-                                fontWeight: 600,
+                                fontSize: "0.58rem",
+                                fontWeight: 700,
                                 letterSpacing: "1px",
                                 textTransform: "uppercase",
-                                color: "#555",
+                                color: "#666",
                                 whiteSpace: "nowrap",
                             }}>
-                                <i className={`fa-solid ${icon}`} style={{ color: "rgba(229,9,20,0.5)", fontSize: "0.65rem" }} />
+                                <i className={`fa-solid ${icon}`} style={{ color: "rgba(229,9,20,0.6)", fontSize: "0.6rem" }} />
                                 {label}
-                            </div>
+                            </span>
                         ))}
                     </div>
-                </div>
 
-                {/* ── Thin separator ── */}
-                <div style={{
-                    maxWidth: "1300px",
-                    margin: "0 auto",
-                    padding: "0 32px",
-                }}>
-                    <div style={{
-                        height: "1px",
-                        background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.06) 20%, rgba(255,255,255,0.06) 80%, transparent)",
-                    }} />
                 </div>
-
-                {/* ══════════ BOTTOM BAR ══════════ */}
-                <div style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    maxWidth: "1300px",
-                    margin: "0 auto",
-                    padding: "16px 32px 20px",
-                    textAlign: "center",
-                }}>
-                    <p style={{
-                        margin: 0,
-                        fontSize: "0.76rem",
-                        fontWeight: 400,
-                        lineHeight: 1.6,
-                        color: "#a3a3a3",
-                        letterSpacing: "0.3px",
-                    }}>
-                        <span style={{ color: "#606060" }}>© Copyright 2026</span>
-                        <span style={{
-                            display: "inline-block",
-                            width: "4px", height: "4px",
-                            background: "rgba(229,9,20,0.5)",
-                            borderRadius: "50%",
-                            margin: "0 10px 2px",
-                            verticalAlign: "middle",
-                        }} />
-                        <span style={{ color: "#a3a3a3" }}>Designed and Developed by </span>
-                        <span style={{
-                            color: "#e50914",
-                            fontWeight: 700,
-                            fontSize: "0.8rem",
-                            letterSpacing: "0.8px",
-                            textShadow: "0 0 14px rgba(229,9,20,0.45)",
-                        }}>Hrushikesh Chothe</span>
-                        <span style={{
-                            display: "inline-block",
-                            width: "4px", height: "4px",
-                            background: "rgba(229,9,20,0.5)",
-                            borderRadius: "50%",
-                            margin: "0 10px 2px",
-                            verticalAlign: "middle",
-                        }} />
-                        <span style={{ color: "#444", fontSize: "0.7rem" }}>All rights reserved.</span>
-                    </p>
-                </div>
-
             </footer>
 
             <style>{`
-        @keyframes nfGlow {
+        /* Glow animation */
+        .nf-glow-line {
+          width: 55%;
+          animation: nfGlowAnim 3s ease-in-out infinite;
+        }
+        @keyframes nfGlowAnim {
           0%, 100% { opacity: 0.55; width: 44%; }
           50%       { opacity: 1;   width: 62%; }
         }
-        @media (max-width: 600px) {
-          .nf-tag-pills { display: none !important; }
+
+        /* TABLET (≤ 900px): hide pills, stack pills in 2 columns */
+        @media (max-width: 900px) {
+          .nf-footer-pills span { font-size: 0.52rem !important; padding: 3px 8px !important; }
+        }
+
+        /* MOBILE LANDSCAPE (≤ 680px): hide pills, shrink brand */
+        @media (max-width: 680px) {
+          .nf-footer-pills { display: none !important; }
+          .nf-footer-brand span { font-size: 1.15rem !important; letter-spacing: 3px !important; }
+          .nf-footer-copy  { font-size: 0.65rem !important; }
+        }
+
+        /* MOBILE PORTRAIT (≤ 420px): stack brand + copy vertically */
+        @media (max-width: 420px) {
+          .nf-footer-brand { display: none !important; }
+          .nf-footer-copy  { font-size: 0.62rem !important; text-align: center !important; }
         }
       `}</style>
         </>
