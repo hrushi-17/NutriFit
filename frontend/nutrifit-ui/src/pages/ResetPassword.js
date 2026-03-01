@@ -9,6 +9,7 @@ export default function ResetPassword() {
 
   const [data, setData] = useState({ newPassword: "", confirmPassword: "" });
   const [msg, setMsg] = useState("");
+  const [msgType, setMsgType] = useState(""); // success, error
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
@@ -19,11 +20,13 @@ export default function ResetPassword() {
     // ✅ Password strength validation
     if (!passwordRegex.test(data.newPassword)) {
       setMsg("Password does not meet the required criteria. Please check the requirements below.");
+      setMsgType("error");
       return;
     }
 
     if (data.newPassword !== data.confirmPassword) {
       setMsg("Passwords do not match!");
+      setMsgType("error");
       return;
     }
 
@@ -36,11 +39,13 @@ export default function ResetPassword() {
       });
 
       setMsg("Password reset successfully!");
+      setMsgType("success");
 
       // Redirect to login page after 2 seconds
       setTimeout(() => navigate("/login"), 500);
     } catch (err) {
       setMsg(err.response?.data || "Something went wrong");
+      setMsgType("error");
     }
   };
 
@@ -62,8 +67,7 @@ export default function ResetPassword() {
 
           {/* Display message */}
           {msg && (
-            <div className={`auth-alert ${msg.startsWith("✅") ? "auth-alert-success" : "auth-alert-error"}`}>
-              <i className={`fa-solid ${msg.startsWith("✅") ? "fa-circle-check" : "fa-circle-exclamation"}`}></i>
+            <div className={`auth-alert auth-alert-${msgType}`}>
               {msg}
             </div>
           )}

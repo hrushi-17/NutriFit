@@ -133,6 +133,12 @@
     color: #b3ffcc;
 }
 
+.auth-alert-info {
+    background: rgba(0, 136, 255, 0.1);
+    border-left: 4px solid #0088ff;
+    color: #b3d9ff;
+}
+
 @keyframes authSlideDown {
     from {
         opacity: 0;

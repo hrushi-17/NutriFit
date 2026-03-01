@@ -7,6 +7,7 @@ export default function ForgotPassword() {
   const [email, setEmail] = useState("");
   const [otp, setOtp] = useState("");
   const [msg, setMsg] = useState("");
+  const [msgType, setMsgType] = useState(""); // success, error, info
   const [otpSent, setOtpSent] = useState(false);
   const [resendTimer, setResendTimer] = useState(0);
   const [loading, setLoading] = useState(false);
@@ -37,12 +38,15 @@ export default function ForgotPassword() {
     try {
       setLoading(true);
       setMsg("Sending OTP...");
+      setMsgType("info");
       const res = await api.post("/auth/send-otp", { email });
       setMsg(res.data);
+      setMsgType("success");
       setOtpSent(true);
       setResendTimer(60); // Start timer
     } catch (err) {
       setMsg(err.response?.data || "Failed to send OTP");
+      setMsgType("error");
     } finally {
       setLoading(false);
     }
@@ -58,8 +62,10 @@ export default function ForgotPassword() {
     try {
       setLoading(true);
       setMsg("Verifying OTP...");
+      setMsgType("info");
       const res = await api.post("/auth/verify-otp", { email, otp });
       setMsg("OTP verified! Redirecting to reset password...");
+      setMsgType("success");
 
       // Redirect to reset password with verification token
       setTimeout(() => {
@@ -67,6 +73,7 @@ export default function ForgotPassword() {
       }, 500);
     } catch (err) {
       setMsg(err.response?.data || "Invalid or expired OTP");
+      setMsgType("error");
     } finally {
       setLoading(false);
     }
@@ -89,8 +96,7 @@ export default function ForgotPassword() {
 
           {/* Message Display */}
           {msg && (
-            <div className={`auth-alert ${msg.startsWith("✅") ? "auth-alert-success" : "auth-alert-error"}`}>
-              <i className={`fa-solid ${msg.startsWith("✅") ? "fa-circle-check" : "fa-circle-exclamation"}`}></i>
+            <div className={`auth-alert auth-alert-${msgType}`}>
               {msg}
             </div>
           )}
