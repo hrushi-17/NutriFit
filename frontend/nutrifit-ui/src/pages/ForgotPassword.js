@@ -24,25 +24,25 @@ export default function ForgotPassword() {
   // Send OTP to email
   const handleSendOtp = async () => {
     if (!email) {
-      setMsg("❌ Please enter your email address");
+      setMsg("Please enter your email address");
       return;
     }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
-      setMsg("❌ Please enter a valid email address");
+      setMsg("Please enter a valid email address");
       return;
     }
 
     try {
       setLoading(true);
-      setMsg("⏳ Sending OTP...");
+      setMsg("Sending OTP...");
       const res = await api.post("/auth/send-otp", { email });
-      setMsg("✅ " + res.data);
+      setMsg(res.data);
       setOtpSent(true);
       setResendTimer(60); // Start timer
     } catch (err) {
-      setMsg("❌ " + (err.response?.data || "Failed to send OTP"));
+      setMsg(err.response?.data || "Failed to send OTP");
     } finally {
       setLoading(false);
     }
@@ -51,22 +51,22 @@ export default function ForgotPassword() {
   // Verify OTP
   const handleVerifyOtp = async () => {
     if (!otp || otp.length !== 6) {
-      setMsg("❌ Please enter a valid 6-digit OTP");
+      setMsg("Please enter a valid 6-digit OTP");
       return;
     }
 
     try {
       setLoading(true);
-      setMsg("⏳ Verifying OTP...");
+      setMsg("Verifying OTP...");
       const res = await api.post("/auth/verify-otp", { email, otp });
-      setMsg("✅ OTP verified! Redirecting to reset password...");
+      setMsg("OTP verified! Redirecting to reset password...");
 
       // Redirect to reset password with verification token
       setTimeout(() => {
         navigate(`/reset-password?token=${encodeURIComponent(res.data.verificationToken)}`);
       }, 500);
     } catch (err) {
-      setMsg("❌ " + (err.response?.data || "Invalid or expired OTP"));
+      setMsg(err.response?.data || "Invalid or expired OTP");
     } finally {
       setLoading(false);
     }

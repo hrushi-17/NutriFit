@@ -18,12 +18,12 @@ export default function ResetPassword() {
   const handleSubmit = async () => {
     // ✅ Password strength validation
     if (!passwordRegex.test(data.newPassword)) {
-      setMsg("❌ Password does not meet the required criteria. Please check the requirements below.");
+      setMsg("Password does not meet the required criteria. Please check the requirements below.");
       return;
     }
 
     if (data.newPassword !== data.confirmPassword) {
-      setMsg("❌ Passwords do not match!");
+      setMsg("Passwords do not match!");
       return;
     }
 
@@ -35,12 +35,12 @@ export default function ResetPassword() {
         confirmPassword: data.confirmPassword
       });
 
-      setMsg("✅ Password reset successfully!");
+      setMsg("Password reset successfully!");
 
       // Redirect to login page after 2 seconds
       setTimeout(() => navigate("/login"), 500);
     } catch (err) {
-      setMsg("❌ " + (err.response?.data || "Something went wrong"));
+      setMsg(err.response?.data || "Something went wrong");
     }
   };
 

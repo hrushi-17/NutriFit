@@ -17,28 +17,28 @@ export default function RegisterUser() {
     // ✅ Email validation regex
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(data.email)) {
-      setMsg("❌ Please enter a valid email address!");
+      setMsg("Please enter a valid email address!");
       return;
     }
 
     // ✅ Password strength validation
     if (!passwordRegex.test(data.password)) {
-      setMsg("❌ Password must be at least 8 characters and include uppercase, lowercase, number, and special character.");
+      setMsg("Password must be at least 8 characters and include uppercase, lowercase, number, and special character.");
       return;
     }
 
     if (data.password !== data.confirmPassword) {
-      setMsg("❌ Passwords do not match!");
+      setMsg("Passwords do not match!");
       return;
     }
 
     try {
       setLoading(true);
       await api.post("/auth/register-user", data);
-      setMsg("✅ Account created successfully! Redirecting...");
+      setMsg("Account created successfully! Redirecting...");
       setTimeout(() => navigate("/login"), 1500);
     } catch (err) {
-      setMsg("❌ " + (err.response?.data || "Registration failed."));
+      setMsg(err.response?.data || "Registration failed.");
     } finally {
       setLoading(false);
     }
