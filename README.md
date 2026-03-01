@@ -104,35 +104,48 @@
 
 ## 📁 Project Structure
 
-```
+```text
 NutriFit/
 ├── 📂 backend/
 │   └── NutriFit.Api/
-│       ├── Dockerfile             # Container config for Render
+│       ├── Dockerfile                 # Docker configuration for Render
 │       └── NutriFit.Api/
-│           ├── 📂 Controllers/    # API logic (Auth, Profile, Goals, etc.)
-│           ├── 📂 Models/         # Database entities
-│           ├── 📂 DTOs/           # Data Transfer Objects
-│           ├── 📂 Data/           # DB Context & Connections
-│           ├── 📂 Migrations/     # Entity Framework DB history
-│           ├── 📂 Services/       # Business logic & Email services
-│           ├── MasterSeed_MySQL.sql # Initial DB setup script
-│           ├── Program.cs         # App entry point
-│           └── appsettings.json   # Configuration & JWT keys
+│           ├── 📂 Controllers/        # API Endpoints (Auth, Admin, Profile, etc.)
+│           ├── 📂 Data/               # Database Context & Connections
+│           ├── 📂 DTOs/               # Data Transfer Objects
+│           ├── 📂 Migrations/         # Entity Framework Migration History
+│           ├── 📂 Models/             # Database Entities
+│           ├── 📂 Services/           # Business Logic & Email Services
+│           ├── 📂 Properties/         # Launch Settings
+│           ├── MasterSeed_MySQL.sql   # SQL Script for Database Seed
+│           ├── Program.cs             # Application Entry Point
+│           ├── appsettings.json       # Main Configuration
+│           └── NutriFit.Api.csproj    # Project File
 │
 └── 📂 frontend/
     └── nutrifit-ui/
         ├── 📂 public/
-        │   └── images/            # Logo & cinematic brand assets
+        │   └── 📂 images/             # Branded Logo & Static Assets
         └── 📂 src/
-            ├── 📂 api/            # Axios instance + backend config
-            ├── 📂 components/     # Reusable UI (Navbar, etc.)
-            ├── 📂 pages/          # All cinematic view components
-            │   ├── Home.js · Login.js · RegisterUser.js
-            │   ├── ForgotPassword.js · ResetPassword.js
-            │   ├── Dashboard.js · BmiPage.js · GoalPage.js
-            │   └── ProgressPage.js · AdminDashboard.js · etc.
-            └── 📂 styles/         # Page-specific glassmorphism CSS
+            ├── 📂 api/                # Axios Global Configuration
+            ├── 📂 components/         # Reusable UI Components
+            ├── 📂 styles/             # Modular CSS for Pages & Components
+            └── 📂 pages/              # Cinematic Page View Components
+                ├── Home.js            # Landing Page
+                ├── Login.js           # Secure Sign-in
+                ├── RegisterUser.js    # New User Signup
+                ├── RegisterAdmin.js   # Admin Registration
+                ├── ForgotPassword.js  # OTP Recovery Flow
+                ├── ResetPassword.js   # New Password Setup
+                ├── Dashboard.js       # Main User Hub
+                ├── BmiPage.js         # Health Tier Reports
+                ├── WorkoutPage.js     # Fitness Recommendations
+                ├── DietPage.js        # Nutrition Planning
+                ├── GoalPage.js        # Dynamic Progress Tracking
+                ├── ProgressPage.js    # Analytics & Charts
+                ├── UserHealth.js      # Health Condition Management
+                ├── AdminDashboard.js  # Global User Management
+                └── AdminHealth.js     # Admin View of User Health
 ```
 
 <br/>
