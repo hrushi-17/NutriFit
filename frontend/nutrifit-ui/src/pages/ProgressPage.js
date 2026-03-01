@@ -6,6 +6,7 @@ import Chart from "chart.js/auto";
 export default function ProgressPage() {
   const [weight, setWeight] = useState("");
   const [latest, setLatest] = useState(null);
+  const [msg, setMsg] = useState("");
 
   const chartRef = useRef(null);   // ✅ store chart instance safely
 
@@ -89,16 +90,26 @@ export default function ProgressPage() {
   }, [loadLatest, loadGraph]);
 
   const saveProgress = async () => {
-    if (!weight) return alert("Enter weight");
+    if (!weight) {
+      setMsg("❌ Please enter your weight");
+      return;
+    }
 
-    await api.post("/progress/add?weight=" + weight);
-    setWeight("");
+    try {
+      setMsg("");
+      await api.post("/progress/add?weight=" + weight);
+      setWeight("");
+      setMsg("✅ Weight recorded successfully!");
+      setTimeout(() => setMsg(""), 3000);
 
-    loadLatest();
-    loadGraph();
+      loadLatest();
+      loadGraph();
 
-    $(".kpi-card").addClass("pulse");
-    setTimeout(() => $(".kpi-card").removeClass("pulse"), 600);
+      $(".kpi-card").addClass("pulse");
+      setTimeout(() => $(".kpi-card").removeClass("pulse"), 600);
+    } catch (err) {
+      setMsg("❌ Failed to save progress.");
+    }
   };
 
   const getBmiStyle = (bmi) => {
@@ -122,6 +133,14 @@ export default function ProgressPage() {
     <div className="container py-3">
 
       <h4 className="fw-bold mb-3 text-white" style={{ textTransform: "uppercase", letterSpacing: "2px", fontSize: "1.2rem" }}>Progress Tracker</h4>
+
+      {/* Message Display */}
+      {msg && (
+        <div className={`premium-alert mb-4 ${msg.startsWith("✅") ? "premium-alert-success" : "premium-alert-error"}`}>
+          <i className={`fa-solid ${msg.startsWith("✅") ? "fa-circle-check" : "fa-circle-exclamation"}`}></i>
+          {msg.replace("✅ ", "").replace("❌ ", "")}
+        </div>
+      )}
 
       {/* ===== ROW 1 ===== */}
       <div className="row g-3 align-items-stretch mb-4">

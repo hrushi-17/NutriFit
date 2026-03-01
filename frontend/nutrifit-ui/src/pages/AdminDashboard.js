@@ -106,11 +106,16 @@ export default function AdminDashboard() {
 
   const noDisease = (data?.healthIssues || []).length === 0;
 
+  const [msg, setMsg] = useState("");
+  const [loading, setLoading] = useState(false);
+
   // ✅ UPDATED: Delete User function (fixed 405 issue)
   const deleteUser = async (id) => {
     if (!window.confirm("Are you sure you want to delete this user and all related data?")) return;
 
     try {
+      setLoading(true);
+      setMsg("");
       // Using full Axios config ensures headers are sent correctly
       const res = await api({
         method: "delete",
@@ -122,12 +127,15 @@ export default function AdminDashboard() {
       });
 
       console.log("Delete response:", res);
-      alert("User deleted successfully!");
+      setMsg("✅ User deleted successfully!");
+      setTimeout(() => setMsg(""), 3000);
       setData(null); // clear selected user
       loadUsers();   // reload users list
     } catch (error) {
       console.error("Delete error:", error.response || error);
-      alert("Failed to delete user: " + (error.response?.data?.message || error.message));
+      setMsg("❌ Failed to delete user: " + (error.response?.data?.message || error.message));
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -135,6 +143,14 @@ export default function AdminDashboard() {
     <div className="container-fluid px-3 py-4" style={{ background: "transparent", minHeight: "100vh" }}>
 
       <h4 className="fw-bold mb-4" style={{ color: "#fff", textShadow: "0 2px 10px rgba(0,0,0,0.8)" }}>🛡 NutriFit Admin Dashboard</h4>
+
+      {/* Message Display */}
+      {msg && (
+        <div className={`premium-alert mb-4 ${msg.startsWith("✅") ? "premium-alert-success" : "premium-alert-error"}`}>
+          <i className={`fa-solid ${msg.startsWith("✅") ? "fa-circle-check" : "fa-circle-exclamation"}`}></i>
+          {msg.replace("✅ ", "").replace("❌ ", "")}
+        </div>
+      )}
 
       <div className="row g-2 align-items-stretch">
 
@@ -196,14 +212,17 @@ export default function AdminDashboard() {
           {data && (
             <>
               {/* ================= DELETE USER BUTTON ================= */}
-              <div className="mb-3 text-end">
-                <button
-                  className="btn btn-netflix shadow-lg px-4 fw-bold"
-                  onClick={() => deleteUser(data.user.userId)}
-                >
-                  <i className="fa-solid fa-trash me-2"></i> Delete User
-                </button>
-              </div>
+              <button
+                className="btn btn-netflix shadow-lg px-4 fw-bold"
+                onClick={() => deleteUser(data.user.userId)}
+                disabled={loading}
+              >
+                {loading ? (
+                  <><span className="spinner-border spinner-border-sm me-2"></span>Deleting...</>
+                ) : (
+                  <><i className="fa-solid fa-trash me-2"></i> Delete User</>
+                )}
+              </button>
 
               <div className="row g-2 mb-2 align-items-stretch">
 

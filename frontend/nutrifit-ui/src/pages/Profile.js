@@ -13,6 +13,8 @@ export default function Profile() {
     foodPreference: ""
   });
 
+  const [msg, setMsg] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -36,19 +38,22 @@ export default function Profile() {
 
   const save = async () => {
     try {
+      setLoading(true);
+      setMsg("");
       const res = await api.post("/profile", p);
-      alert("✅ Profile saved successfully.\nBMI = " + res.data.bmi);
-      navigate("/dashboard/bmi");
+      setMsg("✅ Profile saved successfully! BMI = " + res.data.bmi);
+      setTimeout(() => navigate("/dashboard/bmi"), 1500);
     } catch (err) {
       if (err.response && (err.response.status === 401 || err.response.status === 403)) {
         localStorage.removeItem("token");
         navigate("/login");
       } else {
-        alert("❌ Something went wrong while saving profile");
+        setMsg("❌ Something went wrong while saving profile");
       }
+    } finally {
+      setLoading(false);
     }
   };
-
 
 
   return (
@@ -58,6 +63,15 @@ export default function Profile() {
     >
       <div className="d-flex justify-content-center">
         <div className="glass-panel p-4 p-md-5 w-100" style={{ maxWidth: "650px", borderTop: "3px solid #e50914" }}>
+
+          {/* Message Display */}
+          {msg && (
+            <div className={`premium-alert ${msg.startsWith("✅") ? "premium-alert-success" : "premium-alert-error"}`}>
+              <i className={`fa-solid ${msg.startsWith("✅") ? "fa-circle-check" : "fa-circle-exclamation"}`}></i>
+              {msg.replace("✅ ", "").replace("❌ ", "")}
+            </div>
+          )}
+
           <h3 className="text-center mb-4 fw-bold text-uppercase border-bottom pb-3" style={{ color: "#e50914", letterSpacing: "1px", borderColor: "rgba(229, 9, 20, 0.3)" }}>
             Profile Settings
           </h3>
@@ -153,14 +167,18 @@ export default function Profile() {
               </select>
             </div>
 
-            {/* Action Buttons */}
             <div className="col-12 d-flex justify-content-center mt-4">
               <button
                 className="btn btn-netflix px-5 py-3 fw-bold fs-5 shadow-lg"
                 style={{ letterSpacing: "1px" }}
                 onClick={save}
+                disabled={loading}
               >
-                <i className="fa-solid fa-floppy-disk me-2"></i> Save Profile
+                {loading ? (
+                  <><span className="spinner-border spinner-border-sm me-2"></span>Saving...</>
+                ) : (
+                  <><i className="fa-solid fa-floppy-disk me-2"></i> Save Profile</>
+                )}
               </button>
             </div>
           </div>

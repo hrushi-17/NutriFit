@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 export default function UserHealth() {
   const [list, setList] = useState([]);
   const [selected, setSelected] = useState([]);
+  const [msg, setMsg] = useState("");
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     api.get("/user/health/all").then(res => setList(res.data));
@@ -17,8 +19,18 @@ export default function UserHealth() {
   };
 
   const save = async () => {
-    await api.post("/user/health", selected);
-    alert("✅ Health conditions saved successfully");
+    try {
+      setLoading(true);
+      setMsg("");
+      await api.post("/user/health", selected);
+      setMsg("✅ Health conditions saved successfully!");
+      // Clear message after 3 seconds
+      setTimeout(() => setMsg(""), 3000);
+    } catch (err) {
+      setMsg("❌ Failed to save health conditions.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -33,6 +45,13 @@ export default function UserHealth() {
             </div>
 
             <div className="card-body">
+              {/* Message Display */}
+              {msg && (
+                <div className={`premium-alert mb-4 ${msg.startsWith("✅") ? "premium-alert-success" : "premium-alert-error"}`}>
+                  <i className={`fa-solid ${msg.startsWith("✅") ? "fa-circle-check" : "fa-circle-exclamation"}`}></i>
+                  {msg.replace("✅ ", "").replace("❌ ", "")}
+                </div>
+              )}
 
               <p className="text-light text-center mb-3">
                 Choose conditions so we can generate safe workout & diet plans.
@@ -74,8 +93,17 @@ export default function UserHealth() {
                 </div>
               )}
 
-              <button className="btn btn-netflix w-100 fw-semibold" onClick={save}>
-                💾 Save Health Conditions
+              <button
+                className="btn btn-netflix w-100 fw-semibold"
+                onClick={save}
+                disabled={loading}
+              >
+                {loading ? (
+                  <>
+                    <span className="spinner-border spinner-border-sm me-2"></span>
+                    Saving...
+                  </>
+                ) : "💾 Save Health Conditions"}
               </button>
 
             </div>

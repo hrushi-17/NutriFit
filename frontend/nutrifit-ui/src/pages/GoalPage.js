@@ -7,6 +7,7 @@ export default function GoalPage() {
   const [endDate, setEndDate] = useState("");
   const [goal, setGoal] = useState(null);
   const [latest, setLatest] = useState(null);
+  const [msg, setMsg] = useState("");
 
   useEffect(() => {
     loadGoal();
@@ -27,28 +28,38 @@ export default function GoalPage() {
     // Validate that selected date is today or in the future
     const today = new Date().toISOString().split("T")[0];
     if (endDate < today) {
-      alert("⚠ Please select a valid date (today or future date only).");
+      setMsg("❌ Please select a valid date (today or future date only).");
       return;
     }
 
-    await api.post("/goals/set", {
-      goalType,
-      targetValue,
-      endDate
-    });
+    try {
+      await api.post("/goals/set", {
+        goalType,
+        targetValue,
+        endDate
+      });
 
-    alert("Goal set successfully");
-    loadGoal();
+      setMsg("✅ Goal set successfully!");
+      setTimeout(() => setMsg(""), 3000);
+      loadGoal();
+    } catch (err) {
+      setMsg("❌ Failed to set goal.");
+    }
   };
 
   const resetAllHandler = async () => {
     if (!window.confirm("This will delete all your goal and progress history. Continue?"))
       return;
 
-    await api.delete("/goals/reset");
-    setGoal(null);
-    setLatest(null);
-    alert("All data cleared. You can start fresh.");
+    try {
+      await api.delete("/goals/reset");
+      setGoal(null);
+      setLatest(null);
+      setMsg("✅ All data cleared. You can start fresh.");
+      setTimeout(() => setMsg(""), 3000);
+    } catch (err) {
+      setMsg("❌ Failed to reset data.");
+    }
   };
 
   // Today's date in YYYY-MM-DD format for min attribute
@@ -97,6 +108,14 @@ export default function GoalPage() {
     <div className="container py-3">
 
       <h4 className="fw-bold mb-4 text-white" style={{ letterSpacing: "1px" }}>My Goals</h4>
+
+      {/* Message Display */}
+      {msg && (
+        <div className={`premium-alert mb-4 ${msg.startsWith("✅") ? "premium-alert-success" : "premium-alert-error"}`}>
+          <i className={`fa-solid ${msg.startsWith("✅") ? "fa-circle-check" : "fa-circle-exclamation"}`}></i>
+          {msg.replace("✅ ", "").replace("❌ ", "")}
+        </div>
+      )}
 
       <div className="row g-3 align-items-stretch">
 
