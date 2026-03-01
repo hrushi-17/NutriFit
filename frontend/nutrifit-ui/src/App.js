@@ -25,40 +25,43 @@ import Footer from "./components/Footer";
 function App() {
   return (
     <BrowserRouter>
-      <Navbar />
+      <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
+        <Navbar />
+        <div style={{ flex: 1 }}>
+          <Routes>
+            {/* ===== BASIC ROUTES ===== */}
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/register-user" element={<RegisterUser />} />
+            <Route path="/register-admin" element={<RegisterAdmin />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/admin" element={<AdminDashboard />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/reset-password" element={<ResetPassword />} />
 
-      <Routes>
-        {/* ===== BASIC ROUTES ===== */}
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/register-user" element={<RegisterUser />} />
-        <Route path="/register-admin" element={<RegisterAdmin />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/admin" element={<AdminDashboard />} />
-        <Route path="/forgot-password" element={<ForgotPassword />} />
-        <Route path="/reset-password" element={<ResetPassword />} />
+            {/* ===== OLD DIRECT HEALTH ROUTES (KEEP) ===== */}
+            <Route path="/health" element={<UserHealth />} />
+            <Route path="/admin-health" element={<AdminHealth />} />
 
-        {/* ===== OLD DIRECT HEALTH ROUTES (KEEP) ===== */}
-        <Route path="/health" element={<UserHealth />} />
-        <Route path="/admin-health" element={<AdminHealth />} />
+            {/* ===== ✅ USER DASHBOARD ROUTES (NEW) ===== */}
+            <Route path="/dashboard" element={<Dashboard />}>
 
-        {/* ===== ✅ USER DASHBOARD ROUTES (NEW) ===== */}
-        <Route path="/dashboard" element={<Dashboard />}>
+              {/* Default: /dashboard → /dashboard/bmi */}
+              <Route index element={<Navigate to="bmi" replace />} />
 
-          {/* Default: /dashboard → /dashboard/bmi */}
-          <Route index element={<Navigate to="bmi" replace />} />
+              <Route path="bmi" element={<BmiPage />} />
+              <Route path="health" element={<UserHealth />} />
+              <Route path="workout" element={<WorkoutPage />} />
+              <Route path="diet" element={<DietPage />} />
+              <Route path="goals" element={<GoalPage />} />
+              <Route path="progress" element={<ProgressPage />} />
+            </Route>
 
-          <Route path="bmi" element={<BmiPage />} />
-          <Route path="health" element={<UserHealth />} />
-          <Route path="workout" element={<WorkoutPage />} />
-          <Route path="diet" element={<DietPage />} />
-          <Route path="goals" element={<GoalPage />} />
-          <Route path="progress" element={<ProgressPage />} />
-        </Route>
-
-      </Routes>
-      <Footer />
+          </Routes>
+        </div>
+        <Footer />
+      </div>
     </BrowserRouter>
   );
 }
