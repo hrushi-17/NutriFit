@@ -9,6 +9,7 @@ export default function ForgotPassword() {
   const [msg, setMsg] = useState("");
   const [otpSent, setOtpSent] = useState(false);
   const [resendTimer, setResendTimer] = useState(0);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   // Timer logic
@@ -34,12 +35,16 @@ export default function ForgotPassword() {
     }
 
     try {
+      setLoading(true);
+      setMsg("⏳ Sending OTP... Please wait (may take up to 60s on first request)");
       const res = await api.post("/auth/send-otp", { email });
       setMsg("✅ " + res.data);
       setOtpSent(true);
       setResendTimer(60); // Start timer
     } catch (err) {
       setMsg("❌ " + (err.response?.data || "Failed to send OTP"));
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -51,6 +56,8 @@ export default function ForgotPassword() {
     }
 
     try {
+      setLoading(true);
+      setMsg("⏳ Verifying OTP...");
       const res = await api.post("/auth/verify-otp", { email, otp });
       setMsg("✅ OTP verified! Redirecting to reset password...");
 
@@ -60,6 +67,8 @@ export default function ForgotPassword() {
       }, 1500);
     } catch (err) {
       setMsg("❌ " + (err.response?.data || "Invalid or expired OTP"));
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -123,8 +132,11 @@ export default function ForgotPassword() {
               className="btn btn-netflix w-100 mt-4 animate-fade-up delay-3"
               style={{ padding: "14px", fontSize: "1.05rem" }}
               onClick={handleSendOtp}
+              disabled={loading}
             >
-              Send OTP
+              {loading ? (
+                <><span className="spinner-border spinner-border-sm me-2" role="status"></span>Sending OTP...</>
+              ) : "Send OTP"}
             </button>
           ) : (
             <>
@@ -132,8 +144,11 @@ export default function ForgotPassword() {
                 className="btn btn-netflix w-100 mt-4 mb-2 animate-fade-up delay-3"
                 style={{ padding: "14px", fontSize: "1.05rem" }}
                 onClick={handleVerifyOtp}
+                disabled={loading}
               >
-                Verify OTP
+                {loading ? (
+                  <><span className="spinner-border spinner-border-sm me-2" role="status"></span>Verifying...</>
+                ) : "Verify OTP"}
               </button>
 
               {/* Resend OTP Button */}
@@ -141,7 +156,7 @@ export default function ForgotPassword() {
                 className="btn btn-outline-glass w-100 animate-fade-up delay-4 fw-bold border"
                 style={{ padding: "12px" }}
                 onClick={handleSendOtp}
-                disabled={resendTimer > 0}
+                disabled={resendTimer > 0 || loading}
               >
                 {resendTimer > 0 ? `Resend OTP (${resendTimer}s)` : "Resend OTP"}
               </button>
