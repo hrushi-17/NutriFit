@@ -41,7 +41,11 @@ namespace NutriFit.Api.Services
         {
             try
             {
-                _logger.LogInformation("Attempting to send email to {To} via Brevo HTTP API...", toEmail);
+                var maskedKey = string.IsNullOrEmpty(apiKey) ? "MISSING" : 
+                                apiKey.Length > 8 ? $"{apiKey.Substring(0, 4)}...{apiKey.Substring(apiKey.Length - 4)}" : "TOO_SHORT";
+                
+                _logger.LogInformation("Attempting to send email to {To} via Brevo HTTP API (Key: {MaskedKey}, Length: {Length})...", 
+                    toEmail, maskedKey, apiKey?.Length ?? 0);
 
                 var client = _httpClientFactory.CreateClient();
                 client.DefaultRequestHeaders.Add("api-key", apiKey);
