@@ -39,6 +39,8 @@ body {
   background-attachment: fixed;
   min-height: 100vh;
   overflow-x: hidden;
+  padding-bottom: 46px;
+  /* space for fixed footer */
 }
 
 code {
