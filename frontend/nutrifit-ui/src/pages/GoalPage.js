@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import api from "../api/axios";
-import Footer from "../components/Footer";
 
 export default function GoalPage() {
   const [goalType, setGoalType] = useState("weight_loss");
@@ -295,7 +294,6 @@ export default function GoalPage() {
       <style>{`
         /* Styles moved to global index.js / inline classes */
       `}</style>
-      <Footer />
     </div>
   );
 }

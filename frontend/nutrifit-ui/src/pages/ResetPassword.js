@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import api from "../api/axios";
-import Footer from "../components/Footer";
 
 export default function ResetPassword() {
   const [searchParams] = useSearchParams();
@@ -135,7 +134,6 @@ export default function ResetPassword() {
           </button>
         </div>
       </div>
-      <Footer />
     </div>
   );
 }

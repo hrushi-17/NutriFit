@@ -1,7 +1,6 @@
 import { Link, Outlet, useNavigate, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import "../styles/pages/Dashboard.css";
-import Footer from "../components/Footer";
 
 export default function Dashboard() {
   const navigate = useNavigate();
@@ -119,7 +118,6 @@ export default function Dashboard() {
       <div style={{ padding: "28px 20px" }}>
         <Outlet />
       </div>
-      <Footer />
     </div>
   );
 }

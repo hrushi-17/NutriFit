@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import api from "../api/axios";
 import "../styles/pages/Auth.css";
-import Footer from "../components/Footer";
 
 export default function ForgotPassword() {
   const [email, setEmail] = useState("");
@@ -155,7 +154,6 @@ export default function ForgotPassword() {
           </div>
         </div>
       </div>
-      <Footer />
     </div>
   );
 }

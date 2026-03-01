@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import "../styles/pages/Home.css";
-import Footer from "../components/Footer";
 
 export default function Home() {
   const token = localStorage.getItem("token");
@@ -37,7 +36,6 @@ export default function Home() {
           )}
         </div>
       </div>
-      <Footer />
     </div>
   );
 }

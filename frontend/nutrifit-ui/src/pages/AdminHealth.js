@@ -1,6 +1,5 @@
 import api from "../api/axios";
 import { useEffect, useState } from "react";
-import Footer from "../components/Footer";
 
 export default function AdminHealth() {
   const [list, setList] = useState([]);
@@ -38,14 +37,13 @@ export default function AdminHealth() {
       <ul className="list-group">
         {list.map(h => (
           <li key={h.healthConditionId}
-            className="list-group-item d-flex justify-content-between">
+              className="list-group-item d-flex justify-content-between">
             {h.name}
             <button className="btn btn-sm btn-danger"
               onClick={() => del(h.healthConditionId)}>Delete</button>
           </li>
         ))}
       </ul>
-      <Footer />
     </div>
   );
 }
