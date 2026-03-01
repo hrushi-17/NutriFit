@@ -1,14 +1,8 @@
 /* ================================================================
    NutriFit — Fixed Corporate Footer  (Netflix-level UI)
-   Height exactly matches Navbar (62px)
-   All content visible on Mobile · Tablet · Desktop
+   Height matches Navbar (~56px). Fully responsive.
    © 2026 Designed & Developed by Hrushikesh Chothe
    ================================================================ */
-
-/* ── CSS VARIABLE for shared height ─────────────────────────── */
-:root {
-    --footer-height: 62px;
-}
 
 /* ── FIXED SHELL ─────────────────────────────────────────────── */
 .nf-footer {
@@ -16,76 +10,78 @@
     bottom: 0;
     left: 0;
     right: 0;
-    z-index: 9999;
-    height: var(--footer-height);
+    z-index: 1049;
+    /* just below navbar (1050) */
 
-    /* Glassmorphism — mirrors Navbar feel */
-    background: rgba(10, 10, 10, 0.82);
-    backdrop-filter: blur(15px) saturate(1.3);
-    -webkit-backdrop-filter: blur(15px) saturate(1.3);
-    border-top: 1px solid rgba(229, 9, 20, 0.22);
+    /* Exact same height as Navbar: py-3 (12px*2) + 32px logo/text = 56px */
+    height: 56px;
 
-    display: flex;
-    align-items: center;
-    padding: 0 24px;
-    box-sizing: border-box;
+    /* Glassmorphism dark base — mirrors navbar bg */
+    background: rgba(10, 10, 10, 0.85);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.6);
 }
 
-/* ── ANIMATED TOP GLOW LINE ──────────────────────────────────── */
+/* ── ANIMATED GLOW LINE ──────────────────────────────────────── */
 .nf-footer__glow-line {
     position: absolute;
-    top: 0;
+    top: -1px;
     left: 50%;
     transform: translateX(-50%);
-    height: 1px;
-    width: 60%;
+    height: 2px;
+    width: 50%;
     background: linear-gradient(90deg,
             transparent 0%,
-            rgba(229, 9, 20, 0.5) 25%,
+            rgba(229, 9, 20, 0.5) 30%,
             #e50914 50%,
-            rgba(229, 9, 20, 0.5) 75%,
+            rgba(229, 9, 20, 0.5) 70%,
             transparent 100%);
-    box-shadow: 0 0 18px rgba(229, 9, 20, 0.45);
-    animation: footerGlow 3s ease-in-out infinite;
+    box-shadow: 0 0 18px rgba(229, 9, 20, 0.45), 0 0 40px rgba(229, 9, 20, 0.18);
+    animation: nfFooterGlow 3s ease-in-out infinite;
     pointer-events: none;
+    border-radius: 2px;
 }
 
-@keyframes footerGlow {
+@keyframes nfFooterGlow {
 
     0%,
     100% {
         opacity: 0.6;
-        width: 50%;
+        width: 42%;
     }
 
     50% {
-        opacity: 1.0;
-        width: 70%;
+        opacity: 1;
+        width: 58%;
     }
 }
 
-/* ── INNER LAYOUT ────────────────────────────────────────────── */
+/* ── INNER FLEX ROW ──────────────────────────────────────────── */
 .nf-footer__inner {
-    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    padding: 0 24px;
     max-width: 1400px;
     margin: 0 auto;
-
-    display: grid;
-    grid-template-columns: auto 1fr auto;
-    align-items: center;
     gap: 12px;
 }
 
-/* ── LEFT: BRAND ─────────────────────────────────────────────── */
+/* ── LEFT — BRAND LOGOTYPE ───────────────────────────────────── */
 .nf-footer__brand {
     font-family: 'Bebas Neue', 'Roboto', sans-serif;
-    font-size: 1.25rem;
+    font-size: 1.35rem;
     font-weight: 900;
     letter-spacing: 3px;
     color: #ffffff;
     white-space: nowrap;
-    line-height: 1;
+    flex-shrink: 0;
     user-select: none;
+    line-height: 1;
 }
 
 .nf-footer__brand-red {
@@ -93,120 +89,96 @@
     text-shadow: 0 0 12px rgba(229, 9, 20, 0.6);
 }
 
-/* ── CENTER: COPYRIGHT ───────────────────────────────────────── */
+/* ── CENTER — COPYRIGHT ──────────────────────────────────────── */
 .nf-footer__copy {
     font-family: 'Roboto', sans-serif;
     font-size: 0.72rem;
     font-weight: 400;
-    color: #5a5a5a;
+    color: #606060;
     letter-spacing: 0.4px;
     text-align: center;
+    flex: 1;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
-.nf-footer__label {
-    color: #808080;
+.nf-footer__pipe {
+    color: rgba(229, 9, 20, 0.4);
+    margin: 0 2px;
 }
 
 .nf-footer__author {
     font-weight: 700;
     color: #e50914;
-    letter-spacing: 0.8px;
-    cursor: default;
+    letter-spacing: 0.5px;
     transition: color 0.2s, text-shadow 0.2s;
+    cursor: default;
 }
 
 .nf-footer__author:hover {
-    color: #ff3333;
+    color: #ff4433;
     text-shadow: 0 0 10px rgba(229, 9, 20, 0.55);
 }
 
-/* ── RIGHT: TAG ──────────────────────────────────────────────── */
+/* ── RIGHT — PLATFORM TAG ────────────────────────────────────── */
 .nf-footer__tag {
-    display: flex;
-    align-items: center;
-    gap: 6px;
     font-family: 'Roboto', sans-serif;
     font-size: 0.62rem;
-    font-weight: 700;
+    font-weight: 600;
     letter-spacing: 1.5px;
     text-transform: uppercase;
     color: #3a3a3a;
     white-space: nowrap;
-}
-
-.nf-footer__tag i {
-    color: rgba(229, 9, 20, 0.4);
-    font-size: 0.7rem;
+    flex-shrink: 0;
 }
 
 /* ================================================================
-   RESPONSIVE BREAKPOINTS
-   All content stays visible — layout adapts gracefully
+   RESPONSIVE BREAKPOINTS — ALL CONTENT ALWAYS VISIBLE
    ================================================================ */
 
-/* ── TABLET (≤ 768px) ────────────────────────────────────────── */
-@media (max-width: 768px) {
-    .nf-footer {
-        height: var(--footer-height);
-        /* same height */
-        padding: 0 16px;
-    }
-
+/* ── TABLET (641px – 900px) ──────────────────────────────────── */
+@media (max-width: 900px) and (min-width: 641px) {
     .nf-footer__inner {
-        /* stack brand+copyright left | tag right */
-        grid-template-columns: 1fr auto;
-        grid-template-rows: auto auto;
-        gap: 2px 10px;
+        padding: 0 16px;
+        gap: 8px;
     }
 
-    /* Brand goes top-left */
     .nf-footer__brand {
-        grid-column: 1;
-        grid-row: 1;
-        font-size: 1rem;
+        font-size: 1.1rem;
         letter-spacing: 2px;
     }
 
-    /* Tag goes top-right, spans 2 rows */
-    .nf-footer__tag {
-        grid-column: 2;
-        grid-row: 1 / 3;
-        justify-self: end;
-        font-size: 0.58rem;
+    .nf-footer__copy {
+        font-size: 0.65rem;
     }
 
-    /* Copyright goes bottom-left */
-    .nf-footer__copy {
-        grid-column: 1;
-        grid-row: 2;
-        text-align: left;
-        font-size: 0.65rem;
+    .nf-footer__tag {
+        font-size: 0.58rem;
+        letter-spacing: 1px;
     }
 }
 
-/* ── MOBILE (≤ 480px) ────────────────────────────────────────── */
-@media (max-width: 480px) {
+/* ── MOBILE (≤ 640px) ────────────────────────────────────────── */
+@media (max-width: 640px) {
     .nf-footer {
-        height: var(--footer-height);
-        /* same height */
-        padding: 0 12px;
+        height: 56px;
+        /* keep same height */
     }
 
     .nf-footer__inner {
-        /* single-col center stack */
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        gap: 1px;
-        text-align: center;
+        padding: 0 12px;
+        gap: 6px;
+        justify-content: space-between;
+    }
+
+    /* Hide platform tag on very small screens to save space */
+    .nf-footer__tag {
+        display: none;
     }
 
     .nf-footer__brand {
-        font-size: 0.9rem;
+        font-size: 1rem;
         letter-spacing: 2px;
     }
 
@@ -215,11 +187,23 @@
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-        max-width: 100%;
+        text-align: right;
     }
 
-    .nf-footer__tag {
-        font-size: 0.52rem;
-        letter-spacing: 1px;
+    /* Hide the pipe separator on mobile */
+    .nf-footer__pipe {
+        display: none;
+    }
+}
+
+/* ── VERY SMALL (≤ 380px) ────────────────────────────────────── */
+@media (max-width: 380px) {
+    .nf-footer__brand {
+        font-size: 0.85rem;
+        letter-spacing: 1.5px;
+    }
+
+    .nf-footer__copy {
+        font-size: 0.55rem;
     }
 }
