@@ -49,7 +49,7 @@ public class AuthController : ControllerBase
             {
                 Name = dto.Name,
                 Email = email,
-                Password = BCrypt.Net.BCrypt.HashPassword(dto.Password)
+                Password = BCrypt.Net.BCrypt.HashPassword(dto.Password, workFactor: 10)
             };
 
             _db.Users.Add(user);
@@ -92,7 +92,7 @@ public class AuthController : ControllerBase
             {
                 Name = dto.Name,
                 Email = email,
-                Password = BCrypt.Net.BCrypt.HashPassword(dto.Password)
+                Password = BCrypt.Net.BCrypt.HashPassword(dto.Password, workFactor: 10)
             };
 
             _db.Admins.Add(admin);
@@ -425,7 +425,7 @@ public class AuthController : ControllerBase
 
             // Update password
             // Update password
-            string hashedPassword = BCrypt.Net.BCrypt.HashPassword(dto.NewPassword);
+            string hashedPassword = BCrypt.Net.BCrypt.HashPassword(dto.NewPassword, workFactor: 10);
 
             if (user != null)
                 user.Password = hashedPassword;
