@@ -107,7 +107,6 @@ export default function AdminDashboard() {
   const noDisease = (data?.healthIssues || []).length === 0;
 
   const [msg, setMsg] = useState("");
-  const [loading, setLoading] = useState(false);
 
   // ✅ UPDATED: Quick Delete User function (Optimistic UI Update)
   const deleteUser = async (id) => {
@@ -216,13 +215,8 @@ export default function AdminDashboard() {
                 <button
                   className="btn btn-netflix shadow-lg px-4 fw-bold"
                   onClick={() => deleteUser(data.user.userId)}
-                  disabled={loading}
                 >
-                  {loading ? (
-                    <><span className="spinner-border spinner-border-sm me-2"></span>Deleting...</>
-                  ) : (
-                    <><i className="fa-solid fa-trash me-2"></i> Delete User</>
-                  )}
+                  <i className="fa-solid fa-trash me-2"></i> Delete User
                 </button>
               </div>
 
