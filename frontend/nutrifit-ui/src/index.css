@@ -322,18 +322,27 @@ select.form-control option:hover {
   background-color: #2b2b2b !important;
 }
 
-/* 🎯 PREMIUM NUMBER SPINNER STYLING (GLASS EFFECT) */
+/* 🎯 PREMIUM NUMBER SPINNER STYLING (FLOATING RED ARROWS) */
 input[type="number"].netflix-input::-webkit-inner-spin-button,
 input[type="number"].form-control::-webkit-inner-spin-button,
 input[type="number"].netflix-input::-webkit-outer-spin-button,
 input[type="number"].form-control::-webkit-outer-spin-button {
-  opacity: 1;
-  cursor: pointer;
-  height: 48px;
-  width: 25px;
-  /* Instead of native dark mode, we rebuild the arrow visibility explicitly */
-  filter: invert(0.9) sepia(1) saturate(10) hue-rotate(-50deg) brightness(0.9) drop-shadow(0 0 2px rgba(229, 9, 20, 0.5));
-  margin-right: -8px;
+  -webkit-appearance: none;
+  appearance: none;
+  margin: 0;
+}
+
+/* We rebuild the arrows using background images to guarantee no weird OS boxes appear */
+input[type="number"].netflix-input,
+input[type="number"].form-control {
+  -moz-appearance: textfield;
+  appearance: textfield;
+  /* Hide Firefox arrows entirely */
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23e50914' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='18 15 12 9 6 15'%3e%3c/polyline%3e%3c/svg%3e"), url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23e50914' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e") !important;
+  background-repeat: no-repeat !important;
+  background-position: right 1rem center, right 0.2rem center !important;
+  background-size: 1em, 1em !important;
+  padding-right: 2.5rem !important;
 }
 
 /* =========================================
