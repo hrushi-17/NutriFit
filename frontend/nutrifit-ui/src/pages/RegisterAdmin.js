@@ -34,11 +34,16 @@ export default function RegisterAdmin() {
 
     try {
       setLoading(true);
-      await api.post("/auth/register-admin", data);
-      setMsg("Admin registered successfully! Redirecting...");
-      navigate("/login");
+      const res = await api.post("/auth/register-admin", data);
+
+      // Auto-login logic
+      localStorage.setItem("token", res.data.token);
+      localStorage.setItem("role", res.data.role);
+
+      setMsg("✅ Admin registered! Logging you in...");
+      navigate("/admin");
     } catch (err) {
-      setMsg(err.response?.data || "Registration failed.");
+      setMsg(err.response?.data?.message || err.response?.data || "Registration failed.");
     } finally {
       setLoading(false);
     }

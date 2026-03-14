@@ -55,7 +55,9 @@ public class AuthController : ControllerBase
             _db.Users.Add(user);
             _db.SaveChanges();
 
-            return Ok("User registered successfully");
+            // Return token for auto-login
+            var token = GenerateToken(user.UserId, "user");
+            return Ok(new { message = "User registered successfully", token = token, role = "user" });
         }
         catch (Exception ex)
         {
@@ -96,7 +98,9 @@ public class AuthController : ControllerBase
             _db.Admins.Add(admin);
             _db.SaveChanges();
 
-            return Ok("Admin registered successfully");
+            // Return token for auto-login
+            var token = GenerateToken(admin.AdminId, "admin");
+            return Ok(new { message = "Admin registered successfully", token = token, role = "admin" });
         }
         catch (Exception ex)
         {

@@ -34,11 +34,16 @@ export default function RegisterUser() {
 
     try {
       setLoading(true);
-      await api.post("/auth/register-user", data);
-      setMsg("Account created successfully! Redirecting...");
-      navigate("/login");
+      const res = await api.post("/auth/register-user", data);
+
+      // Auto-login logic
+      localStorage.setItem("token", res.data.token);
+      localStorage.setItem("role", res.data.role);
+
+      setMsg("✅ Account created! Logging you in...");
+      navigate("/profile");
     } catch (err) {
-      setMsg(err.response?.data || "Registration failed.");
+      setMsg(err.response?.data?.message || err.response?.data || "Registration failed.");
     } finally {
       setLoading(false);
     }
