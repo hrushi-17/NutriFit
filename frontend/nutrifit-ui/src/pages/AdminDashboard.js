@@ -205,7 +205,7 @@ export default function AdminDashboard() {
         {/* MAIN */}
         <div className="col-xl-10 col-md-9">
 
-          {!data && (
+          {!data && users.length > 0 && (
             <div
               className="d-flex flex-column justify-content-center align-items-center w-100 animate-fade-up"
               style={{
