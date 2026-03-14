@@ -205,7 +205,41 @@ export default function AdminDashboard() {
         {/* MAIN */}
         <div className="col-xl-10 col-md-9">
 
-          {!data && <div className="alert alert-info">Select a user to view full dashboard</div>}
+          {!data && (
+            <div
+              className="d-flex flex-column justify-content-center align-items-center w-100 animate-fade-up"
+              style={{
+                minHeight: "75vh",
+                background: "linear-gradient(145deg, rgba(20,20,20,0.8), rgba(5,5,5,0.95))",
+                border: "1px solid rgba(229, 9, 20, 0.2)",
+                borderRadius: "16px",
+                boxShadow: "0 20px 50px rgba(0,0,0,0.8)",
+                padding: "40px",
+                textAlign: "center"
+              }}
+            >
+              <div
+                style={{
+                  width: "90px",
+                  height: "90px",
+                  borderRadius: "50%",
+                  background: "linear-gradient(145deg, rgba(229, 9, 20, 0.15), rgba(0, 0, 0, 0.8))",
+                  border: "2px solid rgba(229, 9, 20, 0.5)",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  marginBottom: "24px",
+                  boxShadow: "0 0 30px rgba(229, 9, 20, 0.4)"
+                }}
+              >
+                <i className="fa-solid fa-users" style={{ fontSize: "2.2rem", color: "#e50914" }}></i>
+              </div>
+              <h3 className="fw-bold" style={{ color: "#fff", letterSpacing: "1px", marginBottom: "12px" }}>Select a User Profile</h3>
+              <p style={{ color: "#a3a3a3", fontSize: "1.05rem", maxWidth: "420px", lineHeight: "1.6", margin: 0 }}>
+                Click on any user from the sidebar to view their full dashboard, manage their goals, and track their latest fitness progress.
+              </p>
+            </div>
+          )}
 
           {data && (
             <>
