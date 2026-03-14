@@ -22,6 +22,8 @@ import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
 import Footer from "./components/Footer";
 
+import { SpeedInsights } from "@vercel/speed-insights/react";
+
 function App() {
   return (
     <BrowserRouter>
@@ -61,6 +63,7 @@ function App() {
           </Routes>
         </div>
         <Footer />
+        <SpeedInsights />
       </div>
     </BrowserRouter>
   );
