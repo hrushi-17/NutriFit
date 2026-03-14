@@ -110,7 +110,6 @@ export default function AdminDashboard() {
 
   // ✅ UPDATED: Quick Delete User function (Optimistic UI Update)
   const deleteUser = async (id) => {
-    if (!window.confirm("Are you sure you want to delete this user and all related data?")) return;
 
     // 1. Optimistic UI Update: instantly clear the selected user and remove from the list
     setUsers(prev => prev.filter(u => u.userId !== id));
@@ -141,7 +140,7 @@ export default function AdminDashboard() {
   return (
     <div className="container-fluid px-3 py-4" style={{ background: "transparent", minHeight: "100vh" }}>
 
-      <h4 className="fw-bold mb-4" style={{ color: "#fff", textShadow: "0 2px 10px rgba(0,0,0,0.8)" }}>🛡 NutriFit Admin Dashboard</h4>
+      <h4 className="fw-bold mb-4" style={{ color: "#fff", textShadow: "0 2px 10px rgba(0,0,0,0.8)" }}>NutriFit Admin Dashboard</h4>
 
       {/* Message Display */}
       {msg && (
