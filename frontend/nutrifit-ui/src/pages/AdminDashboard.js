@@ -109,33 +109,33 @@ export default function AdminDashboard() {
   const [msg, setMsg] = useState("");
   const [loading, setLoading] = useState(false);
 
-  // ✅ UPDATED: Delete User function (fixed 405 issue)
+  // ✅ UPDATED: Quick Delete User function (Optimistic UI Update)
   const deleteUser = async (id) => {
     if (!window.confirm("Are you sure you want to delete this user and all related data?")) return;
 
+    // 1. Optimistic UI Update: instantly clear the selected user and remove from the list
+    setUsers(prev => prev.filter(u => u.userId !== id));
+    setData(null);
+    setMsg("✅ User deleted successfully!");
+    setTimeout(() => setMsg(""), 3000);
+
+    // 2. Perform the actual deletion in the background without blocking the UI
     try {
-      setLoading(true);
-      setMsg("");
-      // Using full Axios config ensures headers are sent correctly
-      const res = await api({
+      api({
         method: "delete",
         url: "/admin/users/" + id,
         headers: {
           "Content-Type": "application/json",
           Authorization: "Bearer " + localStorage.getItem("token"),
         },
+      }).catch((error) => {
+        console.error("Delete error in background:", error.response || error);
+        setMsg("❌ Failed to delete user: " + (error.response?.data?.message || error.message));
+        // Optionally revert optimistic update by reloading users
+        loadUsers();
       });
-
-      console.log("Delete response:", res);
-      setMsg("✅ User deleted successfully!");
-      setTimeout(() => setMsg(""), 3000);
-      setData(null); // clear selected user
-      loadUsers();   // reload users list
     } catch (error) {
-      console.error("Delete error:", error.response || error);
-      setMsg("❌ Failed to delete user: " + (error.response?.data?.message || error.message));
-    } finally {
-      setLoading(false);
+      console.error("Delete error:", error);
     }
   };
 

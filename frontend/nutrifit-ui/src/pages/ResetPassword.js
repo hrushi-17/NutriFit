@@ -12,6 +12,7 @@ export default function ResetPassword() {
   const [msgType, setMsgType] = useState(""); // success, error
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   // Password validation regex: min 8 chars, 1 uppercase, 1 lowercase, 1 number, 1 special char
   const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
@@ -31,6 +32,7 @@ export default function ResetPassword() {
     }
 
     try {
+      setLoading(true);
       // Call backend API to reset password
       await api.post("/auth/reset-password", {
         token,
@@ -46,6 +48,8 @@ export default function ResetPassword() {
     } catch (err) {
       setMsg(err.response?.data || "Something went wrong");
       setMsgType("error");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -131,8 +135,11 @@ export default function ResetPassword() {
             className="btn btn-netflix w-100 mt-4 animate-fade-up delay-3 fw-bold"
             style={{ padding: "14px", fontSize: "1.05rem" }}
             onClick={handleSubmit}
+            disabled={loading}
           >
-            Reset Password
+            {loading ? (
+              <><span className="spinner-border spinner-border-sm me-2"></span>Resetting...</>
+            ) : "Reset Password"}
           </button>
         </div>
       </div>
