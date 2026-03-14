@@ -247,8 +247,9 @@ export default function AdminDashboard() {
               style={{
                 minHeight: "75vh",
                 background: "linear-gradient(145deg, rgba(20,20,20,0.8), rgba(5,5,5,0.95))",
-                border: "1px dashed rgba(255, 255, 255, 0.1)",
+                border: "1px solid rgba(229, 9, 20, 0.2)",
                 borderRadius: "16px",
+                boxShadow: "0 20px 50px rgba(0,0,0,0.8)",
                 padding: "40px",
                 textAlign: "center"
               }}
@@ -258,15 +259,16 @@ export default function AdminDashboard() {
                   width: "90px",
                   height: "90px",
                   borderRadius: "50%",
-                  background: "rgba(255,255,255,0.02)",
-                  border: "1px dashed rgba(255,255,255,0.1)",
+                  background: "linear-gradient(145deg, rgba(229, 9, 20, 0.15), rgba(0, 0, 0, 0.8))",
+                  border: "2px solid rgba(229, 9, 20, 0.5)",
                   display: "flex",
                   justifyContent: "center",
                   alignItems: "center",
-                  marginBottom: "24px"
+                  marginBottom: "24px",
+                  boxShadow: "0 0 30px rgba(229, 9, 20, 0.4)"
                 }}
               >
-                <i className="fa-solid fa-user-xmark" style={{ fontSize: "2.2rem", color: "rgba(255,255,255,0.3)" }}></i>
+                <i className="fa-solid fa-user-xmark" style={{ fontSize: "2.2rem", color: "#e50914" }}></i>
               </div>
               <h3 className="fw-bold" style={{ color: "#fff", letterSpacing: "1px", marginBottom: "12px" }}>No Registered Users</h3>
               <p style={{ color: "#a3a3a3", fontSize: "1.05rem", maxWidth: "420px", lineHeight: "1.6", margin: 0 }}>
