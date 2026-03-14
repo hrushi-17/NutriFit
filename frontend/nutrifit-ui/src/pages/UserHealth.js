@@ -103,7 +103,7 @@ export default function UserHealth() {
                     <span className="spinner-border spinner-border-sm me-2"></span>
                     Saving...
                   </>
-                ) : "💾 Save Health Conditions"}
+                ) : "Save Health Conditions"}
               </button>
 
             </div>
