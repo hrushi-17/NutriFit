@@ -244,40 +244,46 @@ a {
    ========================================= */
 
 .netflix-input {
-  background-color: #333 !important;
+  background: rgba(20, 20, 20, 0.7) !important;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
   color: white !important;
-  border: none !important;
-  border-radius: 4px !important;
+  border-radius: 8px !important;
   padding: 14px 16px !important;
   font-size: 1rem;
-  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+  transition: all 0.3s ease;
   color-scheme: dark;
-  /* Native dark mode for inner elements */
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .netflix-input:focus {
-  background-color: #444 !important;
-  box-shadow: 0 0 0 2px var(--accent-red) !important;
+  background: rgba(10, 10, 10, 0.9) !important;
+  border: 1px solid var(--accent-red) !important;
+  box-shadow: 0 0 15px rgba(229, 9, 20, 0.4), inset 0 2px 4px rgba(0, 0, 0, 0.8) !important;
 }
 
 /* Fallback for form-control */
 .form-control,
 .form-select {
-  background-color: #333 !important;
+  background: rgba(20, 20, 20, 0.7) !important;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
   color: white !important;
-  border: none !important;
-  border-bottom: 2px solid transparent !important;
-  border-radius: 4px;
+  border-radius: 8px !important;
+  padding: 14px 16px !important;
   color-scheme: dark;
-  /* Automatically styles number spinners with dark UI */
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .form-control:focus,
 .form-select:focus {
-  background-color: #444 !important;
-  border-bottom: 2px solid var(--accent-red) !important;
-  box-shadow: none !important;
+  background: rgba(10, 10, 10, 0.9) !important;
+  border: 1px solid var(--accent-red) !important;
+  box-shadow: 0 0 15px rgba(229, 9, 20, 0.4), inset 0 2px 4px rgba(0, 0, 0, 0.8) !important;
   color: white !important;
+  outline: none !important;
 }
 
 /* 🎯 PREMIUM SELECT (MULTIPLE CHOICE) CUSTOMIZATION */
@@ -289,32 +295,47 @@ select.form-control {
   background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23e50914' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e") !important;
   background-repeat: no-repeat !important;
   background-position: right 1.2rem center !important;
-  background-size: 1.2em !important;
+  background-size: 1.4em !important;
   padding-right: 3rem !important;
-  /* Make room for the custom arrow */
   cursor: pointer;
 }
 
 select.netflix-input option,
 select.form-select option,
 select.form-control option {
-  background-color: #181818 !important;
-  /* Deep dark Netflix modal background */
+  background-color: rgba(20, 20, 20, 0.95) !important;
   color: #fff !important;
-  font-weight: 500;
-  padding: 14px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  padding: 16px 20px !important;
+  border-bottom: 1px solid rgba(229, 9, 20, 0.3) !important;
 }
 
-/* 🎯 PREMIUM NUMBER SPINNER STYLING */
+select.netflix-input option:checked,
+select.form-select option:checked,
+select.form-control option:checked {
+  background-color: #e50914 !important;
+  color: white !important;
+}
+
+select.netflix-input option:hover,
+select.form-select option:hover,
+select.form-control option:hover {
+  background-color: #2b2b2b !important;
+}
+
+/* 🎯 PREMIUM NUMBER SPINNER STYLING (GLASS EFFECT) */
 input[type="number"].netflix-input::-webkit-inner-spin-button,
 input[type="number"].form-control::-webkit-inner-spin-button,
 input[type="number"].netflix-input::-webkit-outer-spin-button,
 input[type="number"].form-control::-webkit-outer-spin-button {
   opacity: 1;
   cursor: pointer;
-  height: 40px;
-  /* Adds a slick red Netflix tint to the native up/down arrows */
-  filter: invert(1) sepia(1) saturate(5) hue-rotate(-50deg) brightness(0.8);
+  height: 100%;
+  width: 25px;
+  /* Removed yellow sepia. Applied pure white glowing drop-shadow glass effect */
+  filter: invert(1) brightness(2) drop-shadow(0 0 2px rgba(255, 255, 255, 0.8));
+  margin-right: -10px;
 }
 
 /* =========================================
