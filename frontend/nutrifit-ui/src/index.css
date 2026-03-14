@@ -322,15 +322,25 @@ select.form-control option:hover {
   background-color: #2b2b2b !important;
 }
 
-/* 🎯 PREMIUM NUMBER SPINNER STYLING (FLOATING RED ARROWS) */
-/* We keep the native spin button but make it transparent so it's clickable over our custom background */
+/* 🎯 NUMBER SPINNER STYLING (NATIVE) */
+/* Custom background arrows often have alignment issues with native clickable hitboxes in WebKit.
+   To ensure 100% reliability, we use native arrows and style their size and color-scheme. */
+input[type="number"].netflix-input,
+input[type="number"].form-control {
+  color-scheme: dark;
+  /* Ensures dark themed native arrows in Chromium & Firefox */
+  padding-right: 12px !important;
+}
+
+/* Slightly enhance the size of webkit spin buttons for better clickability */
 input[type="number"].netflix-input::-webkit-inner-spin-button,
 input[type="number"].form-control::-webkit-inner-spin-button {
   -webkit-appearance: inner-spin-button !important;
-  width: 1.5rem;
-  opacity: 0;
-  /* Invisible but still intercepts clicks */
+  height: 1.5em;
+  /* Taller arrows */
   cursor: pointer;
+  opacity: 1;
+  /* Make them visible */
 }
 
 /* Hide outer spin button if any */
@@ -338,39 +348,6 @@ input[type="number"].netflix-input::-webkit-outer-spin-button,
 input[type="number"].form-control::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
-}
-
-/* We rebuild the arrows using background images to guarantee no weird OS boxes appear */
-input[type="number"].netflix-input,
-input[type="number"].form-control {
-  /* For Firefox, re-enable the default number input controls so it functions natively */
-  -moz-appearance: textfield;
-  appearance: textfield;
-
-  /* Stacked up and down arrows */
-  background-image:
-    url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23e50914' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='18 15 12 9 6 15'%3e%3c/polyline%3e%3c/svg%3e"),
-    url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23e50914' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e") !important;
-  background-repeat: no-repeat !important;
-  /* Align top arrow to the upper half, bottom arrow to the lower half */
-  background-position: right 0.6rem top 35%, right 0.6rem bottom 35% !important;
-  background-size: 0.8em, 0.8em !important;
-  padding-right: 2.2rem !important;
-}
-
-/* Firefox doesn't let us cleanly overlay transparent buttons over background images. 
-   So we remove the custom background images in Firefox and let the OS native appearance take over. */
-@-moz-document url-prefix() {
-
-  input[type="number"].netflix-input,
-  input[type="number"].form-control {
-    background-image: none !important;
-    padding-right: 14px !important;
-    -moz-appearance: auto;
-    appearance: auto;
-    color-scheme: dark;
-    /* Dark mode native styling */
-  }
 }
 
 /* =========================================
