@@ -82,6 +82,7 @@ export default function Profile() {
               <label className="form-label fw-semibold text-muted text-uppercase small">Age</label>
               <input
                 type="number"
+                min="0"
                 className="form-control netflix-input border border-secondary"
                 placeholder="Age"
                 value={p.age || ""}
@@ -107,6 +108,7 @@ export default function Profile() {
               <label className="form-label fw-semibold text-muted text-uppercase small">Height (cm)</label>
               <input
                 type="number"
+                min="0"
                 className="form-control netflix-input border border-secondary"
                 placeholder="Height"
                 value={p.height || ""}
@@ -117,6 +119,7 @@ export default function Profile() {
               <label className="form-label fw-semibold text-muted text-uppercase small">Weight (kg)</label>
               <input
                 type="number"
+                min="0"
                 className="form-control netflix-input border border-secondary"
                 placeholder="Weight"
                 value={p.weight || ""}

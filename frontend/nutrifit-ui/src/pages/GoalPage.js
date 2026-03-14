@@ -147,6 +147,7 @@ export default function GoalPage() {
                   <label className="form-label fw-bold mb-2" style={{ color: "#a3a3a3", fontSize: "0.75rem", letterSpacing: "1px", textTransform: "uppercase" }}>Target Weight</label>
                   <input
                     type="number"
+                    min="0"
                     className="form-control netflix-input"
                     placeholder="Enter target weight (kg)"
                     value={targetValue}

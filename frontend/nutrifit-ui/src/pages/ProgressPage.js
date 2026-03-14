@@ -218,6 +218,7 @@ export default function ProgressPage() {
                 <div className="d-flex gap-2 mb-3">
                   <input
                     type="number"
+                    min="0"
                     className="form-control netflix-input text-white"
                     placeholder="Enter weight (kg)"
                     value={weight}
