@@ -36,7 +36,7 @@ export default function RegisterUser() {
       setLoading(true);
       await api.post("/auth/register-user", data);
       setMsg("Account created successfully! Redirecting...");
-      setTimeout(() => navigate("/login"), 1500);
+      navigate("/login");
     } catch (err) {
       setMsg(err.response?.data || "Registration failed.");
     } finally {

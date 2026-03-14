@@ -41,8 +41,8 @@ export default function ResetPassword() {
       setMsg("Password reset successfully!");
       setMsgType("success");
 
-      // Redirect to login page after 2 seconds
-      setTimeout(() => navigate("/login"), 500);
+      // Redirect to login page immediately
+      navigate("/login");
     } catch (err) {
       setMsg(err.response?.data || "Something went wrong");
       setMsgType("error");

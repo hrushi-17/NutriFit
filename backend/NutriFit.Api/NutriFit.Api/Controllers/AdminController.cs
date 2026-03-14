@@ -275,19 +275,31 @@ public class AdminController : ControllerBase
             return NotFound("User not found");
 
         // -----------------------------
-        // Delete all user-related tables
+        // Find all users with the same email to delete duplicates
         // -----------------------------
-        _db.ProgressLogs.RemoveRange(_db.ProgressLogs.Where(x => x.UserId == id));
-        _db.Goals.RemoveRange(_db.Goals.Where(x => x.UserId == id));
-        _db.UserWorkouts.RemoveRange(_db.UserWorkouts.Where(x => x.UserId == id));
-        _db.UserDietFoods.RemoveRange(_db.UserDietFoods.Where(x => x.UserId == id));
-        _db.MealLogs.RemoveRange(_db.MealLogs.Where(x => x.UserId == id));
-        _db.UserHealthConditions.RemoveRange(_db.UserHealthConditions.Where(x => x.UserId == id));
+        string email = user.Email?.Trim().ToLower() ?? "";
+        var usersToDelete = string.IsNullOrEmpty(email) 
+            ? new List<User> { user } 
+            : _db.Users.Where(u => u.Email != null && u.Email.ToLower() == email).ToList();
 
-        var profile = _db.UserProfiles.FirstOrDefault(x => x.UserId == id);
-        if (profile != null) _db.UserProfiles.Remove(profile);
+        foreach (var u in usersToDelete)
+        {
+            var uId = u.UserId;
+            // -----------------------------
+            // Delete all user-related tables
+            // -----------------------------
+            _db.ProgressLogs.RemoveRange(_db.ProgressLogs.Where(x => x.UserId == uId));
+            _db.Goals.RemoveRange(_db.Goals.Where(x => x.UserId == uId));
+            _db.UserWorkouts.RemoveRange(_db.UserWorkouts.Where(x => x.UserId == uId));
+            _db.UserDietFoods.RemoveRange(_db.UserDietFoods.Where(x => x.UserId == uId));
+            _db.MealLogs.RemoveRange(_db.MealLogs.Where(x => x.UserId == uId));
+            _db.UserHealthConditions.RemoveRange(_db.UserHealthConditions.Where(x => x.UserId == uId));
 
-        _db.Users.Remove(user);
+            var profile = _db.UserProfiles.FirstOrDefault(x => x.UserId == uId);
+            if (profile != null) _db.UserProfiles.Remove(profile);
+
+            _db.Users.Remove(u);
+        }
 
         _db.SaveChanges();
 

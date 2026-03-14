@@ -36,7 +36,7 @@ export default function RegisterAdmin() {
       setLoading(true);
       await api.post("/auth/register-admin", data);
       setMsg("Admin registered successfully! Redirecting...");
-      setTimeout(() => navigate("/login"), 1500);
+      navigate("/login");
     } catch (err) {
       setMsg(err.response?.data || "Registration failed.");
     } finally {

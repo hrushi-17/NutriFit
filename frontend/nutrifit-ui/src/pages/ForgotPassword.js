@@ -68,9 +68,7 @@ export default function ForgotPassword() {
       setMsgType("success");
 
       // Redirect to reset password with verification token
-      setTimeout(() => {
-        navigate(`/reset-password?token=${encodeURIComponent(res.data.verificationToken)}`);
-      }, 500);
+      navigate(`/reset-password?token=${encodeURIComponent(res.data.verificationToken)}`);
     } catch (err) {
       setMsg(err.response?.data || "Invalid or expired OTP");
       setMsgType("error");

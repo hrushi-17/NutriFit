@@ -7,10 +7,12 @@ export default function Login() {
   const [data, setData] = useState({ email: "", password: "" });
   const [msg, setMsg] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const login = async () => {
     try {
+      setLoading(true);
       const res = await api.post("/auth/login", data);
 
       localStorage.setItem("token", res.data.token);
@@ -22,6 +24,8 @@ export default function Login() {
       if (e.response?.status === 404) setMsg("User not found.");
       else if (e.response?.status === 401) setMsg("Invalid password.");
       else setMsg("Login failed.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -94,8 +98,11 @@ export default function Login() {
             className="btn btn-netflix w-100 mt-4 animate-fade-up delay-3"
             style={{ padding: "14px", fontSize: "1.05rem" }}
             onClick={login}
+            disabled={loading}
           >
-            Sign In
+            {loading ? (
+              <><span className="spinner-border spinner-border-sm me-2" role="status"></span>Signing In...</>
+            ) : "Sign In"}
           </button>
 
           {/* Footer */}
