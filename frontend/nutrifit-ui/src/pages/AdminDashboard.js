@@ -241,6 +241,40 @@ export default function AdminDashboard() {
             </div>
           )}
 
+          {!data && users.length === 0 && (
+            <div
+              className="d-flex flex-column justify-content-center align-items-center w-100 animate-fade-up"
+              style={{
+                minHeight: "75vh",
+                background: "linear-gradient(145deg, rgba(20,20,20,0.8), rgba(5,5,5,0.95))",
+                border: "1px dashed rgba(255, 255, 255, 0.1)",
+                borderRadius: "16px",
+                padding: "40px",
+                textAlign: "center"
+              }}
+            >
+              <div
+                style={{
+                  width: "90px",
+                  height: "90px",
+                  borderRadius: "50%",
+                  background: "rgba(255,255,255,0.02)",
+                  border: "1px dashed rgba(255,255,255,0.1)",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  marginBottom: "24px"
+                }}
+              >
+                <i className="fa-solid fa-user-xmark" style={{ fontSize: "2.2rem", color: "rgba(255,255,255,0.3)" }}></i>
+              </div>
+              <h3 className="fw-bold" style={{ color: "#fff", letterSpacing: "1px", marginBottom: "12px" }}>No Registered Users</h3>
+              <p style={{ color: "#a3a3a3", fontSize: "1.05rem", maxWidth: "420px", lineHeight: "1.6", margin: 0 }}>
+                It looks like nobody has joined the platform yet. Wait for new users to register and build their fitness profiles, and they will automatically appear here.
+              </p>
+            </div>
+          )}
+
           {data && (
             <>
               {/* ================= DELETE USER BUTTON ================= */}
