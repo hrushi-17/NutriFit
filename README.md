@@ -1,4 +1,7 @@
 <div align="center">
+  <img src="./.gemini/antigravity/brain/43e31d87-15ba-49e8-a271-8e0c360afe74/nutrifit_banner_v2_1774978997981.png" width="100%" alt="NutriFit Banner" style="border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.5);">
+  <br/><br/>
+
 
 
 
@@ -11,15 +14,22 @@
 
 [![React](https://img.shields.io/badge/React-18-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev/)
 [![.NET](https://img.shields.io/badge/.NET-8.0-512BD4?style=for-the-badge&logo=dotnet&logoColor=white)](https://dotnet.microsoft.com/)
-[![MySQL](https://img.shields.io/badge/MySQL-Aiven-FF4F00?style=for-the-badge&logo=aiven&logoColor=white)](https://aiven.io/)
+[![MySQL](https://img.shields.io/badge/MySQL-Aiven-4479A1?style=for-the-badge&logo=mysql&logoColor=white)](https://aiven.io/)
 [![Vercel](https://img.shields.io/badge/Frontend-Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://vercel.com/)
 [![Render](https://img.shields.io/badge/Backend-Render-46E3B7?style=for-the-badge&logo=render&logoColor=black)](https://render.com/)
-[![Aiven](https://img.shields.io/badge/Database-Aiven-FF4F00?style=for-the-badge&logo=aiven&logoColor=white)](https://aiven.io/)
+[![Aiven Hosting](https://img.shields.io/badge/Database-Aiven-FF4F00?style=for-the-badge&logo=mysql&logoColor=white)](https://aiven.io/)
 
 <br/>
 
 > 🔥 **NutriFit** is a full-stack fitness and nutrition web application with a premium **Netflix-inspired dark UI**.
 > Track your workouts, meals, BMI, goals, and body progress — all from a beautiful cinematic dashboard.
+
+### 🎭 Cinematic Dashboard Experience
+*   🌙 **Netflix Dark Mode:** Deep charcoal & vibrant red accents.
+*   💎 **Glassmorphism:** Elegant frosted glass components.
+*   ⚡ **Real-time Analytics:** Track gains as they happen.
+*   📱 **Fully Responsive:** Stunning on any screen size.
+
 
 <br/>
 
