@@ -11,10 +11,10 @@
 
 [![React](https://img.shields.io/badge/React-18-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev/)
 [![.NET](https://img.shields.io/badge/.NET-8.0-512BD4?style=for-the-badge&logo=dotnet&logoColor=white)](https://dotnet.microsoft.com/)
-[![MySQL](https://img.shields.io/badge/MySQL-Railway-4479A1?style=for-the-badge&logo=mysql&logoColor=white)](https://railway.app/)
+[![MySQL](https://img.shields.io/badge/MySQL-Aiven-FF4F00?style=for-the-badge&logo=aiven&logoColor=white)](https://aiven.io/)
 [![Vercel](https://img.shields.io/badge/Frontend-Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://vercel.com/)
 [![Render](https://img.shields.io/badge/Backend-Render-46E3B7?style=for-the-badge&logo=render&logoColor=black)](https://render.com/)
-[![Railway](https://img.shields.io/badge/Database-Railway-0B0D0E?style=for-the-badge&logo=railway&logoColor=white)](https://railway.app/)
+[![Aiven](https://img.shields.io/badge/Database-Aiven-FF4F00?style=for-the-badge&logo=aiven&logoColor=white)](https://aiven.io/)
 
 <br/>
 
@@ -90,11 +90,11 @@
 |:--------:|:-------------:|
 | **Frontend** | React 18 · React Router DOM · Bootstrap 5 · Chart.js · jQuery |
 | **Backend** | ASP.NET Core 8 Web API (C#) |
-| **Database** | MySQL (hosted on Railway) |
+| **Database** | MySQL (hosted on Aiven) |
 | **Auth** | JWT Bearer Tokens |
 | **Recommendations** | Custom rule-based engine for diet & workout plans |
 | **Styling** | Vanilla CSS · Glassmorphism · Animations · Netflix Dark Theme |
-| **Deployment** | Vercel · Render · Railway |
+| **Deployment** | Vercel · Render · Aiven |
 
 </div>
 
@@ -216,10 +216,10 @@ NutriFit/
 
 ## 🚀 Deployment Guide
 
-### `Step 1` — 🗄️ Database via Railway (MySQL)
+### `Step 1` — 🗄️ Database via Aiven (MySQL)
 
 ```
-1. Go to railway.app → New Project
+1. Go to aiven.io → New Service
 2. Add a MySQL service from the template library
 3. Copy the MySQL connection string from the Variables tab
    Format: Server=host;Port=3306;Database=nutrifit;User=root;Password=yourpassword;
@@ -280,7 +280,7 @@ const api = axios.create({
 ```
 ✅ Node.js 18+
 ✅ .NET SDK 8.0+
-✅ MySQL 8.0+ (local or Railway)
+✅ MySQL 8.0+ (local or Aiven)
 ```
 
 ### Backend
