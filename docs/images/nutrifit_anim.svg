@@ -14,28 +14,27 @@
         <feMergeNode in="SourceGraphic"/>
       </feMerge>
     </filter>
+    
+    <!-- Seamless Wave Pattern -->
+    <path id="wave-path" d="M0 0 Q100 -30 200 0 T400 0 T800 0 T1200 0 V100 H0 Z" />
   </defs>
 
   <rect width="800" height="250" fill="#000000" />
 
   <!-- Back Sea Layer (Slowest Scroll) -->
-  <g>
-    <path d="M0 130 C150 110 300 170 450 140 C600 110 750 170 900 140 L900 250 L0 250 Z" fill="#8B0000" opacity="0.2">
-      <animateTransform attributeName="transform" type="translate" from="0 0" to="-450 0" dur="20s" repeatCount="indefinite" />
-    </path>
-    <path d="M450 140 C600 110 750 170 900 140 C1050 110 1200 170 1350 140 L1350 250 L450 250 Z" fill="#8B0000" opacity="0.2">
-      <animateTransform attributeName="transform" type="translate" from="0 0" to="-450 0" dur="20s" repeatCount="indefinite" />
-    </path>
+  <g transform="translate(0, 140)">
+    <g fill="#8B0000" opacity="0.2">
+      <use href="#wave-path" x="0" />
+      <animateTransform attributeName="transform" type="translate" from="0 0" to="-400 0" dur="20s" repeatCount="indefinite" />
+    </g>
   </g>
 
   <!-- Middle Sea Layer -->
-  <g>
-    <path d="M0 150 C150 130 300 190 450 160 C600 130 750 190 900 160 L900 250 L0 250 Z" fill="#E50914" opacity="0.3">
-      <animateTransform attributeName="transform" type="translate" from="0 0" to="-450 0" dur="12s" repeatCount="indefinite" />
-    </path>
-    <path d="M450 160 C600 130 750 190 900 160 C1050 130 1200 190 1350 160 L1350 250 L450 250 Z" fill="#E50914" opacity="0.3">
-      <animateTransform attributeName="transform" type="translate" from="0 0" to="-450 0" dur="12s" repeatCount="indefinite" />
-    </path>
+  <g transform="translate(0, 160)">
+    <g fill="#E50914" opacity="0.3">
+      <use href="#wave-path" x="0" />
+      <animateTransform attributeName="transform" type="translate" from="0 0" to="-400 0" dur="12s" repeatCount="indefinite" />
+    </g>
   </g>
 
   <!-- Floating Letters "NUTRIFIT" (Independent Boat-like Floating) -->
@@ -91,15 +90,13 @@
   </g>
 
   <!-- Front Sea Layer (Fastest Scroll) -->
-  <g>
-    <path d="M0 170 C150 150 300 210 450 180 C600 150 750 210 900 180 L900 250 L0 250 Z" fill="#E50914" opacity="0.65">
-      <animateTransform attributeName="transform" type="translate" from="0 0" to="-450 0" dur="8s" repeatCount="indefinite" />
-    </path>
-    <path d="M450 180 C600 150 750 210 900 180 C1050 150 1200 210 1350 180 L1350 250 L450 250 Z" fill="#E50914" opacity="0.65">
-      <animateTransform attributeName="transform" type="translate" from="0 0" to="-450 0" dur="8s" repeatCount="indefinite" />
-    </path>
+  <g transform="translate(0, 180)">
+    <g fill="#E50914" opacity="0.65">
+      <use href="#wave-path" x="0" />
+      <animateTransform attributeName="transform" type="translate" from="0 0" to="-400 0" dur="8s" repeatCount="indefinite" />
+    </g>
   </g>
 
-  <!-- Bottom Sea Depth (Static) -->
+  <!-- Bottom Sea Depth (Static Overlay) -->
   <rect y="210" width="800" height="40" fill="rgba(0,0,0,0.7)" />
 </svg>
