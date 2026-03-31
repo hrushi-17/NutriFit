@@ -1,7 +1,14 @@
 <svg width="800" height="250" viewBox="0 0 800 250" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <filter id="glow">
+    <filter id="glow-red">
       <feGaussianBlur stdDeviation="3.5" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="glow-white">
+      <feGaussianBlur stdDeviation="2.5" result="coloredBlur"/>
       <feMerge>
         <feMergeNode in="coloredBlur"/>
         <feMergeNode in="SourceGraphic"/>
@@ -11,78 +18,88 @@
 
   <rect width="800" height="250" fill="#000000" />
 
-  <!-- Back Liquid Wave -->
-  <path fill="#8B0000" opacity="0.4">
-    <animate attributeName="d" 
-      dur="8s" 
-      repeatCount="indefinite"
-      values="M0 130 Q200 90 400 130 T800 130 V250 H0 Z;
-              M0 130 Q200 170 400 130 T800 130 V250 H0 Z;
-              M0 130 Q200 90 400 130 T800 130 V250 H0 Z" />
-  </path>
+  <!-- Back Sea Layer (Slowest Scroll) -->
+  <g>
+    <path d="M0 130 C150 110 300 170 450 140 C600 110 750 170 900 140 L900 250 L0 250 Z" fill="#8B0000" opacity="0.2">
+      <animateTransform attributeName="transform" type="translate" from="0 0" to="-450 0" dur="20s" repeatCount="indefinite" />
+    </path>
+    <path d="M450 140 C600 110 750 170 900 140 C1050 110 1200 170 1350 140 L1350 250 L450 250 Z" fill="#8B0000" opacity="0.2">
+      <animateTransform attributeName="transform" type="translate" from="0 0" to="-450 0" dur="20s" repeatCount="indefinite" />
+    </path>
+  </g>
+
+  <!-- Middle Sea Layer -->
+  <g>
+    <path d="M0 150 C150 130 300 190 450 160 C600 130 750 190 900 160 L900 250 L0 250 Z" fill="#E50914" opacity="0.3">
+      <animateTransform attributeName="transform" type="translate" from="0 0" to="-450 0" dur="12s" repeatCount="indefinite" />
+    </path>
+    <path d="M450 160 C600 130 750 190 900 160 C1050 130 1200 190 1350 160 L1350 250 L450 250 Z" fill="#E50914" opacity="0.3">
+      <animateTransform attributeName="transform" type="translate" from="0 0" to="-450 0" dur="12s" repeatCount="indefinite" />
+    </path>
+  </g>
 
   <!-- Floating Letters "NUTRIFIT" (Independent Boat-like Floating) -->
-  <g filter="url(#glow)" font-family="system-ui, sans-serif" font-weight="900" font-size="70" fill="#E50914" text-anchor="middle">
-    <!-- N -->
-    <g>
-      <text x="140" y="140">N</text>
-      <animateTransform attributeName="transform" type="translate" values="0 0; 0 -15; 0 0" dur="4s" repeatCount="indefinite" begin="0s" />
-      <animateTransform attributeName="transform" type="rotate" values="-2 140 140; 2 140 140; -2 140 140" dur="8s" repeatCount="indefinite" additive="sum" />
+  <g font-family="system-ui, sans-serif" font-weight="900" font-size="75" text-anchor="middle" letter-spacing="8px">
+    <!-- N (Red) -->
+    <g filter="url(#glow-red)" fill="#E50914">
+      <text x="120" y="140">N</text>
+      <animateTransform attributeName="transform" type="translate" values="0 0; 0 -18; 0 0" dur="4s" repeatCount="indefinite" begin="0s" />
+      <animateTransform attributeName="transform" type="rotate" values="-2 120 140; 2 120 140; -2 120 140" dur="8s" repeatCount="indefinite" additive="sum" />
     </g>
-    <!-- U -->
-    <g>
-      <text x="215" y="140">U</text>
-      <animateTransform attributeName="transform" type="translate" values="0 0; 0 -15; 0 0" dur="4s" repeatCount="indefinite" begin="0.4s" />
-      <animateTransform attributeName="transform" type="rotate" values="2 215 140; -2 215 140; 2 215 140" dur="8.4s" repeatCount="indefinite" additive="sum" />
+    <!-- U (Red) -->
+    <g filter="url(#glow-red)" fill="#E50914">
+      <text x="195" y="140">U</text>
+      <animateTransform attributeName="transform" type="translate" values="0 0; 0 -18; 0 0" dur="4s" repeatCount="indefinite" begin="0.4s" />
+      <animateTransform attributeName="transform" type="rotate" values="2 195 140; -2 195 140; 2 195 140" dur="8.4s" repeatCount="indefinite" additive="sum" />
     </g>
-    <!-- T -->
-    <g>
-      <text x="290" y="140">T</text>
-      <animateTransform attributeName="transform" type="translate" values="0 0; 0 -15; 0 0" dur="4s" repeatCount="indefinite" begin="0.8s" />
-      <animateTransform attributeName="transform" type="rotate" values="-1 290 140; 1 290 140; -1 290 140" dur="7s" repeatCount="indefinite" additive="sum" />
+    <!-- T (Red) -->
+    <g filter="url(#glow-red)" fill="#E50914">
+      <text x="270" y="140">T</text>
+      <animateTransform attributeName="transform" type="translate" values="0 0; 0 -18; 0 0" dur="4s" repeatCount="indefinite" begin="0.8s" />
+      <animateTransform attributeName="transform" type="rotate" values="-1 270 140; 1 270 140; -1 270 140" dur="7.2s" repeatCount="indefinite" additive="sum" />
     </g>
-    <!-- R -->
-    <g>
-      <text x="365" y="140">R</text>
-      <animateTransform attributeName="transform" type="translate" values="0 0; 0 -15; 0 0" dur="4s" repeatCount="indefinite" begin="1.2s" />
-      <animateTransform attributeName="transform" type="rotate" values="3 365 140; -3 365 140; 3 365 140" dur="9s" repeatCount="indefinite" additive="sum" />
+    <!-- R (Red) -->
+    <g filter="url(#glow-red)" fill="#E50914">
+      <text x="345" y="140">R</text>
+      <animateTransform attributeName="transform" type="translate" values="0 0; 0 -18; 0 0" dur="4s" repeatCount="indefinite" begin="1.2s" />
+      <animateTransform attributeName="transform" type="rotate" values="3 345 140; -3 345 140; 3 345 140" dur="9s" repeatCount="indefinite" additive="sum" />
     </g>
-    <!-- I -->
-    <g>
-      <text x="440" y="140">I</text>
-      <animateTransform attributeName="transform" type="translate" values="0 0; 0 -15; 0 0" dur="4s" repeatCount="indefinite" begin="1.6s" />
-      <animateTransform attributeName="transform" type="rotate" values="-2 440 140; 2 440 140; -2 440 140" dur="7.5s" repeatCount="indefinite" additive="sum" />
+    <!-- I (Red) -->
+    <g filter="url(#glow-red)" fill="#E50914">
+      <text x="420" y="140">I</text>
+      <animateTransform attributeName="transform" type="translate" values="0 0; 0 -18; 0 0" dur="4s" repeatCount="indefinite" begin="1.6s" />
+      <animateTransform attributeName="transform" type="rotate" values="-2 420 140; 2 420 140; -2 420 140" dur="7.5s" repeatCount="indefinite" additive="sum" />
     </g>
-    <!-- F -->
-    <g>
-      <text x="515" y="140">F</text>
-      <animateTransform attributeName="transform" type="translate" values="0 0; 0 -15; 0 0" dur="4s" repeatCount="indefinite" begin="2s" />
-      <animateTransform attributeName="transform" type="rotate" values="2 515 140; -2 515 140; 2 515 140" dur="8.2s" repeatCount="indefinite" additive="sum" />
+    <!-- F (WHITE) -->
+    <g filter="url(#glow-white)" fill="#FFFFFF">
+      <text x="505" y="140">F</text>
+      <animateTransform attributeName="transform" type="translate" values="0 0; 0 -18; 0 0" dur="4s" repeatCount="indefinite" begin="2s" />
+      <animateTransform attributeName="transform" type="rotate" values="2 505 140; -2 505 140; 2 505 140" dur="8.2s" repeatCount="indefinite" additive="sum" />
     </g>
-    <!-- I -->
-    <g>
-      <text x="590" y="140">I</text>
-      <animateTransform attributeName="transform" type="translate" values="0 0; 0 -15; 0 0" dur="4s" repeatCount="indefinite" begin="2.4s" />
-      <animateTransform attributeName="transform" type="rotate" values="-1 590 140; 1 590 140; -1 590 140" dur="7.8s" repeatCount="indefinite" additive="sum" />
+    <!-- I (WHITE) -->
+    <g filter="url(#glow-white)" fill="#FFFFFF">
+      <text x="580" y="140">I</text>
+      <animateTransform attributeName="transform" type="translate" values="0 0; 0 -18; 0 0" dur="4s" repeatCount="indefinite" begin="2.4s" />
+      <animateTransform attributeName="transform" type="rotate" values="-1 580 140; 1 580 140; -1 580 140" dur="7.8s" repeatCount="indefinite" additive="sum" />
     </g>
-    <!-- T -->
-    <g>
-      <text x="665" y="140">T</text>
-      <animateTransform attributeName="transform" type="translate" values="0 0; 0 -15; 0 0" dur="4s" repeatCount="indefinite" begin="2.8s" />
-      <animateTransform attributeName="transform" type="rotate" values="3 665 140; -3 665 140; 3 665 140" dur="8.6s" repeatCount="indefinite" additive="sum" />
+    <!-- T (WHITE) -->
+    <g filter="url(#glow-white)" fill="#FFFFFF">
+      <text x="655" y="140">T</text>
+      <animateTransform attributeName="transform" type="translate" values="0 0; 0 -18; 0 0" dur="4s" repeatCount="indefinite" begin="2.8s" />
+      <animateTransform attributeName="transform" type="rotate" values="3 655 140; -3 655 140; 3 655 140" dur="8.6s" repeatCount="indefinite" additive="sum" />
     </g>
   </g>
 
-  <!-- Front Liquid Wave (Vibrant Red) -->
-  <path fill="#E50914" opacity="0.6">
-    <animate attributeName="d" 
-      dur="6s" 
-      repeatCount="indefinite"
-      values="M0 170 Q200 130 400 170 T800 170 V250 H0 Z;
-              M0 170 Q200 200 400 170 T800 170 V250 H0 Z;
-              M0 170 Q200 130 400 170 T800 170 V250 H0 Z" />
-  </path>
+  <!-- Front Sea Layer (Fastest Scroll) -->
+  <g>
+    <path d="M0 170 C150 150 300 210 450 180 C600 150 750 210 900 180 L900 250 L0 250 Z" fill="#E50914" opacity="0.65">
+      <animateTransform attributeName="transform" type="translate" from="0 0" to="-450 0" dur="8s" repeatCount="indefinite" />
+    </path>
+    <path d="M450 180 C600 150 750 210 900 180 C1050 150 1200 210 1350 180 L1350 250 L450 250 Z" fill="#E50914" opacity="0.65">
+      <animateTransform attributeName="transform" type="translate" from="0 0" to="-450 0" dur="8s" repeatCount="indefinite" />
+    </path>
+  </g>
 
-  <!-- Bottom Dark Overlay -->
-  <rect y="210" width="800" height="40" fill="rgba(0,0,0,0.6)" />
+  <!-- Bottom Sea Depth (Static) -->
+  <rect y="210" width="800" height="40" fill="rgba(0,0,0,0.7)" />
 </svg>
