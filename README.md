@@ -17,7 +17,7 @@
 [![MySQL](https://img.shields.io/badge/MySQL-8.0+-4479A1?style=for-the-badge&logo=mysql&logoColor=white)](https://mysql.com/)
 [![Vercel](https://img.shields.io/badge/Frontend-Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://vercel.com/)
 [![Render](https://img.shields.io/badge/Backend-Render-46E3B7?style=for-the-badge&logo=render&logoColor=black)](https://render.com/)
-[![Aiven](https://img.shields.io/badge/Database-Aiven-FF4F00?style=for-the-badge&logo=data:image/svg%2Bxml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgdmlld0JveD0iMCAwIDMyIDMyIj48cGF0aCBmaWxsPSIjRkZGRkZGIiBkPSJNMjUuODQgMTEuOTJjLS4zMi0uNC0uODEtLjY0LTEuMzQtLjY0aC0yLjQ2di0uNzhjMC0uNzktLjY0LTEuNDMtMS40My0xLjQzcy0xLjQzLjY0LTEuNDMgMS40M3YuNzhoLTIuNjR2LTEuMTFjMC0uNzktLjY0LTEuNDMtMS40My0xLjQzcy0xLjQzLjY0LTEuNDMgMS40M3YxLjExSDEwLjZ2LTEuNDRjMC0uNzktLjY0LTEuNDMtMS40My0xLjQzcy0xLjQzLjY0LTEuNDMgMS40M3YxLjQ0SDUuN2MtLjUzIDAtMS4wMi4yNS0xLjM0LjY0LS4zMi4zOS0uNDIuOS0uMjggMS4zOGwuODMgMy4zN3Y0LjY0YzAgMS41OCAxLjI4IDIuODYgMi44NiAyLjg2aDEzLjA4YzEuNTggMCAyLjg2LTEuMjggMi44Ni0yLjg2di00LjY0bC44My0zLjM3Yy4xNC0uNDguMDQtLjk5LS4yOC0xLjM4eiIvPjwvc3ZnPg==&logoColor=white)](https://aiven.io/)
+[![Aiven](https://img.shields.io/badge/Database-Aiven-FF4F00?style=for-the-badge&logo=https://raw.githubusercontent.com/hrushi-17/NutriFit/main/docs/images/aiven_crabby.svg&logoColor=white)](https://aiven.io/)
 
 <br/>
 
